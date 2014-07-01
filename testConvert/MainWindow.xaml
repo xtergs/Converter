@@ -1,0 +1,13 @@
+﻿<Window x:Class="testConvert.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <TextBox x:Name="str" InputMethod.InputScope="0" HorizontalAlignment="Left" Height="23" Margin="135,77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="0" TextChanged="str_TextChanged"/>
+        <TextBox Name="Output" HorizontalAlignment="Left" Height="23" Margin="135,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="275,120,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <TextBox x:Name="From" HorizontalAlignment="Left" Height="23" Margin="10,77,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="To" HorizontalAlignment="Left" Height="23" Margin="10,136,0,0" TextWrapping="Wrap" Text="16" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>
