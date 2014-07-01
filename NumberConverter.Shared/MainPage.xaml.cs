@@ -257,6 +257,9 @@ namespace NumberConverter
 		private void From_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			((ComboBox)sender).FontSize = e.NewSize.Height * 0.7;
+			//combo.Height = e.NewSize.Height;
+			//combo.Width = e.NewSize.Width;
+			//combo.FontSize = e.NewSize.Height * 0.7;
 		}
 
 		private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -274,5 +277,17 @@ namespace NumberConverter
 		{
 			ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 2);
 		}
+
+		private void combo_Holding(object sender, HoldingRoutedEventArgs e)
+		{
+			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender); 
+		}
+
+		private void combo_RightTapped(object sender, RightTappedRoutedEventArgs e)
+		{
+			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender); 
+		}
+
+		
 	}
 }

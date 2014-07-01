@@ -10,7 +10,7 @@
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
 
     <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid x:Name="MainGrid" Margin="100,50" >
+        <Grid x:Name="MainGrid" Margin="10, 10" Background="Black" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
@@ -22,29 +22,19 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="1" Grid.ColumnSpan="3"  >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="5*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBox x:Name="InputText" Grid.Column="0" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  Margin="0,25" PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" />
-                <Button x:Name="Clearr" Grid.Column="1" Content="X" Margin="-3,22,0,22" Click="Button_Click" Padding="15,4,12,4" Width="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Visibility="Collapsed" />
-            </Grid>
+
+            <TextBox x:Name="InputText" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  Margin="0,25" PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" />
+            <Button x:Name="Clearr" Grid.Column="1" Content="X" Margin="-3,22,0,22" Click="Button_Click" Padding="15,4,12,4" Width="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Visibility="Collapsed" />
             <TextBox x:Name="Result" HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="2" Grid.ColumnSpan="3" Margin="0,25" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True"/>
-            <ComboBox Grid.Row="0" x:Name="From" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedIndex="0" Holding="From_Holding" SelectionChanged="From_SelectionChanged" Margin="0,25" SizeChanged="From_SizeChanged" IsTabStop="False">
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout>
-                        <Grid Height="100" Width="100">
-                            <Button Content="1" />
-                        </Grid>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
+            <ComboBox Grid.Row="0" x:Name="From" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectedIndex="0" Holding="From_Holding" SelectionChanged="From_SelectionChanged" Margin="0,25" SizeChanged="From_SizeChanged" IsTabStop="False" Header="From">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
                 <ComboBoxItem Content="16"/>
+                <ComboBoxItem Content="25"/>
+                <ComboBoxItem Content="36"/>
             </ComboBox>
-            <ComboBox x:Name="To" SelectedIndex="0" SelectionChanged="To_SelectionChanged" Grid.Column="2" Margin="0,25" SizeChanged="From_SizeChanged" IsTabStop="False">
+            <ComboBox x:Name="To" SelectedIndex="0" SelectionChanged="To_SelectionChanged" Grid.Column="2" Margin="0,25" SizeChanged="From_SizeChanged" IsTabStop="False" Header="To">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
@@ -54,7 +44,25 @@
             <Border x:Name="sizeKeyboard" Grid.Row="3" Grid.ColumnSpan="3" SizeChanged="sizeKeyboard_SizeChanged"/>
             <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1">
             </Controls:WrapPanel>
-            <Button x:Uid="Calculator" Content="Calculator" Grid.Column="1" HorizontalAlignment="Left" Margin="226,54,0,0" VerticalAlignment="Top" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False"/>
+            <UserControl Grid.ColumnSpan="3" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" >
+                <GridView>
+</GridView>
+            </UserControl>
+            <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Left" Margin="-3,-10,0,0" VerticalAlignment="Top" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False"/>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="28,0,0,0" VerticalAlignment="Top" Width="120"/>
+            <ComboBox x:Name="combo" Margin="313,134,633,134"  SelectedIndex="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" Holding="combo_Holding" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxDropDownHeight="10" IsDropDownOpen="False" Grid.ColumnSpan="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <ComboBoxItem Content="2" HorizontalAlignment="Left" Width="114.999992370605"/>
+                <ComboBoxItem Content="8" HorizontalAlignment="Left" Width="114.999992370605"/>
+                <ComboBoxItem Content="10" HorizontalAlignment="Left" Width="114.999992370605"/>
+                <ComboBoxItem Content="16" HorizontalAlignment="Left" Width="114.999992370605"/>
+                <ComboBoxItem Content="36" HorizontalAlignment="Left" Width="114.999992370605"/>
+
+
+
+
+
+            </ComboBox>
         </Grid>
 
     </Grid>
