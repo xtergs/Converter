@@ -51,7 +51,9 @@
                 <ComboBoxItem Content="16"/>
             </ComboBox>
 
-            <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1"/>
+            <Border x:Name="sizeKeyboard" Grid.Row="3" Grid.ColumnSpan="3" SizeChanged="sizeKeyboard_SizeChanged"/>
+            <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Grid.Row="3" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1">
+            </Controls:WrapPanel>
             <Button x:Uid="Calculator" Content="Calculator" Grid.Column="1" HorizontalAlignment="Left" Margin="226,54,0,0" VerticalAlignment="Top" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False"/>
         </Grid>
 

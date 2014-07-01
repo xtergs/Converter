@@ -156,7 +156,8 @@ namespace NumberConverter
 		{
 
 			var x = ((TextBox)sender);
-			if (ApplicationView.Value == ApplicationViewState.FullScreenPortrait)
+			var statView = ApplicationView.GetForCurrentView();
+			if (statView.IsFullScreen && statView.Orientation == ApplicationViewOrientation.Landscape)
 			{
 				x.TextWrapping = TextWrapping.Wrap;
 				x.FontSize = x.ActualHeight * 0.4;
@@ -186,14 +187,7 @@ namespace NumberConverter
 				((Button)Buttons.Children[i]).Width = a;
 			}
 
-			if (ApplicationView.Value == ApplicationViewState.FullScreenPortrait)
-			{
-
-			}
-			else
-			{
-
-			}
+			
 		}
 
 		private void Buttons_SizeChanged_1(object sender, SizeChangedEventArgs e)
@@ -204,8 +198,8 @@ namespace NumberConverter
 			a = Math.Sqrt(a / (bases + 2));
 
 
-
-			if (ApplicationView.Value == ApplicationViewState.FullScreenPortrait)
+			var statView = ApplicationView.GetForCurrentView();
+			if (statView.IsFullScreen && statView.Orientation == ApplicationViewOrientation.Portrait)
 			{
 				for (int i = 0; i < Buttons.Children.Count; i++)
 				{
@@ -227,24 +221,14 @@ namespace NumberConverter
 
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			switch (ApplicationView.Value)
-			{
-				case ApplicationViewState.FullScreenLandscape:
-					{
-						MainGrid.Margin = new Thickness(100, 25, 100, 25);
-					}
-					break;
-				case ApplicationViewState.FullScreenPortrait:
-					{
-						MainGrid.Margin = new Thickness(10, 50, 10, 50);
-					}
-					break;
-				case ApplicationViewState.Snapped:
-					{
-						MainGrid.Margin = new Thickness(10, 50, 10, 50);
-					}
-					break;
-			}
+			var statView = ApplicationView.GetForCurrentView();
+			if (statView.IsFullScreen)
+				if (statView.Orientation == ApplicationViewOrientation.Landscape)
+					MainGrid.Margin = new Thickness(10, 25, 10, 25);
+				else
+					MainGrid.Margin = new Thickness(10, 50, 10, 50);
+			else
+				MainGrid.Margin = new Thickness(10, 50, 10, 50);	
 		}
 
 		private void ComboBox_SizeChanged(object sender, SizeChangedEventArgs e)

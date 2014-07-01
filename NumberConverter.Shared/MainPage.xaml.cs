@@ -34,17 +34,41 @@ namespace NumberConverter
 		{
 			string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 			Button temp;
-			for (int i = 0; i < 16; i++)
+			for (int i = 0; i < 36; i++)
 			{
-				temp = new Button() { Content = letters[i], Visibility = Visibility.Visible, IsTabStop = false };
+				temp = new Button()
+				{
+					Content = letters[i],
+					Visibility = Visibility.Visible,
+					IsTabStop = false,
+					MinWidth = 0,
+					MinHeight = 0,
+					Margin = new Thickness(0, -12, 0, -6)
+				};
 				temp.Click += Button_Click_1;
 				panel.Children.Add(temp);
 			}
-			temp = new Button() { Content = ".", Visibility = Visibility.Visible, IsTabStop = false };
+			temp = new Button()
+			{
+				Content = ".",
+				Visibility = Visibility.Visible,
+				IsTabStop = false,
+				MinWidth = 0,
+				MinHeight = 0,
+				Margin = new Thickness(0, -12, 0, -6)
+			};
 			temp.Click += Button_Click_Dot;
 			temp.SizeChanged += Buttons_SizeChanged;
 			panel.Children.Add(temp);
-			panel.Children.Add(new Button() { Content = "<-", Visibility = Visibility.Visible, IsTabStop = false });
+			panel.Children.Add(new Button()
+			{
+				Content = "<-",
+				Visibility = Visibility.Visible,
+				IsTabStop = false,
+				MinWidth = 0,
+				MinHeight = 0,
+				Margin = new Thickness(0, -12, 0, -6)
+			});
 		}
 
 		private void Button_Click_Dot(object sender, RoutedEventArgs e)
@@ -115,10 +139,11 @@ namespace NumberConverter
 			{
 				if (From != null || To != null)
 				{
-					Result.Text = Converter.Converter.ConvertTo(uint.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()),
-						InputText.Text, uint.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString()));
+					int fromBase = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
+					int toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
+					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,	InputText.Text, (uint)toBase);
 					SetVisibleButton(int.Parse((((ComboBoxItem)((ComboBox)sender).SelectedItem)).Content.ToString()));
-					ResizeButton();
+					ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
 				}
 			}
 			catch (Exception ee)
@@ -148,8 +173,8 @@ namespace NumberConverter
 			
 			var x = ((TextBox)sender);
 			//if (x.Height == double.NaN)
-			
-			if (ApplicationView.Value == ApplicationViewState.FullScreenPortrait)
+			var statView = ApplicationView.GetForCurrentView();
+			if (statView.IsFullScreen)
 			{
 				x.TextWrapping = TextWrapping.Wrap;
 				x.FontSize = x.ActualHeight * 0.4;
@@ -169,27 +194,36 @@ namespace NumberConverter
 			x.FontSize = x.ActualHeight*0.8;
 			//ResizeButton();
 		}
+				
 
-		void ResizeButton()
+		void ResizeButton(double height, double width, int countKeys)
 		{
-			double a = (Buttons.ActualHeight - 50) * (Buttons.ActualWidth - 50);
-			int bases = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
-			a = Math.Sqrt(a / (bases + 2));
+			double maxHeight = height - 10;
+			double maxWidth = width - 10;
+			double areaForKeyboard = maxHeight * maxWidth;
+
+			double a = Math.Sqrt(areaForKeyboard / countKeys);
+			int row = 0;
+			int column = 0;
+			double h = a;
+			double w = a;
+			while (row * column < countKeys)
+			{
+				a -= 5;
+				row = (int)(maxHeight / a);
+				column = (int)(maxWidth / a);
+			}
+
+			h = a;
+			w = maxWidth / column;
+			if (w * row <= maxHeight)
+				h = w;
 
 			for (int i = 0; i < Buttons.Children.Count; i++)
 			{
-				((Button)Buttons.Children[i]).Height = a;
-				((Button)Buttons.Children[i]).Width = a;
-				((Button)Buttons.Children[i]).FontSize = a - 50;
-			}
-
-			if (ApplicationView.Value == ApplicationViewState.FullScreenPortrait)
-			{
-				
-			}
-			else
-			{
-				
+				((Button)Buttons.Children[i]).Height = h;
+				((Button)Buttons.Children[i]).Width = w;
+				((Button)Buttons.Children[i]).FontSize = a * 0.5;
 			}
 		}
 
@@ -206,52 +240,18 @@ namespace NumberConverter
 		private void Buttons_SizeChanged_1(object sender, SizeChangedEventArgs e)
 		{
 
-			double a = (e.NewSize.Height - 50) * (e.NewSize.Width - 50);
-			int bases = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
-			a = Math.Sqrt(a / (bases + 2));
-
-			
-
-			if (ApplicationView.Value == ApplicationViewState.FullScreenPortrait)
-			{
-				for (int i = 0; i < Buttons.Children.Count; i++)
-				{
-					((Button)Buttons.Children[i]).Height = InputText.ActualHeight * 0.5;
-					((Button)Buttons.Children[i]).Width = InputText.ActualHeight * 0.5;
-					((Button)Buttons.Children[i]).FontSize = InputText.ActualHeight * 0.5 * 0.7;
-				}
-			}
-			else
-			{
-				for (int i = 0; i < Buttons.Children.Count; i++)
-				{
-					((Button)Buttons.Children[i]).Height = InputText.ActualHeight;
-					((Button)Buttons.Children[i]).Width = InputText.ActualHeight;
-					((Button)Buttons.Children[i]).FontSize = InputText.ActualHeight * 0.7;
-				}
-			}
 		}
 
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			switch (ApplicationView.Value)
-			{
-				case ApplicationViewState.FullScreenLandscape:
-					{
-						MainGrid.Margin = new Thickness(100, 25, 100, 25);
-					}
-					break;
-				case ApplicationViewState.FullScreenPortrait:
-					{
-						MainGrid.Margin = new Thickness(10, 50, 10, 50);
-					}
-					break;
-				case ApplicationViewState.Snapped:
-					{
-						MainGrid.Margin = new Thickness(10, 50, 10, 50);
-					}
-					break;
-			}
+			var statView = ApplicationView.GetForCurrentView();
+			if (statView.IsFullScreen)
+				if (statView.Orientation == ApplicationViewOrientation.Landscape)
+					MainGrid.Margin = new Thickness(100, 25, 100, 25);
+				else
+					MainGrid.Margin = new Thickness(10, 50, 10, 50);
+			else
+				MainGrid.Margin = new Thickness(10, 50, 10, 50);		
 		}
 
 		private void From_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -268,6 +268,11 @@ namespace NumberConverter
 		private void Button_GotFocus(object sender, RoutedEventArgs e)
 		{
 			
+		}
+
+		private void sizeKeyboard_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 2);
 		}
 	}
 }
