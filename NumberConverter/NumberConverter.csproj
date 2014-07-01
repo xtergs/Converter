@@ -119,7 +119,6 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WrapPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -153,12 +152,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Converter\Converter.csproj">
-      <Project>{59454658-e6aa-4dfb-9a3a-de4bb1a0bb99}</Project>
-      <Name>Converter</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="..\NumberConverter.Shared\NumberConverter.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
