@@ -265,10 +265,23 @@ namespace NumberConverter
 				{
 					// Determine the size of the element
 					element.Measure(itemSize);
+					double tempWidth;
+					double tempHeight;
+					// Validating element is collapsed?
+					if (element.Visibility == Windows.UI.Xaml.Visibility.Collapsed)
+					{
+						tempWidth = 0;
+						tempHeight = 0;
+					}
+					else
+					{
+						tempWidth = hasFixedWidth ? itemWidth : element.DesiredSize.Width;
+						tempHeight = hasFixedHeight ? itemHeight : element.DesiredSize.Height;
+					}
 					OrientedSize elementSize = new OrientedSize(
 						o,
-						hasFixedWidth ? itemWidth : element.DesiredSize.Width,
-						hasFixedHeight ? itemHeight : element.DesiredSize.Height);
+						tempWidth,
+						tempHeight);
 
 					// If this element falls of the edge of the line
 					if (NumericExtensions.IsGreaterThan(lineSize.Direct + elementSize.Direct, maximumSize.Direct))
@@ -355,11 +368,20 @@ namespace NumberConverter
 				{
 					UIElement element = children[lineEnd];
 
+					double tempWidth = hasFixedWidth ? itemWidth : element.DesiredSize.Width;
+					double tempHeight = hasFixedHeight ? itemHeight : element.DesiredSize.Height;
+					// Validating visibility an element
+					if (element.Visibility == Windows.UI.Xaml.Visibility.Collapsed)
+					{
+						tempWidth = 0;
+						tempHeight = 0;
+					}
+
 					// Get the size of the element
 					OrientedSize elementSize = new OrientedSize(
 						o,
-						hasFixedWidth ? itemWidth : element.DesiredSize.Width,
-						hasFixedHeight ? itemHeight : element.DesiredSize.Height);
+						tempWidth,
+						tempHeight);
 
 					// If this element falls of the edge of the line
 					if (NumericExtensions.IsGreaterThan(lineSize.Direct + elementSize.Direct, maximumSize.Direct))

@@ -23,52 +23,27 @@ namespace NumberConverter
 	/// </summary>
 	public sealed partial class MainPage : Page
 	{
+		Keyboard keyboard;
+		int fromBase;
+		int toBase;
 		public MainPage()
 		{
 			this.InitializeComponent();
 			CreateKeyboard(Buttons);
-			SetVisibleButton(int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()));
+			fromBase = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
+			toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
+			keyboard.SetVisibleButton(fromBase);
 		}
 
 		public void CreateKeyboard(Panel panel)
 		{
-			string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			Button temp;
-			for (int i = 0; i < 36; i++)
+			keyboard = new Keyboard(panel);
+			for (int i = 0; i < panel.Children.Count - 2; i++)
 			{
-				temp = new Button()
-				{
-					Content = letters[i],
-					Visibility = Visibility.Visible,
-					IsTabStop = false,
-					MinWidth = 0,
-					MinHeight = 0,
-					Margin = new Thickness(0, -12, 0, -6)
-				};
-				temp.Click += Button_Click_1;
-				panel.Children.Add(temp);
+				((Button)(panel.Children[i])).Click += Button_Click_1;
 			}
-			temp = new Button()
-			{
-				Content = ".",
-				Visibility = Visibility.Visible,
-				IsTabStop = false,
-				MinWidth = 0,
-				MinHeight = 0,
-				Margin = new Thickness(0, -12, 0, -6)
-			};
-			temp.Click += Button_Click_Dot;
-			temp.SizeChanged += Buttons_SizeChanged;
-			panel.Children.Add(temp);
-			panel.Children.Add(new Button()
-			{
-				Content = "<-",
-				Visibility = Visibility.Visible,
-				IsTabStop = false,
-				MinWidth = 0,
-				MinHeight = 0,
-				Margin = new Thickness(0, -12, 0, -6)
-			});
+			((Button)(panel.Children[panel.Children.Count - 2])).Click += Button_Click_Dot; // "."
+			((Button)(panel.Children[panel.Children.Count - 2])).SizeChanged += Buttons_SizeChanged;
 		}
 
 		private void Button_Click_Dot(object sender, RoutedEventArgs e)
@@ -83,8 +58,8 @@ namespace NumberConverter
 			try
 			{
 				if (From != null || To != null)
-					Result.Text = Converter.Converter.ConvertTo(uint.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()),
-					InputText.Text, uint.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString()));
+					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,
+					InputText.Text, (uint)toBase);
 			}
 			catch (Exception ee)
 			{
@@ -106,22 +81,7 @@ namespace NumberConverter
 			InputText.SelectionStart = x + ((Button)sender).Content.ToString().Length;
 			//InputText.Text += ((Button)sender).Content.ToString();
 		}
-
-		void SetVisibleButton(int count)
-		{
-			var temp = Buttons.Children;
-			for (int i = 0; i < temp.Count - 2; i++)
-				if (i < count)
-				{
-					((Button)temp[i]).Visibility = Visibility.Visible;
-					
-				}
-				else
-				{
-					((Button)temp[i]).Visibility = Visibility.Collapsed;
-					
-				}
-		}
+				
 
 		private void InputText_PointerPressed(object sender, PointerRoutedEventArgs e)
 		{
@@ -139,11 +99,10 @@ namespace NumberConverter
 			{
 				if (From != null || To != null)
 				{
-					int fromBase = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
-					int toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
+					fromBase = int.Parse((((ComboBoxItem)((ComboBox)sender).SelectedItem)).Content.ToString());
 					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,	InputText.Text, (uint)toBase);
-					SetVisibleButton(int.Parse((((ComboBoxItem)((ComboBox)sender).SelectedItem)).Content.ToString()));
-					ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
+					keyboard.SetVisibleButton(fromBase);
+					keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
 				}
 			}
 			catch (Exception ee)
@@ -158,8 +117,9 @@ namespace NumberConverter
 			{
 				if (From != null || To != null)
 				{
-					Result.Text = Converter.Converter.ConvertTo(uint.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()),
-						InputText.Text, uint.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString()));
+					toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
+					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,
+						InputText.Text, (uint) toBase);
 				}
 			}
 			catch (Exception ee)
@@ -194,38 +154,7 @@ namespace NumberConverter
 			x.FontSize = x.ActualHeight*0.8;
 			//ResizeButton();
 		}
-				
-
-		void ResizeButton(double height, double width, int countKeys)
-		{
-			double maxHeight = height - 10;
-			double maxWidth = width - 10;
-			double areaForKeyboard = maxHeight * maxWidth;
-
-			double a = Math.Sqrt(areaForKeyboard / countKeys);
-			int row = 0;
-			int column = 0;
-			double h = a;
-			double w = a;
-			while (row * column < countKeys)
-			{
-				a -= 5;
-				row = (int)(maxHeight / a);
-				column = (int)(maxWidth / a);
-			}
-
-			h = a;
-			w = maxWidth / column;
-			if (w * row <= maxHeight)
-				h = w;
-
-			for (int i = 0; i < Buttons.Children.Count; i++)
-			{
-				((Button)Buttons.Children[i]).Height = h;
-				((Button)Buttons.Children[i]).Width = w;
-				((Button)Buttons.Children[i]).FontSize = a * 0.5;
-			}
-		}
+					
 
 		private void Buttons_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
@@ -247,16 +176,50 @@ namespace NumberConverter
 			var statView = ApplicationView.GetForCurrentView();
 			if (statView.IsFullScreen)
 				if (statView.Orientation == ApplicationViewOrientation.Landscape)
-					MainGrid.Margin = new Thickness(100, 25, 100, 25);
+				{
+					MainGrid.Margin = new Thickness(10, 25, 10, 25);
+					Grid.SetRow(InputText, 1);
+					Grid.SetColumn(InputText, 1);
+					Grid.SetRow(To, 2);
+					Grid.SetColumn(To, 0);
+					Grid.SetColumnSpan(To, 1);
+					//To.Margin = new Thickness(0, 0, 0, 0);
+					//To.Height = double.NaN;
+					//To.Width = double.NaN;
+					Grid.SetRow(Result, 2);
+					Grid.SetColumn(Result, 1);
+					Grid.SetRow(sizeKeyboard, 3);
+					Grid.SetRowSpan(sizeKeyboard, 4);
+					Grid.SetRow((FrameworkElement)Buttons, 3);
+					Grid.SetRowSpan((FrameworkElement)Buttons, 4);
+				}
 				else
+				{
 					MainGrid.Margin = new Thickness(10, 50, 10, 50);
+					Grid.SetRow(InputText, 2);
+					Grid.SetColumn(InputText, 0);
+					Grid.SetRow(To, 1);
+					Grid.SetColumn(To, 2);
+					Grid.SetColumnSpan(To, 1);
+					//To.Margin = new Thickness(0, 0, 0, 0);
+					//To.Height = double.NaN;
+					//To.Width = double.NaN;
+					Grid.SetRow(Result, 3);
+					Grid.SetColumn(Result, 0);
+					Grid.SetRow(sizeKeyboard, 4);
+					Grid.SetRowSpan(sizeKeyboard, 1);
+					Grid.SetRow((FrameworkElement)Buttons, 4);
+					Grid.SetRowSpan((FrameworkElement)Buttons, 1);
+				}
 			else
-				MainGrid.Margin = new Thickness(10, 50, 10, 50);		
+				MainGrid.Margin = new Thickness(10, 50, 10, 50);
+			//VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+			
 		}
 
 		private void From_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			((ComboBox)sender).FontSize = e.NewSize.Height * 0.7;
+			((ComboBox)sender).FontSize = (e.NewSize.Height) * 0.7;
 			//combo.Height = e.NewSize.Height;
 			//combo.Width = e.NewSize.Width;
 			//combo.FontSize = e.NewSize.Height * 0.7;
@@ -275,19 +238,71 @@ namespace NumberConverter
 
 		private void sizeKeyboard_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 2);
+			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 2);
 		}
 
 		private void combo_Holding(object sender, HoldingRoutedEventArgs e)
 		{
 			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender); 
 		}
-
-		private void combo_RightTapped(object sender, RightTappedRoutedEventArgs e)
+		int j = 1;
+		private void Button_Click_2(object sender, RoutedEventArgs e)
 		{
-			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender); 
+			//for (int i = 2; i < Buttons.Children.Count; i++)
+			//{
+				keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, j+2);
+				keyboard.SetVisibleButton(j+2);
+				j++;
+			//}
 		}
 
+		private void Button_Click_4(object sender, RoutedEventArgs e)
+		{
+			var a = (Button)Buttons.Children[Buttons.Children.Count - 1];
+			var temp = new Button()
+			{
+				Content = "4",
+				Visibility = Visibility.Visible,
+				IsTabStop = false,
+				MinWidth = 0,
+				MinHeight = 0,
+				MaxHeight = 1000,
+				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
+				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
+				Padding = new Thickness(0, 0, 0, 0),
+				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center,
+				Margin = new Thickness(0, -12, 0, -6)
+			};
+			temp.Height = a.ActualHeight;
+			temp.Width = a.ActualWidth;
+			Buttons.Children.Add(temp);
+			Buttons.UpdateLayout();
+		}
+
+		private void Button_Click_5(object sender, RoutedEventArgs e)
+		{
+			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, j + 2);
+			keyboard.SetVisibleButton(j + 2);
+			j++;
+			//var a = (Button)Buttons.Children[Buttons.Children.Count - 1];
+			//var temp = new Button()
+			//{
+			//	Content = "4",
+			//	Visibility = Visibility.Visible,
+			//	IsTabStop = false,
+			//	MinWidth = 0,
+			//	MinHeight = 0,
+			//	MaxHeight = 1000,
+			//	VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
+			//	HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
+			//	Padding = new Thickness(0, 0, 0, 0),
+			//	VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center,
+			//	Margin = new Thickness(0, -12, 0, -6)
+			//};
+			//temp.Height = a.ActualHeight;
+			//temp.Width = a.ActualWidth;
+			//Buttons.Children.Add(temp);
+		}
 		
 	}
 }
