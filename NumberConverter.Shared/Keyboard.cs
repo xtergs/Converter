@@ -126,11 +126,11 @@ namespace NumberConverter
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
 
-			for (int i = 0; i < panel.Children.Count; i++)
-			{
 #if WINDOWS_PHONE_APP
 				h+=15;
 #endif
+			for (int i = 0; i < panel.Children.Count; i++)
+			{
 				((Button)panel.Children[i]).Height = h;
 				((Button)panel.Children[i]).Width = w;
 				//((Button)panel.Children[i]).UpdateLayout();

@@ -26,6 +26,7 @@ namespace NumberConverter
 		Keyboard keyboard;
 		int fromBase;
 		int toBase;
+		ComboBox parentFlyout;
 		public MainPage()
 		{
 			this.InitializeComponent();
@@ -90,7 +91,8 @@ namespace NumberConverter
 
 		private void From_Holding(object sender, HoldingRoutedEventArgs e)
 		{
-			
+			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+			parentFlyout = (ComboBox)sender;
 		}
 
 		private void From_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -171,6 +173,25 @@ namespace NumberConverter
 
 		}
 
+		void AddComboBoxItem(ComboBoxItem item, ComboBox combobox, bool isSelet)
+		{
+			if (!combobox.Items.Any((a) =>
+			{
+				if (((ComboBoxItem)a).Content.ToString() == item.Content.ToString())
+					return true;
+				return false;
+			}
+			))
+			{
+				combobox.Items.Add(item);
+				combobox.SelectedItem = combobox.Items.Last();
+			}
+			else
+			{
+				combobox.SelectedIndex = combobox.Items.IndexOf(combobox.Items.Single((a) =>   ((ComboBoxItem)a).Content.ToString() == item.Content.ToString()));
+			}
+		}
+
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var statView = ApplicationView.GetForCurrentView();
@@ -178,9 +199,11 @@ namespace NumberConverter
 				if (statView.Orientation == ApplicationViewOrientation.Landscape)
 				{
 					MainGrid.Margin = new Thickness(10, 25, 10, 25);
+					Grid.SetColumnSpan(From, 1);
 					Grid.SetRow(InputText, 1);
 					Grid.SetColumn(InputText, 1);
 					Grid.SetRow(To, 2);
+					Grid.SetRowSpan(To, 1);
 					Grid.SetColumn(To, 0);
 					Grid.SetColumnSpan(To, 1);
 					//To.Margin = new Thickness(0, 0, 0, 0);
@@ -188,19 +211,21 @@ namespace NumberConverter
 					//To.Width = double.NaN;
 					Grid.SetRow(Result, 2);
 					Grid.SetColumn(Result, 1);
-					Grid.SetRow(sizeKeyboard, 3);
+					Grid.SetRow(sizeKeyboard, 4);
 					Grid.SetRowSpan(sizeKeyboard, 4);
-					Grid.SetRow((FrameworkElement)Buttons, 3);
+					Grid.SetRow((FrameworkElement)Buttons, 4);
 					Grid.SetRowSpan((FrameworkElement)Buttons, 4);
 				}
 				else
 				{
 					MainGrid.Margin = new Thickness(10, 50, 10, 50);
+					Grid.SetColumnSpan(From, 2);
 					Grid.SetRow(InputText, 2);
 					Grid.SetColumn(InputText, 0);
 					Grid.SetRow(To, 1);
-					Grid.SetColumn(To, 2);
-					Grid.SetColumnSpan(To, 1);
+					Grid.SetColumn(To, 3);
+					Grid.SetColumnSpan(To, 2);
+
 					//To.Margin = new Thickness(0, 0, 0, 0);
 					//To.Height = double.NaN;
 					//To.Width = double.NaN;
@@ -212,7 +237,26 @@ namespace NumberConverter
 					Grid.SetRowSpan((FrameworkElement)Buttons, 1);
 				}
 			else
+			{
 				MainGrid.Margin = new Thickness(10, 50, 10, 50);
+				MainGrid.Margin = new Thickness(10, 50, 10, 50);
+				Grid.SetColumnSpan(From, 2);
+				Grid.SetRow(InputText, 2);
+				Grid.SetColumn(InputText, 0);
+				Grid.SetRow(To, 1);
+				Grid.SetColumn(To, 3);
+				Grid.SetColumnSpan(To, 2);
+
+				//To.Margin = new Thickness(0, 0, 0, 0);
+				//To.Height = double.NaN;
+				//To.Width = double.NaN;
+				Grid.SetRow(Result, 3);
+				Grid.SetColumn(Result, 0);
+				Grid.SetRow(sizeKeyboard, 4);
+				Grid.SetRowSpan(sizeKeyboard, 1);
+				Grid.SetRow((FrameworkElement)Buttons, 4);
+				Grid.SetRowSpan((FrameworkElement)Buttons, 1);
+			}
 			//VisualStateManager.GoToState(this, "FullScreenLandscape", true);
 			
 		}
@@ -302,6 +346,34 @@ namespace NumberConverter
 			//temp.Height = a.ActualHeight;
 			//temp.Width = a.ActualWidth;
 			//Buttons.Children.Add(temp);
+		}
+
+		private void From_RightTapped(object sender, RightTappedRoutedEventArgs e)
+		{
+			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+			parentFlyout = (ComboBox)sender;
+		}
+
+		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var listbox = ((ListBox)sender);
+			var str = ((ListBoxItem)listbox.SelectedItem).Content;
+			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
+			var comboItem = new ComboBoxItem();
+			comboItem.Content = str;
+			AddComboBoxItem(comboItem, parentFlyout, true);
+			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
+			//fly.Hide();
+			openedFlyout.Hide();
+			listbox.SelectionChanged -= ListBox_SelectionChanged;
+			listbox.SelectedIndex = -1;
+			listbox.SelectionChanged += ListBox_SelectionChanged;
+		}
+
+		Flyout openedFlyout;
+		private void Flyout_Opened(object sender, object e)
+		{
+			openedFlyout = sender as Flyout;
 		}
 		
 	}

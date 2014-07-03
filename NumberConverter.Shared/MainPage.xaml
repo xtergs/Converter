@@ -12,9 +12,11 @@
     <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="10,-16.667,0,-0.333">
         <Grid x:Name="MainGrid" Margin="20,10,0,10" Background="Black" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*"/>
@@ -23,36 +25,101 @@
                 <RowDefinition/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="3" Background="#FF323232" Margin="0,0,0.143,0.286">
-                <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False" Margin="325.286,-3.714,0,0">
+            <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="5" Background="#FF323232" Margin="0,0,0.143,0.286">
+                <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False" Margin="325.286,-3.714,0,0" RenderTransformOrigin="0.5,0.5">
                     <ToolTipService.ToolTip>
                         <TextBlock Text="Calculator" />
                     </ToolTipService.ToolTip>
                 </Button>
             </Border>
-            <TextBox x:Name="Result"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="3" Margin="0,10" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True"/>
-            <ComboBox x:Name="To" SelectedIndex="0" SelectionChanged="To_SelectionChanged" Grid.Column="2" Margin="0,10,1,10" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="1">
+            <TextBox x:Name="Result"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="5" Margin="0,9.572,-0.857,9.714" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True"/>
+            <ComboBox x:Name="To" SelectedIndex="0" SelectionChanged="To_SelectionChanged" Grid.Column="3" Margin="0,9.714,1.143,9.857" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="1" Grid.ColumnSpan="2" RightTapped="From_RightTapped">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
                 <ComboBoxItem Content="16"/>
                 <ComboBoxItem Content="25"/>
                 <ComboBoxItem Content="36"/>
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout Placement="Bottom" Opened="Flyout_Opened">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                            <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" Foreground="Black" SelectionChanged="ListBox_SelectionChanged">
+                                <ListBoxItem Content="2"/>
+                                <ListBoxItem Content="3"/>
+                                <ListBoxItem Content="4"/>
+                                <ListBoxItem Content="5"/>
+                                <ListBoxItem Content="6"/>
+                                <ListBoxItem Content="7"/>
+                                <ListBoxItem Content="8"/>
+                                <ListBoxItem Content="9"/>
+                                <ListBoxItem Content="10"/>
+                                <!--<ListBoxItem Content="11"/>
+                                <ListBoxItem Content="10"/>
+                                <ListBoxItem Content="11"/>-->
+                            </ListBox>
+                            <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                                <ListBoxItem Content="11"/>
+                                <ListBoxItem Content="12"/>
+                                <ListBoxItem Content="13"/>
+                                <ListBoxItem Content="14"/>
+                                <ListBoxItem Content="15"/>
+                                <ListBoxItem Content="16"/>
+                                <ListBoxItem Content="17"/>
+                                <ListBoxItem Content="18"/>
+                                <ListBoxItem Content="19"/>
+                                <!--<ListBoxItem Content="20"/>
+                                <ListBoxItem Content="22"/>
+                                <ListBoxItem Content="23"/>-->
+                            </ListBox>
+                            <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                                <ListBoxItem Content="20"/>
+                                <ListBoxItem Content="21"/>
+                                <ListBoxItem Content="22"/>
+                                <ListBoxItem Content="23"/>
+                                <ListBoxItem Content="24"/>
+                                <ListBoxItem Content="25"/>
+                                <ListBoxItem Content="26"/>
+                                <ListBoxItem Content="27"/>
+                                <ListBoxItem Content="28"/>
+                                <!--<ListBoxItem Content="33"/>
+                                <ListBoxItem Content="34"/>
+                                <ListBoxItem Content="35"/>
+                                <ListBoxItem Content="36"/>-->
+                            </ListBox>
+                            <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                                <ListBoxItem Content="29"/>
+                                <ListBoxItem Content="30"/>
+                                <ListBoxItem Content="31"/>
+                                <ListBoxItem Content="32"/>
+                                <ListBoxItem Content="33"/>
+                                <ListBoxItem Content="34"/>
+                                <ListBoxItem Content="35"/>
+                                <ListBoxItem Content="36"/>
+                                <!--<ListBoxItem Content="33"/>
+                                <ListBoxItem Content="34"/>
+                                <ListBoxItem Content="35"/>
+                                <ListBoxItem Content="36"/>-->
+                            </ListBox>
+                        </Grid>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
             </ComboBox>
 
-            <Border x:Name="sizeKeyboard" Grid.Row="4" Grid.ColumnSpan="3" SizeChanged="sizeKeyboard_SizeChanged" Background="#FF323232" Margin="0,10.333,0,-0.333"/>
-            <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1" Background="#FF3B2574" VerticalAlignment="Top"/>
+            <Border x:Name="sizeKeyboard" Grid.Row="4" Grid.ColumnSpan="5" SizeChanged="sizeKeyboard_SizeChanged" Background="#FF323232" Margin="0,10.286,0.143,-0.429"/>
+            <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0,0.286,0.143,0" SizeChanged="Buttons_SizeChanged_1" Background="#FF3B2574" VerticalAlignment="Top"/>
 
-            <ComboBox x:Name="combo" Margin="-21,97,113.5,0.5"  SelectedIndex="0" HorizontalContentAlignment="Left" VerticalContentAlignment="Stretch" Holding="combo_Holding" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxDropDownHeight="10" IsDropDownOpen="False" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
-
-                <ComboBoxItem Content="2" HorizontalAlignment="Left" Width="114.999992370605"/>
-                <ComboBoxItem Content="8" HorizontalAlignment="Left" Width="114.999992370605"/>
-                <ComboBoxItem Content="10" HorizontalAlignment="Left" Width="114.999992370605"/>
-                <ComboBoxItem Content="16" HorizontalAlignment="Left" Width="114.999992370605"/>
-                <ComboBoxItem Content="36" HorizontalAlignment="Left" Width="114.999992370605"/>
-            </ComboBox>
-
-            <ComboBox x:Name="From" SelectedIndex="0" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" MinWidth="109" Margin="0,10" Grid.Row="1">
+            <ComboBox x:Name="From" SelectedIndex="0" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" MinWidth="109" Margin="0,9.714,0,9.857" Grid.Row="1" RightTapped="From_RightTapped" Grid.ColumnSpan="2">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
@@ -65,14 +132,88 @@
                 <!--<ComboBoxItem Content="17"/>-->
                 <ComboBoxItem Content="25"/>
                 <ComboBoxItem Content="36"/>
+                <FlyoutBase.AttachedFlyout>
+                    <Flyout Placement="Bottom" Opened="Flyout_Opened">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                            <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" Foreground="Black" SelectionChanged="ListBox_SelectionChanged">
+                                <ListBoxItem Content="2"/>
+                                <ListBoxItem Content="3"/>
+                                <ListBoxItem Content="4"/>
+                                <ListBoxItem Content="5"/>
+                                <ListBoxItem Content="6"/>
+                                <ListBoxItem Content="7"/>
+                                <ListBoxItem Content="8"/>
+                                <ListBoxItem Content="9"/>
+                                <ListBoxItem Content="10"/>
+                                <!--<ListBoxItem Content="11"/>
+                                <ListBoxItem Content="10"/>
+                                <ListBoxItem Content="11"/>-->
+                            </ListBox>
+                            <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                                <ListBoxItem Content="11"/>
+                                <ListBoxItem Content="12"/>
+                                <ListBoxItem Content="13"/>
+                                <ListBoxItem Content="14"/>
+                                <ListBoxItem Content="15"/>
+                                <ListBoxItem Content="16"/>
+                                <ListBoxItem Content="17"/>
+                                <ListBoxItem Content="18"/>
+                                <ListBoxItem Content="19"/>
+                                <!--<ListBoxItem Content="20"/>
+                                <ListBoxItem Content="22"/>
+                                <ListBoxItem Content="23"/>-->
+                            </ListBox>
+                            <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                                <ListBoxItem Content="20"/>
+                                <ListBoxItem Content="21"/>
+                                <ListBoxItem Content="22"/>
+                                <ListBoxItem Content="23"/>
+                                <ListBoxItem Content="24"/>
+                                <ListBoxItem Content="25"/>
+                                <ListBoxItem Content="26"/>
+                                <ListBoxItem Content="27"/>
+                                <ListBoxItem Content="28"/>
+                                <!--<ListBoxItem Content="33"/>
+                                <ListBoxItem Content="34"/>
+                                <ListBoxItem Content="35"/>
+                                <ListBoxItem Content="36"/>-->
+                            </ListBox>
+                            <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                                <ListBoxItem Content="29"/>
+                                <ListBoxItem Content="30"/>
+                                <ListBoxItem Content="31"/>
+                                <ListBoxItem Content="32"/>
+                                <ListBoxItem Content="33"/>
+                                <ListBoxItem Content="34"/>
+                                <ListBoxItem Content="35"/>
+                                <ListBoxItem Content="36"/>
+                                <!--<ListBoxItem Content="33"/>
+                                <ListBoxItem Content="34"/>
+                                <ListBoxItem Content="35"/>
+                                <ListBoxItem Content="36"/>-->
+                            </ListBox>
+                        </Grid>
+                    </Flyout>
+                </FlyoutBase.AttachedFlyout>
             </ComboBox>
-            <TextBox x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="3" Margin="0,10" Header="" Grid.Row="2" />
-            <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Left" Margin="158.5,0,0,0" VerticalAlignment="Top" Click="Button_Click_5" GotFocus="Button_GotFocus" IsTabStop="False" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBox x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="5" Margin="0,10.143,-0.857,8.428" Header="" Grid.Row="2" />
+            <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Left" Margin="158.286,0,0,0" VerticalAlignment="Top" Click="Button_Click_5" GotFocus="Button_GotFocus" IsTabStop="False" Grid.Column="2">
                 <ToolTipService.ToolTip>
                     <TextBlock Text="Calculator" />
                 </ToolTipService.ToolTip>
             </Button>
-            <Button x:Name="Clearr" Content="X" Margin="90,5,0,34.5" Click="Button_Click" Padding="15,4,12,4" Width="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Visibility="Collapsed" Grid.ColumnSpan="2" Grid.Row="1" />
+            <Button x:Name="Clearr" Content="X" Margin="90,119,0,24.857" Click="Button_Click" Padding="15,4,12,4" Width="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Visibility="Collapsed" Grid.ColumnSpan="3" Grid.RowSpan="2" />
         </Grid>
         <Grid x:Name="Landscape" Visibility="Collapsed">
             <Grid.RowDefinitions>

@@ -51,15 +51,21 @@ namespace Converter
 					throw BaseException("Digit in number >= base");
 				outValue += (ulong)(letters[strIn[i]] * Math.Pow(baseIn, j));
 			}
-			ulong outValueDr = 0;
+			double outValueDr = 0;
 			for (int i = posSeper + 1, j = -1; i < strIn.Length; i++, j--)
 			{
-				outValueDr += (ulong)(letters[strIn[i]] * Math.Pow(baseIn, j));
+				outValueDr += (letters[strIn[i]] * Math.Pow(baseIn, j));
 			}
 			string returnStr = outValue.ToString();
 			if (outValueDr > 0)
 			{
-				returnStr += '.' + outValueDr.ToString();
+				var x = outValueDr.ToString();
+				var d = x.Skip(2);
+				returnStr += '.'; ;
+				foreach (var a in x.Skip(2))
+				{
+					returnStr += a.ToString();
+				}
 			}
 			return returnStr;
 		}
@@ -75,7 +81,7 @@ namespace Converter
 			double res;
 			string returnStr = "";
 
-				
+			// convert decimital part	
 			if (posSeper >=0)
 			{
 				
@@ -86,9 +92,11 @@ namespace Converter
 					{
 						for (int i = 0; i < countLoop; i++)
 						{
+							if (dres == 0)
+								break;
 							var a = dres * baseOut;
 							int b = (int)a;
-							returnStr += revletters[b];
+							returnStr = revletters[b] + returnStr;
 							dres = a - b;
 						}
 					}
@@ -99,6 +107,7 @@ namespace Converter
 				pos = strIn.Length;
 			else
 				pos = posSeper;
+			// convert int part
 			if ((res = double.Parse(strIn.Substring(0, pos))) > 0)
 			{
 				double rres = 0;
