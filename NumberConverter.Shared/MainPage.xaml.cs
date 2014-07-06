@@ -198,7 +198,7 @@ namespace NumberConverter
 			if (statView.IsFullScreen)
 				if (statView.Orientation == ApplicationViewOrientation.Landscape)
 				{
-					MainGrid.Margin = new Thickness(10, 25, 10, 25);
+					MainGrid.Margin = new Thickness(10, 10, 10, 10);
 					Grid.SetColumnSpan(From, 1);
 					Grid.SetRow(InputText, 1);
 					Grid.SetColumn(InputText, 1);
@@ -211,9 +211,9 @@ namespace NumberConverter
 					//To.Width = double.NaN;
 					Grid.SetRow(Result, 2);
 					Grid.SetColumn(Result, 1);
-					Grid.SetRow(sizeKeyboard, 4);
+					Grid.SetRow(sizeKeyboard, 3);
 					Grid.SetRowSpan(sizeKeyboard, 4);
-					Grid.SetRow((FrameworkElement)Buttons, 4);
+					Grid.SetRow((FrameworkElement)Buttons, 3);
 					Grid.SetRowSpan((FrameworkElement)Buttons, 4);
 				}
 				else
@@ -252,9 +252,9 @@ namespace NumberConverter
 				//To.Width = double.NaN;
 				Grid.SetRow(Result, 3);
 				Grid.SetColumn(Result, 0);
-				Grid.SetRow(sizeKeyboard, 4);
+				Grid.SetRow(sizeKeyboard, 3);
 				Grid.SetRowSpan(sizeKeyboard, 1);
-				Grid.SetRow((FrameworkElement)Buttons, 4);
+				Grid.SetRow((FrameworkElement)Buttons, 3);
 				Grid.SetRowSpan((FrameworkElement)Buttons, 1);
 			}
 			//VisualStateManager.GoToState(this, "FullScreenLandscape", true);
@@ -289,16 +289,6 @@ namespace NumberConverter
 		{
 			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender); 
 		}
-		int j = 1;
-		private void Button_Click_2(object sender, RoutedEventArgs e)
-		{
-			//for (int i = 2; i < Buttons.Children.Count; i++)
-			//{
-				keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, j+2);
-				keyboard.SetVisibleButton(j+2);
-				j++;
-			//}
-		}
 
 		private void Button_Click_4(object sender, RoutedEventArgs e)
 		{
@@ -325,27 +315,7 @@ namespace NumberConverter
 
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
-			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, j + 2);
-			keyboard.SetVisibleButton(j + 2);
-			j++;
-			//var a = (Button)Buttons.Children[Buttons.Children.Count - 1];
-			//var temp = new Button()
-			//{
-			//	Content = "4",
-			//	Visibility = Visibility.Visible,
-			//	IsTabStop = false,
-			//	MinWidth = 0,
-			//	MinHeight = 0,
-			//	MaxHeight = 1000,
-			//	VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
-			//	HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
-			//	Padding = new Thickness(0, 0, 0, 0),
-			//	VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center,
-			//	Margin = new Thickness(0, -12, 0, -6)
-			//};
-			//temp.Height = a.ActualHeight;
-			//temp.Width = a.ActualWidth;
-			//Buttons.Children.Add(temp);
+			this.Frame.Navigate(typeof(BlankPage1));
 		}
 
 		private void From_RightTapped(object sender, RightTappedRoutedEventArgs e)

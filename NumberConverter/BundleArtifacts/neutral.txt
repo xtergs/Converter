@@ -1,0 +1,2 @@
+MainPackage=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_0.1.0.2_Bundle\NumberConverter_0.1.0.2_AnyCPU.appx
+SymbolPackage=C:\Programming\Converter\NumberConverter\AppPackages\NumberConverter_0.1.0.2_Test\NumberConverter_0.1.0.2_AnyCPU.appxsym

@@ -1,0 +1,2 @@
+MainPackage=C:\Programming\Converter\NumberConverter.WindowsPhone\bin\Release\NumberConverter.WindowsPhone_0.1.0.0_Bundle\NumberConverter.WindowsPhone_0.1.0.0_AnyCPU.appx
+SymbolPackage=C:\Programming\Converter\NumberConverter.WindowsPhone\AppPackages\NumberConverter.WindowsPhone_0.1.0.0_Test\NumberConverter.WindowsPhone_0.1.0.0_AnyCPU.appxsym

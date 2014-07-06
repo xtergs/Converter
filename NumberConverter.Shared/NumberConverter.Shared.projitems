@@ -9,9 +9,6 @@
     <Import_RootNamespace>NumberConverter</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)CalculatorPage.xaml.cs">
-      <DependentUpon>CalculatorPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Keyboard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
@@ -21,10 +18,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)WrapPanel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)CalculatorPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

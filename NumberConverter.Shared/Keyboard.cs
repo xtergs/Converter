@@ -89,6 +89,20 @@ namespace NumberConverter
 			});
 			visibleCount = panel.Children.Count-2;
 		}
+
+		// Resize for current height and width, using count current visible elements
+		public void ResizeButton()
+		{
+			ResizeButton(visibleCount);
+		}
+
+		// Resize for current height and width
+		public void ResizeButton(int countKeys)
+		{
+			ResizeButton(panel.ActualHeight, panel.ActualWidth, countKeys);
+		}
+
+		
 		public void ResizeButton(double height, double width, int countKeys)
 		{
 			double maxHeight = height - 10;
@@ -125,13 +139,13 @@ namespace NumberConverter
 				h = (maxHeight) / row; 
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
-
+				int correction = 0;
 #if WINDOWS_PHONE_APP
-				h+=15;
+				correction +=15;
 #endif
 			for (int i = 0; i < panel.Children.Count; i++)
 			{
-				((Button)panel.Children[i]).Height = h;
+				((Button)panel.Children[i]).Height = h + correction;
 				((Button)panel.Children[i]).Width = w;
 				//((Button)panel.Children[i]).UpdateLayout();
 				((Button)panel.Children[i]).FontSize = h * 0.5;
@@ -141,20 +155,34 @@ namespace NumberConverter
 			
 		}
 
-		public void SetVisibleButton(int count)
+		public void HideAll()
 		{
-			var temp = panel.Children;
-			for (int i = 0; i < temp.Count - 2 || i < visibleCount; i++)
-				if (i < count)
-				{
-					((Button)temp[i]).Visibility = Visibility.Visible;
+			for (int i = 0; i < panel.Children.Count; i++)
+				panel.Children[i].Visibility = Visibility.Collapsed;
+		}
 
-				}
-				else
-				{
-					((Button)temp[i]).Visibility = Visibility.Collapsed;
+		public void SetVisibleButton(int count, bool needResize = false)
+		{
+			if (count < 0)
+				return;
+			if (count != visibleCount)
+			{
+				var temp = panel.Children;
+				for (int i = 0; i < temp.Count - 2 || i < visibleCount; i++)
+					if (i < count)
+					{
+						temp[i].Visibility = Visibility.Visible;
 
-				}
+					}
+					else
+					{
+						temp[i].Visibility = Visibility.Collapsed;
+
+					}
+				visibleCount = count;
+			}
+			if (needResize)
+				ResizeButton(visibleCount + 2);
 		}
 	}
 
