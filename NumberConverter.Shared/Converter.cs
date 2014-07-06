@@ -27,16 +27,29 @@ namespace Converter
 		{
 			strIn = strIn.ToUpper();
 			if (baseIn == baseOut)
+			{
+				Validate(baseIn, strIn);
 				return strIn;
+			}
 			string result;
 			if (baseIn == 10)
+			{
+				Validate(baseIn, strIn);
 				result = strIn;
+			}
 			else
 				result = ConvertToDecictimal(baseIn, strIn);
 			if (baseOut == 10)
 				return result;
 			result = ConvertFromDecictimal(result, baseOut);
 			return result.ToUpper();
+		}
+
+		static void Validate(uint baseIn, string str)
+		{
+			for (int i = 0; i < str.Length; i++)
+				if (str[i] != '.' && letters[str[i]] >= baseIn )
+					throw BaseException("Digit in number >= base");
 		}
 
 		static string ConvertToDecictimal(uint baseIn, string strIn)
@@ -54,6 +67,8 @@ namespace Converter
 			double outValueDr = 0;
 			for (int i = posSeper + 1, j = -1; i < strIn.Length; i++, j--)
 			{
+				if (letters[strIn[i]] >= baseIn)
+					throw BaseException("Digit in number >= base");
 				outValueDr += (letters[strIn[i]] * Math.Pow(baseIn, j));
 			}
 			string returnStr = outValue.ToString();
@@ -108,9 +123,9 @@ namespace Converter
 			else
 				pos = posSeper;
 			// convert int part
-			if ((res = double.Parse(strIn.Substring(0, pos))) > 0)
-			{
-				double rres = 0;
+			if ((res = double.Parse(strIn.Substring(0, pos))) > 0) 
+			{								
+				double rres = 0;									//int != 0
 				while (res >= baseOut)
 				{
 					rres = Math.Floor(res / baseOut);
@@ -120,7 +135,7 @@ namespace Converter
 				returnStr = returnStr + revletters[(int)res];
 			}
 			else
-				returnStr = "0";
+				returnStr += "0";		// int == 0
 			var temp = returnStr.ToCharArray();
 		//	temp = temp.Reverse().ToArray<char>();
 			if (returnStr.IndexOf('.') > 0)

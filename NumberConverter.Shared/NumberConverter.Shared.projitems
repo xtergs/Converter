@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Keyboard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LongDouble.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

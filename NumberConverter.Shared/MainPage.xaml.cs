@@ -252,9 +252,9 @@ namespace NumberConverter
 				//To.Width = double.NaN;
 				Grid.SetRow(Result, 3);
 				Grid.SetColumn(Result, 0);
-				Grid.SetRow(sizeKeyboard, 3);
+				Grid.SetRow(sizeKeyboard, 4);
 				Grid.SetRowSpan(sizeKeyboard, 1);
-				Grid.SetRow((FrameworkElement)Buttons, 3);
+				Grid.SetRow((FrameworkElement)Buttons, 4);
 				Grid.SetRowSpan((FrameworkElement)Buttons, 1);
 			}
 			//VisualStateManager.GoToState(this, "FullScreenLandscape", true);
