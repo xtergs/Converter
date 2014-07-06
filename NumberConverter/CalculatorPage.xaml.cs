@@ -64,6 +64,11 @@ namespace NumberConverter
 				Button_Click_1(sender, e);
 		}
 
+		void ResultText(string text)
+		{
+			Result.Text = text;
+		}
+
 		string Operation(string In, string Out)
 		{
 			string slag = Converter.Converter.ConvertTo(uint.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()),
@@ -77,8 +82,15 @@ namespace NumberConverter
 				case 0: slag = (firstslagD + secondslagD).ToString(); break;
 				case 1: slag = (firstslagD - secondslagD).ToString(); break;
 				case 2: slag = (firstslagD * secondslagD).ToString(); break;
-				case 3: slag = (firstslagD / secondslagD).ToString();
-					break;
+				case 3:
+					{
+						if (secondslagD == 0)
+						{
+							return "Нou can not divide by zero";
+						}
+						slag = (firstslagD / secondslagD).ToString();
+						break;
+					}
 			}
 			return Converter.Converter.ConvertTo(10, slag, uint.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString()));
 		}
@@ -258,13 +270,15 @@ namespace NumberConverter
 			//Buttons.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			int count = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
 			keyboard.SetVisibleButton( count, false);
-			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, count);
+			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, count+2);
 		}
 
 		private void InputText2_GotFocus(object sender, RoutedEventArgs e)
 		{
 			//Buttons.Visibility = Windows.UI.Xaml.Visibility.Visible;
-			keyboard.SetVisibleButton(int.Parse(((ComboBoxItem)From2.SelectedItem).Content.ToString()), true);
+			int count = int.Parse(((ComboBoxItem)From2.SelectedItem).Content.ToString());
+			keyboard.SetVisibleButton(count, false);
+			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, count + 2);
 		}
 
 		private void Result_GotFocus(object sender, RoutedEventArgs e)
@@ -381,20 +395,10 @@ namespace NumberConverter
 			Button_multipl.Height = e.NewSize.Height + correction;
 		}
 
-		int up = 0;
-		int down = 0;
-		private void Button_Click_2(object sender, RoutedEventArgs e)
+		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
-			up--;
-			Button_Plus.Margin = new Thickness(0, up, 0, down);
-			((ButtonBase)sender).Content = up.ToString();
-		}
-
-		private void Button_Click_4(object sender, RoutedEventArgs e)
-		{
-			down--;
-			Button_Plus.Margin = new Thickness(0, up, 0, down);
-			((ButtonBase)sender).Content = down.ToString();
+			if (this.Frame.CanGoBack)
+				this.Frame.GoBack();
 		}
 	}
 }
