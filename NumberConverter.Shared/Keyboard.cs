@@ -60,7 +60,7 @@ namespace NumberConverter
 			}
 			temp = new Button()
 			{
-				Content = ".",
+				Content = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,  // dot for current culture
 				Visibility = Visibility.Visible,
 				IsTabStop = false,
 				MinWidth = 0,
@@ -106,7 +106,7 @@ namespace NumberConverter
 		public void ResizeButton(double height, double width, int countKeys)
 		{
 			double maxHeight = height - 10;
-			double maxWidth = width - 5;
+			double maxWidth = width - 10;
 			double areaForKeyboard = maxHeight * maxWidth;
 
 			double a = Math.Sqrt(areaForKeyboard / countKeys);

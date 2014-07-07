@@ -16,6 +16,8 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)OrientedSize.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharePages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SuspendPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WrapPanel.cs" />
   </ItemGroup>
   <ItemGroup>

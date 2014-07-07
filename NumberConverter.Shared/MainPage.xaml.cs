@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -24,16 +25,52 @@ namespace NumberConverter
 	public sealed partial class MainPage : Page
 	{
 		Keyboard keyboard;
+		ComboBox parentFlyout;
+
 		int fromBase;
 		int toBase;
-		ComboBox parentFlyout;
+		int fromBaseIndex,  toBaseIndex;
+		static SuspendPage suspendPage;
+		//string BAse;
+		public int FromBase
+		{
+			get { return fromBaseIndex; }
+			set
+			{
+				fromBaseIndex = value;
+				fromBase = int.Parse(((ComboBoxItem)From.Items[value]).Content.ToString());
+			}
+		}
+
+		public int ToBase
+		{
+			get { return toBaseIndex; }
+			set
+			{
+				toBaseIndex = value;
+				toBase = int.Parse(((ComboBoxItem)To.Items[value]).Content.ToString());
+			}
+		}
 		public MainPage()
 		{
 			this.InitializeComponent();
+			DataContext = this;
 			CreateKeyboard(Buttons);
-			fromBase = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
-			toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
+			ToBase = 0;
+			FromBase = 0;
+			//fromBase = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
+			//toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
+			if (suspendPage != null)
+			{
+				//FromBase = suspendPage.indexFrom;
+				//FromBase2 = suspendPage.indexFrom2;
+				//ToBase = suspendPage.indexTo;
+				//InputText.Text = suspendPage.InputText;
+				//InputText2.Text = suspendPage.InputText2;
+				//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
+			}
 			keyboard.SetVisibleButton(fromBase);
+			
 		}
 
 		public void CreateKeyboard(Panel panel)
@@ -45,6 +82,7 @@ namespace NumberConverter
 			}
 			((Button)(panel.Children[panel.Children.Count - 2])).Click += Button_Click_Dot; // "."
 			((Button)(panel.Children[panel.Children.Count - 2])).SizeChanged += Buttons_SizeChanged;
+			((Button)(panel.Children[panel.Children.Count - 1])).Click += Backspace_Click; //backspace
 		}
 
 		private void Button_Click_Dot(object sender, RoutedEventArgs e)
@@ -58,7 +96,7 @@ namespace NumberConverter
 		{
 			try
 			{
-				if (From != null || To != null)
+				if (InputText.Text != "")
 					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,
 					InputText.Text, (uint)toBase);
 			}
@@ -75,18 +113,15 @@ namespace NumberConverter
 
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
-			//FocusManager.GetFocusedElement()			
-			InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
-			var x = InputText.SelectionStart; //временное запоминание
-			InputText.Text = InputText.Text.Insert(InputText.SelectionStart, ((Button)sender).Content.ToString());
-			InputText.SelectionStart = x + ((Button)sender).Content.ToString().Length;
-			//InputText.Text += ((Button)sender).Content.ToString();
+			SharePages.AddTextTextBox(((Button)sender).Content.ToString(), InputText);
 		}
-				
-
+		
 		private void InputText_PointerPressed(object sender, PointerRoutedEventArgs e)
 		{
-
+			//if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+			//	((TextBox)sender).IsReadOnly = true;
+			//else
+			//	((TextBox)sender).IsReadOnly = false;
 		}
 
 		private void From_Holding(object sender, HoldingRoutedEventArgs e)
@@ -99,7 +134,7 @@ namespace NumberConverter
 		{
 			try
 			{
-				if (From != null || To != null)
+				if (sender != null && Result != null)
 				{
 					fromBase = int.Parse((((ComboBoxItem)((ComboBox)sender).SelectedItem)).Content.ToString());
 					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,	InputText.Text, (uint)toBase);
@@ -132,32 +167,10 @@ namespace NumberConverter
 
 		private void Result_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			
-			var x = ((TextBox)sender);
-			//if (x.Height == double.NaN)
-			var statView = ApplicationView.GetForCurrentView();
-			if (statView.IsFullScreen)
-			{
-				x.TextWrapping = TextWrapping.Wrap;
-				x.FontSize = x.ActualHeight * 0.4;
-			}
-			else
-			{
-				x.TextWrapping = TextWrapping.NoWrap;
-				x.FontSize = x.ActualHeight * 0.8;
-			}
-			//Button_SizeChanged(Clearr, e);
-		}
 
-		private void Button_SizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			var x = ((Button)sender);
-			//if (x.Height == double.NaN)
-			x.FontSize = x.ActualHeight*0.8;
-			//ResizeButton();
+			SharePages.ResizeFontTextBox((TextBox)sender);
 		}
-					
-
+				
 		private void Buttons_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			//var x = ((Button)sender);
@@ -173,24 +186,7 @@ namespace NumberConverter
 
 		}
 
-		void AddComboBoxItem(ComboBoxItem item, ComboBox combobox, bool isSelet)
-		{
-			if (!combobox.Items.Any((a) =>
-			{
-				if (((ComboBoxItem)a).Content.ToString() == item.Content.ToString())
-					return true;
-				return false;
-			}
-			))
-			{
-				combobox.Items.Add(item);
-				combobox.SelectedItem = combobox.Items.Last();
-			}
-			else
-			{
-				combobox.SelectedIndex = combobox.Items.IndexOf(combobox.Items.Single((a) =>   ((ComboBoxItem)a).Content.ToString() == item.Content.ToString()));
-			}
-		}
+		
 
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
@@ -198,7 +194,7 @@ namespace NumberConverter
 			if (statView.IsFullScreen)
 				if (statView.Orientation == ApplicationViewOrientation.Landscape)
 				{
-					MainGrid.Margin = new Thickness(10, 10, 10, 10);
+					//MainGrid.Margin = new Thickness(10, 10, 10, 10);
 					Grid.SetColumnSpan(From, 1);
 					Grid.SetRow(InputText, 1);
 					Grid.SetColumn(InputText, 1);
@@ -218,7 +214,7 @@ namespace NumberConverter
 				}
 				else
 				{
-					MainGrid.Margin = new Thickness(10, 50, 10, 50);
+				//	MainGrid.Margin = new Thickness(10, 50, 10, 50);
 					Grid.SetColumnSpan(From, 2);
 					Grid.SetRow(InputText, 2);
 					Grid.SetColumn(InputText, 0);
@@ -238,8 +234,7 @@ namespace NumberConverter
 				}
 			else
 			{
-				MainGrid.Margin = new Thickness(10, 50, 10, 50);
-				MainGrid.Margin = new Thickness(10, 50, 10, 50);
+			//	MainGrid.Margin = new Thickness(10, 50, 10, 50);
 				Grid.SetColumnSpan(From, 2);
 				Grid.SetRow(InputText, 2);
 				Grid.SetColumn(InputText, 0);
@@ -263,7 +258,9 @@ namespace NumberConverter
 
 		private void From_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			((ComboBox)sender).FontSize = (e.NewSize.Height) * 0.7;
+			SharePages.ScaleText((ComboBox)sender, e.NewSize.Height);
+			//double scale = e.PreviousSize.Height / e.NewSize.Height;
+			//((ComboBox)sender).FontSize = (e.NewSize.Height) * 0.7;
 			//combo.Height = e.NewSize.Height;
 			//combo.Width = e.NewSize.Width;
 			//combo.FontSize = e.NewSize.Height * 0.7;
@@ -272,6 +269,12 @@ namespace NumberConverter
 		private void Button_Click_3(object sender, RoutedEventArgs e)
 		{
 			//MainGrid.Visibility = Visibility.Collapsed;
+			suspendPage = new SuspendPage();
+			suspendPage.indexFrom = FromBase;
+			//suspendPage.indexFrom2 = FromBase2;
+			suspendPage.indexTo = ToBase;
+			suspendPage.InputText = InputText.Text;
+			//suspendPage.InputText2 = InputText2.Text;
 			this.Frame.Navigate(typeof(BlankPage1));
 		}
 
@@ -284,35 +287,7 @@ namespace NumberConverter
 		{
 			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 2);
 		}
-
-		private void combo_Holding(object sender, HoldingRoutedEventArgs e)
-		{
-			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender); 
-		}
-
-		private void Button_Click_4(object sender, RoutedEventArgs e)
-		{
-			var a = (Button)Buttons.Children[Buttons.Children.Count - 1];
-			var temp = new Button()
-			{
-				Content = "4",
-				Visibility = Visibility.Visible,
-				IsTabStop = false,
-				MinWidth = 0,
-				MinHeight = 0,
-				MaxHeight = 1000,
-				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
-				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
-				Padding = new Thickness(0, 0, 0, 0),
-				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center,
-				Margin = new Thickness(0, -12, 0, -6)
-			};
-			temp.Height = a.ActualHeight;
-			temp.Width = a.ActualWidth;
-			Buttons.Children.Add(temp);
-			Buttons.UpdateLayout();
-		}
-
+		
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
 			this.Frame.Navigate(typeof(BlankPage1));
@@ -331,7 +306,7 @@ namespace NumberConverter
 			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
 			var comboItem = new ComboBoxItem();
 			comboItem.Content = str;
-			AddComboBoxItem(comboItem, parentFlyout, true);
+			SharePages.AddComboBoxItem(comboItem, parentFlyout, true);
 			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
 			//fly.Hide();
 			openedFlyout.Hide();
@@ -344,6 +319,44 @@ namespace NumberConverter
 		private void Flyout_Opened(object sender, object e)
 		{
 			openedFlyout = sender as Flyout;
+		}
+
+		private void InputText_Tapped(object sender, TappedRoutedEventArgs e)
+		{
+			//if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+			//	((TextBox)sender).IsReadOnly = true;
+			//else
+			//	((TextBox)sender).IsReadOnly = false;
+		}
+
+		private void InputText_GotFocus(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void InputText_SelectionChanged(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void InputText_PointerReleased(object sender, PointerRoutedEventArgs e)
+		{
+
+		}
+
+		private void Backspace_Click(object sender, RoutedEventArgs e)
+		{
+			SharePages.Backspace(InputText);
+			InputText.Select(InputText.Text.Length, 0);
+		}
+
+		
+		private void InputText_KeyUp(object sender, KeyRoutedEventArgs e)
+		{
+			//if ("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(e.Key.ToString())) ;
+			
+			//if (e.Key)
+			SharePages.InputText_KeyUp(sender, e, fromBase);
 		}
 		
 	}
