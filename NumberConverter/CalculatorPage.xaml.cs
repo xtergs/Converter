@@ -588,6 +588,7 @@ namespace NumberConverter
 				Calculate();
 				//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
 			}
+			InputText.Focus(FocusState.Programmatic);
 		}
 	}
 }
