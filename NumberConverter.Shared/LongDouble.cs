@@ -38,6 +38,15 @@ namespace NumberConverter
 
 		bool IsMinus { get; set; }
 
+		private bool IsDouble
+		{
+			get
+			{
+				if (Fraction != "0" && Fraction.Length > 0) return true;
+				return false;
+			}
+		}
+
 		static string splitter = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
 
 		public LongDouble ()
@@ -103,35 +112,99 @@ namespace NumberConverter
 
 		public static LongDouble operator /(LongDouble first, LongDouble second)
 		{
-			LongDouble result = new LongDouble();
-			var firstFraction = first.FractionDec;
-			var seconFraction = second.FractionDec;
-			firstFraction *= seconFraction;
-			int buffer = (int)firstFraction;
-			firstFraction -= buffer;
-			result.Fraction = firstFraction.ToString().Substring(2);
-			var firstInteg = first.IntegerBig;
-			var secondInteg = second.IntegerBig;
-			firstInteg *= secondInteg;
-			firstInteg += buffer;
-			result.Integer = firstInteg.ToString();
+			if (first == null)
+				throw new ArgumentNullException("first");
+			if (second == null)
+				throw new ArgumentNullException("second");
+			var result = new LongDouble();
+
+			//Represent double without dot
+			string strf = first.Integer;
+			if (first.IsDouble)
+				strf += first.Fraction;
+			string strs = second.Integer;
+			if (second.IsDouble)
+				strs += second.Fraction;
+			var firstInteg = BigInteger.Parse(strf);
+			var secondInteg = BigInteger.Parse(strs);
+
+			BigInteger remainder;
+			//firstInteg /= secondInteg;
+			firstInteg = BigInteger.DivRem(firstInteg, secondInteg, out remainder);
+			remainder %= secondInteg;
+			////Result = 0
+			//if (firstInteg == 0)
+			//	return result;
+
+			string str = firstInteg.ToString();
+			if (remainder > 0)
+				str += remainder.ToString();
+
+			// Count digits in fraction
+			// 2.0 is not double
+			// 2.03 is double
+			int countDigFraction = 0;
+			if (first.IsDouble)
+				countDigFraction += first.Fraction.Length;
+			if (second.IsDouble)
+				countDigFraction += second.Fraction.Length;
+
+			//Count of digits in the fraction > length of the result
+			while (countDigFraction > str.Length)
+			{
+				str = "0" + str;
+			}
+
+			// 02 and countDigFraction = 2 is 0.02
+			if (countDigFraction == str.Length)
+			{
+				result.Integer = "0";
+				result.Fraction = str;
+				return result;
+			}
+
+			result.Fraction = str.Substring(countDigFraction-1);
+			result.Integer = str.Substring(0, str.Length - countDigFraction);
 			return result;
 		}
 
 		public static LongDouble operator *(LongDouble first, LongDouble second)
 		{
-			LongDouble result = new LongDouble();
-			var firstFraction = first.FractionDec;
-			var seconFraction = second.FractionDec;
-			firstFraction *= seconFraction;
-			int buffer = (int)firstFraction;
-			firstFraction -= buffer;
-			result.Fraction = firstFraction.ToString().Substring(2);
-			var firstInteg = first.IntegerBig;
-			var secondInteg = second.IntegerBig;
+			if (first == null) 
+				throw new ArgumentNullException("first");
+			if (second == null) 
+				throw new ArgumentNullException("second");
+			var result = new LongDouble();
+			var firstInteg =BigInteger.Parse(first.integer + first.Fraction);
+			var secondInteg = BigInteger.Parse(second.Integer + second.Fraction);
+			//decimal firstFraction = first.FractionDec;
+			//decimal seconFraction = second.FractionDec;
 			firstInteg *= secondInteg;
-			firstInteg += buffer;
-			result.Integer = firstInteg.ToString();
+			if (firstInteg == 0)
+				return new LongDouble();
+			string str = firstInteg.ToString();
+			int countDigFraction = (first.Fraction.Length + second.Fraction.Length);
+			//count of digits in the fraction > length of the result
+			while (countDigFraction > str.Length)
+			{
+				str = "0" + str;
+			}
+			if (countDigFraction == str.Length)
+			{
+				result.Integer = "0";
+				result.Fraction = str;
+				return result;
+			}
+
+			result.Fraction = str.Substring(countDigFraction);
+			result.Integer = str.Substring(0, str.Length - (first.Fraction.Length + second.Fraction.Length));
+			//int buffer = (int)firstFraction;
+			//firstFraction -= buffer;
+			//result.Fraction = firstFraction.ToString().Substring(2);
+			
+			//firstInteg *= secondInteg;
+			//firstInteg += buffer;
+			//result.Integer = firstInteg.ToString();
 			return result;
 		}
 

@@ -90,6 +90,13 @@ namespace NumberConverter
 			TextBoxToComboBox.Add(InputText2, From2);
 			TextBoxToComboBox.Add(Result, To);
 			DataContext = this;
+#if DEBUG
+			FromBase = 2;
+			FromBase2 = 2;
+			ToBase = 2;
+			InputText.Text = "2.2";
+			InputText2.Text = "2";
+#endif
 #if WINDOWS_PHONE_APP
 			int marg_up = -6;
 			Button_Plus.Margin = new Thickness(0, marg_up, 0, 0);
@@ -97,7 +104,7 @@ namespace NumberConverter
 			Button_divide.Margin = new Thickness(0, marg_up, 0, 0);
 			Button_multipl.Margin = new Thickness(0, marg_up, 0, 0);
 #endif
-			
+
 
 		}
 
@@ -151,15 +158,15 @@ namespace NumberConverter
 				case 0: slag = (slag + slag2); break;
 				case 1: slag = (slag - slag2); break;
 				case 2: slag = (slag * slag2); break;
-				//case 3:
-				//	{
-				//		if (secondslagD == 0)
-				//		{
-				//			return "Нou can not divide by zero";
-				//		}
-				//		slag = (firstslagD / secondslagD).ToString();
-				//		break;
-				//	}
+				case 3:
+					{
+						if (slag2.Integer == "0" && slag2.Fraction == "0" )
+						{
+							return "Нou can not divide by zero";
+						}
+						slag = (slag / slag2);
+						break;
+					}
 			}
 			return Converter.Converter.ConvertTo(10, slag, (uint)toBase).ToString();
 		}
