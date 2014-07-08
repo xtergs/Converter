@@ -125,20 +125,70 @@ namespace NumberConverter
 			string strs = second.Integer;
 			if (second.IsDouble)
 				strs += second.Fraction;
+			int sub = Math.Abs(first.Fraction.Length - second.Fraction.Length);
+			int sub2 = sub;
+			if (first.IsDouble)
+			{
+				int subb = 0;
+				if (second.IsDouble)
+				{
+					subb = first.Fraction.Length - second.Fraction.Length;
+					if (subb > 0)
+					while (subb > 0)
+					{
+						strs += "0";
+						subb--;
+					}
+					if (subb < 0)
+						while (subb<0)
+						{
+							strf += "0";
+							subb++;
+						}
+				}
+				else
+				{
+					subb = first.Fraction.Length;
+					while (subb > 0)
+					{
+						strs += "0";
+						subb--;
+					}
+				}
+			}
+
+			//while (strf.Length < strs.Length)
+			//{
+			//	strf += "0";
+			//}
+			//while (strs.Length < strf.Length)
+			//{
+			//	strs += "0";
+			//}
 			var firstInteg = BigInteger.Parse(strf);
 			var secondInteg = BigInteger.Parse(strs);
 
 			BigInteger remainder;
 			//firstInteg /= secondInteg;
 			firstInteg = BigInteger.DivRem(firstInteg, secondInteg, out remainder);
-			remainder %= secondInteg;
+			StringBuilder fract = new StringBuilder();
+			BigInteger buf;
+			int loop = 20;
+			while (remainder > 0 && loop > 0)
+			{
+				remainder *= 10;
+				buf = BigInteger.DivRem(remainder, secondInteg, out remainder);
+				fract.Append(buf);
+				loop--;
+			}
+			//secondInteg = BigInteger.DivRem(remainder, secondInteg, out remainder);
 			////Result = 0
 			//if (firstInteg == 0)
 			//	return result;
 
-			string str = firstInteg.ToString();
-			if (remainder > 0)
-				str += remainder.ToString();
+			strf = firstInteg.ToString();
+			if (fract.Length > 0)
+				strs = fract.ToString();
 
 			// Count digits in fraction
 			// 2.0 is not double
@@ -150,21 +200,21 @@ namespace NumberConverter
 				countDigFraction += second.Fraction.Length;
 
 			//Count of digits in the fraction > length of the result
-			while (countDigFraction > str.Length)
-			{
-				str = "0" + str;
-			}
+			//while (countDigFraction > strf.Length)
+			//{
+			//	strf = "0" + strf;
+			//}
 
 			// 02 and countDigFraction = 2 is 0.02
-			if (countDigFraction == str.Length)
-			{
-				result.Integer = "0";
-				result.Fraction = str;
-				return result;
-			}
+			//if (countDigFraction == strf.Length)
+			//{
+			//	result.Integer = "0";
+			//	result.Fraction = strf;
+			//	return result;
+			//}
 
-			result.Fraction = str.Substring(countDigFraction-1);
-			result.Integer = str.Substring(0, str.Length - countDigFraction);
+			result.Fraction = strs;
+			result.Integer = strf;
 			return result;
 		}
 
@@ -196,7 +246,7 @@ namespace NumberConverter
 				return result;
 			}
 
-			result.Fraction = str.Substring(countDigFraction);
+			result.Fraction = str.Substring(str.Length - (first.Fraction.Length + second.Fraction.Length));
 			result.Integer = str.Substring(0, str.Length - (first.Fraction.Length + second.Fraction.Length));
 			//int buffer = (int)firstFraction;
 			//firstFraction -= buffer;
@@ -216,18 +266,13 @@ namespace NumberConverter
 		public override string ToString()
 		{
 			StringBuilder builder = new StringBuilder();
-			if (isLong)
-				throw new NotImplementedException();
+			if ((integer != "0" || fraction != "0")&& IsMinus)
+				builder.Append("-");
+			if (fraction != "0" && fraction != "")
+				builder.Append( integer.ToString().ToUpper() + splitter + fraction.ToString().ToUpper());
 			else
-			{
-				if ((integer != "0" || fraction != "0")&& IsMinus)
-					builder.Append("-");
-				if (fraction != "0" && fraction != "")
-					builder.Append( integer.ToString().ToUpper() + splitter + fraction.ToString().ToUpper());
-				else
-					builder.Append( integer.ToString().ToUpper());
-				return builder.ToString();
-			}
+				builder.Append( integer.ToString().ToUpper());
+			return builder.ToString();
 		}
 
 		public string Fraction
