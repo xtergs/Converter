@@ -12,18 +12,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Keyboard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LongDouble.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)OrientedSize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharePages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuspendPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WrapPanel.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 </Project>
