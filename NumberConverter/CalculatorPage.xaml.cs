@@ -39,7 +39,8 @@ namespace NumberConverter
 			set
 			{
 				fromBaseIndex = value;
-				fromBase = int.Parse(((ComboBoxItem) From.Items[value]).Content.ToString());
+				if (From.Items != null) 
+					fromBase = int.Parse(((ComboBoxItem) From.Items[value]).Content.ToString());
 			}
 		}
 
@@ -49,7 +50,7 @@ namespace NumberConverter
 			set
 			{
 				fromBase2Index = value;
-				fromBase2 = int.Parse(((ComboBoxItem) From2.Items[value]).Content.ToString());
+				if (From2.Items != null) fromBase2 = int.Parse(((ComboBoxItem) From2.Items[value]).Content.ToString());
 			}
 		}
 
@@ -59,7 +60,7 @@ namespace NumberConverter
 			set
 			{
 				toBaseIndex = value;
-				toBase = int.Parse(((ComboBoxItem) To.Items[value]).Content.ToString());
+				if (To.Items != null) toBase = int.Parse(((ComboBoxItem) To.Items[value]).Content.ToString());
 			}
 		}
 
@@ -558,8 +559,8 @@ namespace NumberConverter
 
 		private void Button_SizeChanged_1(object sender, SizeChangedEventArgs e)
 		{
-			var button = ((Button) sender);
-			button.FontSize = e.NewSize.Height*0.7;
+			var button = ((ButtonBase) sender);
+			button.FontSize = e.NewSize.Height*0.5;
 		}
 
 		private void CalculatorPage_Loaded(object sender, RoutedEventArgs e)

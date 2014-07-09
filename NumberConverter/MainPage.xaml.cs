@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -357,6 +358,21 @@ namespace NumberConverter
 			
 			//if (e.Key)
 			SharePages.InputText_KeyUp(sender, e, fromBase);
+		}
+
+		private void Button_Click_2(object sender, RoutedEventArgs e)
+		{
+			ResourceDictionary newDictionary = new ResourceDictionary();
+			System.UriBuilder a = new UriBuilder();
+			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkOrange.xaml", UriKind.Absolute);
+		///	newDictionary.Source = new Uri(@"Resource/DarkOrange.xaml", UriKind.RelativeOrAbsolute);
+			Application.Current.Resources = newDictionary;
+			this.UpdateLayout();
+		}
+
+		private void HyperlinkButton_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			((ButtonBase) sender).FontSize = e.NewSize.Height*0.5;
 		}
 		
 	}

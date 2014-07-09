@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
@@ -16,9 +17,9 @@ using NumberConverter.WinRTXamlToolkit.Controls;
 
 namespace NumberConverter
 {
-	
 	class Keyboard
 	{
+		static Color col = new Color();
 		Panel panel;
 		int visibleCount;
 
@@ -30,6 +31,27 @@ namespace NumberConverter
 			this.panel = panel;
 			CreateKeyboard(this.panel);
 		}
+
+		Button newButton(string text)
+		{
+			return new Button()
+			{
+				Content = text,
+				Visibility = Visibility.Visible,
+				IsTabStop = false,
+				MinWidth = 0,
+				MinHeight = 0,
+				MaxHeight = 1000,
+				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
+				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
+				Background = new SolidColorBrush(col),
+				BorderThickness = new Thickness(0),
+				Padding = new Thickness(0, 0, 0, 0),
+				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center,
+				Margin = new Thickness(0, marg_top, 0, marg_bot)
+			};
+		}
+
 		public void CreateKeyboard(Panel panel)
 		{
 			string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -39,54 +61,18 @@ namespace NumberConverter
 			marg_bot = -6;
 			marg_top = -15;
 #endif
+			col = Color.FromArgb(0xff, 0x3f, 0x3f, 0x3f);
 			for (int i = 0; i < 36; i++)
 			{
-				temp = new Button()
-				{
-					Content = letters[i],
-					Visibility = Visibility.Visible,
-					IsTabStop = false,
-					MinWidth = 0,
-					MinHeight = 0,
-					MaxHeight = 1000,
-					VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
-					HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
-					Padding = new Thickness(0,0,0,0),
-					VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center,
-					Margin = new Thickness(0, marg_top, 0, marg_bot)
-				};
+				temp = newButton(letters[i].ToString());
 				//temp.Click += Button_Click_1;
 				panel.Children.Add(temp);
 			}
-			temp = new Button()
-			{
-				Content = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,  // dot for current culture
-				Visibility = Visibility.Visible,
-				IsTabStop = false,
-				MinWidth = 0,
-				MinHeight = 0,
-				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
-				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
-				Padding = new Thickness(0, 0, 0, 0),
-				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
-				Margin = new Thickness(0, marg_top, 0, marg_bot)
-			};
+			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 			//temp.Click += Button_Click_Dot;
 			//temp.SizeChanged += Buttons_SizeChanged;
 			panel.Children.Add(temp);
-			panel.Children.Add(new Button()
-			{
-				Content = "<-",
-				Visibility = Visibility.Visible,
-				IsTabStop = false,
-				MinWidth = 0,
-				MinHeight = 0,
-				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
-				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
-				Padding = new Thickness(0, 0, 0, 0),
-				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
-				Margin = new Thickness(0, marg_top, 0, marg_bot)
-			});
+			panel.Children.Add(newButton("<-"));
 			visibleCount = panel.Children.Count-2;
 		}
 
