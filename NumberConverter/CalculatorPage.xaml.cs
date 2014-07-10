@@ -82,6 +82,7 @@ namespace NumberConverter
 			TextBoxToComboBox.Add(Result, To);
 			DataContext = this;
 
+
 #if WINDOWS_PHONE_APP
 			int marg_up = -6;
 			Button_Plus.Margin = new Thickness(0, marg_up, 0, 0);
@@ -95,7 +96,7 @@ namespace NumberConverter
 
 		public void CreateKeyboard(Panel panel)
 		{
-			keyboard = new Keyboard(panel);
+			keyboard = new Keyboard(panel, this.Resources["ButtonStyle1"] as Style);
 			for (int i = 0; i < panel.Children.Count - 2; i++)
 			{
 				((Button) (panel.Children[i])).Click += Button_Click_1;
@@ -590,6 +591,7 @@ namespace NumberConverter
 				//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
 			}
 			InputText.Focus(FocusState.Programmatic);
+			suspendPage = null;
 		}
 	}
 }

@@ -40,80 +40,29 @@ namespace NumberConverter
 		public static void InputText_KeyUp(object sender, KeyRoutedEventArgs e, int fromBase)
 		{
 			var textbox = ((TextBox)sender);
-			switch (e.Key)
+			int value = -1;
+			if (e.Key >= VirtualKey.Number0 && e.Key <= VirtualKey.Number9)
 			{
-				case VirtualKey.NumberPad0:
-				case VirtualKey.Number0:
-					if (0 < fromBase)
-						textbox.Text += "0";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad1:
-				case VirtualKey.Number1:
-					if (1 < fromBase)
-						textbox.Text += "1";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad2:
-				case VirtualKey.Number2:
-					if (2 < fromBase)
-						textbox.Text += "2";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad3:
-				case VirtualKey.Number3:
-					if (3 < fromBase)
-						textbox.Text += "3";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad4:
-				case VirtualKey.Number4:
-					if (4 < fromBase)
-						textbox.Text += "4";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad5:
-				case VirtualKey.Number5:
-					if (5 < fromBase)
-						textbox.Text += "5";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad6:
-				case VirtualKey.Number6:
-					if (6 < fromBase)
-						textbox.Text += "6";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad7:
-				case VirtualKey.Number7:
-					if (7 < fromBase)
-						textbox.Text += "7";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad8:
-				case VirtualKey.Number8:
-					if (8 < fromBase)
-						textbox.Text += "8";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.NumberPad9:
-				case VirtualKey.Number9:
-					if (9 < fromBase)
-						textbox.Text += "9";
-					else
-						e.Handled = true;
-					break;
-				case VirtualKey.Back: SharePages.Backspace(textbox); break;
+				value = (int)e.Key - 48;
+				
 			}
+			if (e.Key >= VirtualKey.NumberPad0 && e.Key <= VirtualKey.NumberPad9)
+			{
+				value = (int) e.Key - 96;
+			}
+			if (e.Key >= VirtualKey.A && e.Key <= VirtualKey.Z)
+			{
+				value = (int) e.Key - 55;
+			}
+			if (value >= 0 && value < fromBase)
+			{
+				textbox.Text += Keyboard.letters[value];
+				e.Handled = true;
+			}
+
+			if (e.Key == VirtualKey.Back)
+				Backspace(textbox);
+			
 			if (e.Key == VirtualKey.Decimal && textbox.Text.IndexOf(LongDouble.Splitter) < 0)
 				textbox.Text += LongDouble.Splitter;
 			textbox.Select(textbox.Text.Length, 0);
@@ -121,31 +70,33 @@ namespace NumberConverter
 
 		public static void AddTextTextBox(string text, TextBox inputText)
 		{
-			inputText.Focus(Windows.UI.Xaml.FocusState.Programmatic); //got focus for textbox
-			var x = inputText.SelectionStart; //временное запоминание
-			inputText.Text = inputText.Text.Insert(inputText.SelectionStart, text);
-			inputText.SelectionStart = x + text.Length; // set caret in the end of pasted
+			//inputText.Focus(Windows.UI.Xaml.FocusState.Programmatic); //got focus for textbox
+			//var x = inputText.SelectionStart; //временное запоминание
+			//inputText.Text = inputText.Text.Insert(inputText.SelectionStart, text);
+			//inputText.SelectionStart = x + text.Length; // set caret in the end of pasted
+			//inputText.SelectedText = String.Empty;
+			inputText.Text += text;
 		}
 
-		public static void ResizeFontTextBox(TextBox textBox)
+		public static void ResizeFontTextBox(TextBox textBox, double fontScale)
 		{
 			//if (x.Height == double.NaN)
-			var statView = ApplicationView.GetForCurrentView();
-			if (statView.IsFullScreen)
-			{
+			//var statView = ApplicationView.GetForCurrentView();
+			//if (statView.IsFullScreen)
+			//{
 				textBox.TextWrapping = TextWrapping.Wrap;
-				textBox.FontSize = textBox.ActualHeight * 0.35;
-			}
-			else
-			{
-				textBox.TextWrapping = TextWrapping.Wrap;
-				textBox.FontSize = textBox.ActualHeight * 0.35;
-			}
+				textBox.FontSize = textBox.ActualHeight * fontScale;
+			//}
+			//else
+			//{
+			//	textBox.TextWrapping = TextWrapping.Wrap;
+			//	textBox.FontSize = textBox.ActualHeight * 0.35;
+			//}
 		}
 
 		public static void ScaleText(ComboBox element, double newHeight)
 		{
-			element.FontSize = (newHeight) * 0.5;
+			element.FontSize = (newHeight) * 0.4;
 		}
 	}
 }

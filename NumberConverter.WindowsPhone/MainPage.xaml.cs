@@ -168,7 +168,7 @@ namespace NumberConverter
 		private void Result_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 
-			SharePages.ResizeFontTextBox((TextBox)sender);
+			SharePages.ResizeFontTextBox((TextBox)sender, );
 		}
 				
 		private void Buttons_SizeChanged(object sender, SizeChangedEventArgs e)

@@ -26,10 +26,10 @@ namespace NumberConverter
 		int marg_bot = 0;
 		int marg_top = 0;
 
-		public Keyboard(Panel panel)
+		public Keyboard(Panel panel, Style style)
 		{
 			this.panel = panel;
-			CreateKeyboard(this.panel);
+			CreateKeyboard(this.panel, style);
 		}
 
 		Button newButton(string text)
@@ -44,7 +44,6 @@ namespace NumberConverter
 				MaxHeight = 1000,
 				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
 				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
-				Background = new SolidColorBrush(col),
 				BorderThickness = new Thickness(0),
 				Padding = new Thickness(0, 0, 0, 0),
 				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center,
@@ -52,9 +51,10 @@ namespace NumberConverter
 			};
 		}
 
-		public void CreateKeyboard(Panel panel)
+		public const  string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		public void CreateKeyboard(Panel panel, Style style)
 		{
-			string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			
 			Button temp;
 
 #if WINDOWS_PHONE_APP
@@ -62,17 +62,22 @@ namespace NumberConverter
 			marg_top = -15;
 #endif
 			col = Color.FromArgb(0xff, 0x3f, 0x3f, 0x3f);
+
 			for (int i = 0; i < 36; i++)
 			{
 				temp = newButton(letters[i].ToString());
+				temp.Style = style;
 				//temp.Click += Button_Click_1;
 				panel.Children.Add(temp);
 			}
 			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+			temp.Style = style;
 			//temp.Click += Button_Click_Dot;
 			//temp.SizeChanged += Buttons_SizeChanged;
 			panel.Children.Add(temp);
-			panel.Children.Add(newButton("<-"));
+			temp = newButton("<-");
+			temp.Style = style;
+			panel.Children.Add(temp);
 			visibleCount = panel.Children.Count-2;
 		}
 
