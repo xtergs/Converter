@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="eedf6fc6-eccf-421c-9bb8-aa1a5b0d2a35" Publisher="CN=Artem_01" Version="0.3.0.7" />
+  <Identity Name="eedf6fc6-eccf-421c-9bb8-aa1a5b0d2a35" Publisher="CN=Artem_01" Version="0.3.0.8" />
   <Properties>
     <DisplayName>NumberConverter</DisplayName>
     <PublisherDisplayName>Artem</PublisherDisplayName>
