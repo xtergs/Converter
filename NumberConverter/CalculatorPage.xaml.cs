@@ -66,6 +66,7 @@ namespace NumberConverter
 
 		private ComboBox parentFlyout;
 		private Dictionary<FrameworkElement, FrameworkElement> TextBoxToComboBox;
+		private double scaleFontTextBox;
 
 		public BlankPage1()
 		{
@@ -96,7 +97,7 @@ namespace NumberConverter
 
 		public void CreateKeyboard(Panel panel)
 		{
-			keyboard = new Keyboard(panel, this.Resources["ButtonStyle1"] as Style);
+			keyboard = new Keyboard(panel, Application.Current.Resources["ButtonStyle1"] as Style);
 			for (int i = 0; i < panel.Children.Count - 2; i++)
 			{
 				((Button) (panel.Children[i])).Click += Button_Click_1;
@@ -225,17 +226,17 @@ namespace NumberConverter
 		{
 
 			var x = ((TextBox) sender);
-			var statView = ApplicationView.GetForCurrentView();
-			if (statView.IsFullScreen && statView.Orientation == ApplicationViewOrientation.Landscape)
-			{
+			//var statView = ApplicationView.GetForCurrentView();
+			//if (statView.IsFullScreen && statView.Orientation == ApplicationViewOrientation.Landscape)
+			//{
+			//}
+			//else
+			//{
+			//	x.TextWrapping = TextWrapping.NoWrap;
+			//	x.FontSize = x.ActualHeight*0.8;
+			//}
 				x.TextWrapping = TextWrapping.Wrap;
-				x.FontSize = x.ActualHeight*0.4;
-			}
-			else
-			{
-				x.TextWrapping = TextWrapping.NoWrap;
-				x.FontSize = x.ActualHeight*0.8;
-			}
+				x.FontSize = x.ActualHeight*scaleFontTextBox;
 		}
 
 		private void Button_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -381,6 +382,7 @@ namespace NumberConverter
 
 		private void From_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
+			if(e.NewSize.Height > 0)
 			((ComboBox) sender).FontSize = (e.NewSize.Height)*0.7;
 		}
 
@@ -457,24 +459,264 @@ namespace NumberConverter
 
 		private void CalculatorPage_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
+			//var statView = ApplicationView.GetForCurrentView();
+			//if (statView.IsFullScreen)
+			//	if (statView.Orientation == ApplicationViewOrientation.Landscape)
+			//	{
+			//		MainGrid.Margin = new Thickness(0, 0, 0, 0);
+			//		Grid.SetColumn(Buttons_operation, 1);
+			//		Grid.SetColumnSpan(Buttons_operation, 1);
+			//	}
+			//	else //full screen portrait
+			//	{
+			//		MainGrid.Margin = new Thickness(0, 0, 0, 0);
+			//		Grid.SetColumn(Buttons_operation, 0);
+			//		Grid.SetColumnSpan(Buttons_operation, 3);
+			//	}
+			//else
+			//{
+			//	MainGrid.Margin = new Thickness(0, 0, 0, 0);
+			//}
+
 			var statView = ApplicationView.GetForCurrentView();
 			if (statView.IsFullScreen)
-				if (statView.Orientation == ApplicationViewOrientation.Landscape)
+				if (statView.Orientation == ApplicationViewOrientation.Landscape)  //FullScreen and Landscape
 				{
-					MainGrid.Margin = new Thickness(0, 0, 0, 0);
-					Grid.SetColumn(Buttons_operation, 1);
-					Grid.SetColumnSpan(Buttons_operation, 1);
+					var marginComboBox = new Thickness(20, 10, 20, 60);
+					var marginTextBox = new Thickness(20, 10, 20, 40);
+					var marginKeyboard = new Thickness(20, 10, 20, 60);
+					var marginOperat = new Thickness(20, 10, 20, 10);
+
+					MainGrid.RowDefinitions[1].Height = new GridLength(2, GridUnitType.Star);
+					MainGrid.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[3].Height = new GridLength(2, GridUnitType.Star);
+					MainGrid.RowDefinitions[4].Height = new GridLength(2, GridUnitType.Star);
+					MainGrid.RowDefinitions[5].Height = GridLength.Auto;
+					MainGrid.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+
+					InputTextGrid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 1);
+					InputText.Margin = marginTextBox;
+
+					From.Margin = marginComboBox;
+
+					InputText2Grid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 1);
+					InputText2.Margin = marginTextBox;
+
+					From2.Margin = marginComboBox;
+
+					ResultGrid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);
+					//Grid.SetRow(Result, 3);
+					//Grid.SetRowSpan(Result, 2);
+					//Grid.SetColumnSpan(Result, 2);
+					Result.Margin = marginTextBox;
+
+					//Grid.SetRow(To, 3);
+					//Grid.SetRowSpan(To, 1);
+					To.Margin = marginComboBox;
+
+					Buttons_operation.Margin = marginOperat;
+
+					//Grid.SetRow(sizeKeyboard, 1);
+					//Grid.SetRowSpan(sizeKeyboard, 5);
+					//Grid.SetColumn(sizeKeyboard, 3);
+					//Grid.SetColumnSpan(sizeKeyboard, 2);
+					Grid.SetRow(sizeKeyboard, 1);
+					Grid.SetColumn(sizeKeyboard, 3);
+					sizeKeyboard.Margin = marginKeyboard;
+
+					Grid.SetColumn(MenuGrid, 1);
+
+					//InputText.Margin = new Thickness(10, 10, 10, 60);
+					//From.Margin = new Thickness(10, 40, 10, 60);
+					//Result.Margin = new Thickness(10, 10, 10, 60);
+					//To.Margin = new Thickness(10, 40, 10, 60);
+					//sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
+					//MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
+					scaleFontTextBox = 0.35;
+					//		//MainGrid.Margin = new Thickness(10, 10, 10, 10);
+					//		Grid.SetColumnSpan(From, 1);
+					//		Grid.SetRow(InputText, 1);
+					//		Grid.SetColumn(InputText, 1);
+					//		Grid.SetRow(To, 2);
+					//		Grid.SetRowSpan(To, 1);
+					//		Grid.SetColumn(To, 0);
+					//		Grid.SetColumnSpan(To, 1);
+					//		//To.Margin = new Thickness(0, 0, 0, 0);
+					//		//To.Height = double.NaN;
+					//		//To.Width = double.NaN;
+					//		Grid.SetRow(Result, 2);
+					//		Grid.SetColumn(Result, 1);
+					//		Grid.SetRow(sizeKeyboard, 3);
+					//		Grid.SetRowSpan(sizeKeyboard, 4);
+					//		Grid.SetRow((FrameworkElement)Buttons, 3);
+					//		Grid.SetRowSpan((FrameworkElement)Buttons, 4);
 				}
-				else //full screen portrait
+				else     //FullScreen and Portrate
 				{
-					MainGrid.Margin = new Thickness(0, 0, 0, 0);
-					Grid.SetColumn(Buttons_operation, 0);
-					Grid.SetColumnSpan(Buttons_operation, 3);
+					//	//	MainGrid.Margin = new Thickness(10, 50, 10, 50);
+					//		Grid.SetColumnSpan(From, 2);
+					//		Grid.SetRow(InputText, 2);
+					//		Grid.SetColumn(InputText, 0);
+					//		Grid.SetRow(To, 1);
+					//		Grid.SetColumn(To, 3);
+					//		Grid.SetColumnSpan(To, 2);
+
+					//		//To.Margin = new Thickness(0, 0, 0, 0);
+					//		//To.Height = double.NaN;
+					//		//To.Width = double.NaN;
+					//		Grid.SetRow(Result, 3);
+					//		Grid.SetColumn(Result, 0);
+					//		Grid.SetRow(sizeKeyboard, 4);
+					//		Grid.SetRowSpan(sizeKeyboard, 1);
+					//		Grid.SetRow((FrameworkElement)Buttons, 4);
+					//		Grid.SetRowSpan((FrameworkElement)Buttons, 1);
 				}
-			else
+			else  // not full screen
 			{
-				MainGrid.Margin = new Thickness(0, 0, 0, 0);
+				if ((this.ActualWidth <= 510 && ActualWidth >= 490) || (statView.Orientation == ApplicationViewOrientation.Portrait && statView.IsFullScreen))
+				{
+					var marginComboBox = new Thickness(5, 40, 5, 60);
+					var marginTextBox = new Thickness(5, 10, 5, 10);
+					var marginKeyboard = new Thickness(5, 10, 5, 10);
+					var marginOperat = new Thickness(5, 10, 5, 10);
+
+					MainGrid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[3].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[4].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[5].Height = new GridLength(2, GridUnitType.Star);
+					MainGrid.ColumnDefinitions[2].Width = GridLength.Auto;
+
+					InputTextGrid.RowDefinitions[1].Height = GridLength.Auto;
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 1);
+					InputText.Margin = marginTextBox;
+
+					From.Margin = marginComboBox;
+
+					InputText2Grid.RowDefinitions[1].Height = GridLength.Auto;
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 1);
+					InputText2.Margin = marginTextBox;
+
+					From2.Margin = marginComboBox;
+
+					ResultGrid.RowDefinitions[1].Height = GridLength.Auto;
+					//Grid.SetRow(Result, 3);
+					//Grid.SetRowSpan(Result, 2);
+					//Grid.SetColumnSpan(Result, 2);
+					Result.Margin = marginTextBox;
+
+					//Grid.SetRow(To, 3);
+					//Grid.SetRowSpan(To, 1);
+					To.Margin = marginComboBox;
+
+					Buttons_operation.Margin = marginOperat;
+
+					//Grid.SetRow(sizeKeyboard, 1);
+					//Grid.SetRowSpan(sizeKeyboard, 5);
+					//Grid.SetColumn(sizeKeyboard, 3);
+					//Grid.SetColumnSpan(sizeKeyboard, 2);
+					Grid.SetRow(sizeKeyboard, 5);
+					Grid.SetColumn(sizeKeyboard, 0);
+					sizeKeyboard.Margin = marginKeyboard;
+
+					Grid.SetColumn(MenuGrid, 0);
+
+					//InputText.Margin = new Thickness(10, 10, 10, 60);
+					//From.Margin = new Thickness(10, 40, 10, 60);
+					//Result.Margin = new Thickness(10, 10, 10, 60);
+					//To.Margin = new Thickness(10, 40, 10, 60);
+					//sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
+					//MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
+					//scaleFontTextBox = 0.25;
+					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					scaleFontTextBox = 0.25;
+				}
+				else
+				{
+					var marginComboBox = new Thickness(5, 10, 5, 60);
+					var marginTextBox = new Thickness(5, 5, 5, 40);
+					var marginKeyboard = new Thickness(5, 5, 5, 40);
+					var marginOperat = new Thickness(5, 5, 5, 5);
+
+					MainGrid.RowDefinitions[1].Height = new GridLength(2, GridUnitType.Star);
+					MainGrid.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[3].Height = new GridLength(2, GridUnitType.Star);
+					MainGrid.RowDefinitions[4].Height = new GridLength(2, GridUnitType.Star);
+					MainGrid.RowDefinitions[5].Height = GridLength.Auto;
+					MainGrid.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+
+					InputTextGrid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 1);
+					InputText.Margin = marginTextBox;
+
+					From.Margin = marginComboBox;
+
+					InputText2Grid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 1);
+					InputText2.Margin = marginTextBox;
+
+					From2.Margin = marginComboBox;
+
+					ResultGrid.RowDefinitions[1].Height = new GridLength(0.5, GridUnitType.Star);
+					//Grid.SetRow(Result, 3);
+					//Grid.SetRowSpan(Result, 2);
+					//Grid.SetColumnSpan(Result, 2);
+					Result.Margin = marginTextBox;
+
+					//Grid.SetRow(To, 3);
+					//Grid.SetRowSpan(To, 1);
+					To.Margin = marginComboBox;
+
+					Buttons_operation.Margin = marginOperat;
+
+					//Grid.SetRow(sizeKeyboard, 1);
+					//Grid.SetRowSpan(sizeKeyboard, 5);
+					//Grid.SetColumn(sizeKeyboard, 3);
+					//Grid.SetColumnSpan(sizeKeyboard, 2);
+					Grid.SetRow(sizeKeyboard, 1);
+					Grid.SetColumn(sizeKeyboard, 3);
+					sizeKeyboard.Margin = marginKeyboard;
+
+					Grid.SetColumn(MenuGrid, 1);
+
+					//InputText.Margin = new Thickness(10, 10, 10, 60);
+					//From.Margin = new Thickness(10, 40, 10, 60);
+					//Result.Margin = new Thickness(10, 10, 10, 60);
+					//To.Margin = new Thickness(10, 40, 10, 60);
+					//sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
+					//MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
+					scaleFontTextBox = 0.35;
+				}
+
+
+				////	MainGrid.Margin = new Thickness(10, 50, 10, 50);
+				//	Grid.SetColumnSpan(From, 2);
+				//	Grid.SetRow(InputText, 2);
+				//	Grid.SetColumn(InputText, 0);
+				//	Grid.SetRow(To, 1);
+				//	Grid.SetColumn(To, 3);
+				//	Grid.SetColumnSpan(To, 2);
+
+				//	//To.Margin = new Thickness(0, 0, 0, 0);
+				//	//To.Height = double.NaN;
+				//	//To.Width = double.NaN;
+				//	Grid.SetRow(Result, 3);
+				//	Grid.SetColumn(Result, 0);
+				//	Grid.SetRow(sizeKeyboard, 4);
+				//	Grid.SetRowSpan(sizeKeyboard, 1);
+				//	Grid.SetRow((FrameworkElement)Buttons, 4);
+				//	Grid.SetRowSpan((FrameworkElement)Buttons, 1);
 			}
+			////VisualStateManager.GoToState(this, "FullScreenLandscape", true);
+			
 		}
 
 		private void Buttons_operation_SizeChanged(object sender, SizeChangedEventArgs e)

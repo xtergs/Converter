@@ -675,4 +675,9 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="BorderStyle1" TargetType="Border">
+        <Setter Property="BorderThickness" Value="0,3,0,3"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource BlueThemeColorBrush}"/>
+    </Style>
 </ResourceDictionary>
