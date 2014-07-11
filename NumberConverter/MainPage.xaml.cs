@@ -214,8 +214,8 @@ namespace NumberConverter
 					Grid.SetColumn(MenuGrid, 1);
 
 					InputText.Margin = new Thickness(10, 20, 10, 60);
-					From.Margin = new Thickness(20, 40, 20, 60);
 					Result.Margin = new Thickness(10, 10, 10, 60);
+					From.Margin = new Thickness(20, 40, 20, 60);
 					To.Margin = new Thickness(20, 40, 20, 60);
 					sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
@@ -257,8 +257,8 @@ namespace NumberConverter
 					Grid.SetColumn(MenuGrid, 0);
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
-					From.Margin = new Thickness(5, 40, 5, 60);
 					Result.Margin = new Thickness(5, 5, 5, 5);
+					From.Margin = new Thickness(5, 40, 5, 60);
 					To.Margin = new Thickness(5, 40, 5, 60);
 					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
