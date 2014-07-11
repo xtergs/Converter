@@ -172,12 +172,12 @@ namespace Converter
 			//return result.ToUpper();
 		}
 
-		static void Validate(uint baseIn, string str)
-		{
-			for (int i = 0; i < str.Length; i++)
-				if (str[i] != '.' && letters[str[i]] >= baseIn )
-					throw BaseException("Digit in number >= base");
-		}
+		//static void Validate(uint baseIn, string str)
+		//{
+		//	for (int i = 0; i < str.Length; i++)
+		//		if (str[i] != '.' && letters[str[i]] >= baseIn )
+		//			throw BaseException("Digit in number >= base");
+		//}
 
 		static void Validate(uint baseIn, LongDouble value)
 		{
@@ -185,100 +185,100 @@ namespace Converter
 				throw BaseException("Digit in number >= base");
 		}
 
-		static string ConvertToDecictimal(uint baseIn, string strIn)
-		{
-			int posSeper = strIn.IndexOf('.');
-			if (posSeper < 0)
-				posSeper = strIn.Length;
-			ulong outValue = 0;
-			for (int i = posSeper - 1,  j = 0; i >= 0; i--, j++ )
-			{
-				if (letters[strIn[i]] >= baseIn)
-					throw BaseException("Digit in number >= base");
-				outValue += (ulong)(letters[strIn[i]] * Math.Pow(baseIn, j));
-			}
-			double outValueDr = 0;
-			for (int i = posSeper + 1, j = -1; i < strIn.Length; i++, j--)
-			{
-				if (letters[strIn[i]] >= baseIn)
-					throw BaseException("Digit in number >= base");
-				outValueDr += (letters[strIn[i]] * Math.Pow(baseIn, j));
-			}
-			string returnStr = outValue.ToString();
-			if (outValueDr > 0)
-			{
-				var x = outValueDr.ToString();
-				var d = x.Skip(2);
-				returnStr += '.'; ;
-				foreach (var a in x.Skip(2))
-				{
-					returnStr += a.ToString();
-				}
-			}
-			return returnStr;
-		}
+		//static string ConvertToDecictimal(uint baseIn, string strIn)
+		//{
+		//	int posSeper = strIn.IndexOf('.');
+		//	if (posSeper < 0)
+		//		posSeper = strIn.Length;
+		//	ulong outValue = 0;
+		//	for (int i = posSeper - 1,  j = 0; i >= 0; i--, j++ )
+		//	{
+		//		if (letters[strIn[i]] >= baseIn)
+		//			throw BaseException("Digit in number >= base");
+		//		outValue += (ulong)(letters[strIn[i]] * Math.Pow(baseIn, j));
+		//	}
+		//	double outValueDr = 0;
+		//	for (int i = posSeper + 1, j = -1; i < strIn.Length; i++, j--)
+		//	{
+		//		if (letters[strIn[i]] >= baseIn)
+		//			throw BaseException("Digit in number >= base");
+		//		outValueDr += (letters[strIn[i]] * Math.Pow(baseIn, j));
+		//	}
+		//	string returnStr = outValue.ToString();
+		//	if (outValueDr > 0)
+		//	{
+		//		var x = outValueDr.ToString();
+		//		var d = x.Skip(2);
+		//		returnStr += '.'; ;
+		//		foreach (var a in x.Skip(2))
+		//		{
+		//			returnStr += a.ToString();
+		//		}
+		//	}
+		//	return returnStr;
+		//}
 
 		private static Exception BaseException(string p)
 		{
 			throw new Exception(p);
 		}
 
-		static string ConvertFromDecictimal(string strIn, uint baseOut)
-		{
-			int posSeper = strIn.IndexOf('.');
-			double res;
-			string returnStr = "";
+		//static string ConvertFromDecictimal(string strIn, uint baseOut)
+		//{
+		//	int posSeper = strIn.IndexOf('.');
+		//	double res;
+		//	string returnStr = "";
 
-			// convert decimital part	
-			if (posSeper >=0)
-			{
+		//	// convert decimital part	
+		//	if (posSeper >=0)
+		//	{
 				
 
-				double dres = 0;
-				if (posSeper != strIn.Length)
-					if (double.TryParse("0." + strIn.Substring(posSeper + 1), out dres))
-					{
-						for (int i = 0; i < countLoop; i++)
-						{
-							if (dres == 0)
-								break;
-							var a = dres * baseOut;
-							int b = (int)a;
-							returnStr = revletters[b] + returnStr;
-							dres = a - b;
-						}
-					}
-				returnStr += '.';
-			}
-			int pos = 0;
-			if (posSeper < 0)
-				pos = strIn.Length;
-			else
-				pos = posSeper;
-			// convert int part
-			if ((res = double.Parse(strIn.Substring(0, pos))) > 0) 
-			{								
-				double rres = 0;									//int != 0
-				while (res >= baseOut)
-				{
-					rres = Math.Floor(res / baseOut);
-					returnStr += revletters[(int)(res - rres * baseOut)];
-					res = rres;
-				}
-				returnStr = returnStr + revletters[(int)res];
-			}
-			else
-				returnStr += "0";		// int == 0
-			var temp = returnStr.ToCharArray();
+		//		double dres = 0;
+		//		if (posSeper != strIn.Length)
+		//			if (double.TryParse("0." + strIn.Substring(posSeper + 1), out dres))
+		//			{
+		//				for (int i = 0; i < countLoop; i++)
+		//				{
+		//					if (dres == 0)
+		//						break;
+		//					var a = dres * baseOut;
+		//					int b = (int)a;
+		//					returnStr = revletters[b] + returnStr;
+		//					dres = a - b;
+		//				}
+		//			}
+		//		returnStr += '.';
+		//	}
+		//	int pos = 0;
+		//	if (posSeper < 0)
+		//		pos = strIn.Length;
+		//	else
+		//		pos = posSeper;
+		//	// convert int part
+		//	if ((res = double.Parse(strIn.Substring(0, pos))) > 0) 
+		//	{								
+		//		double rres = 0;									//int != 0
+		//		while (res >= baseOut)
+		//		{
+		//			rres = Math.Floor(res / baseOut);
+		//			returnStr += revletters[(int)(res - rres * baseOut)];
+		//			res = rres;
+		//		}
+		//		returnStr = returnStr + revletters[(int)res];
+		//	}
+		//	else
+		//		returnStr += "0";		// int == 0
+		//	var temp = returnStr.ToCharArray();
+		////	temp = temp.Reverse().ToArray<char>();
+		//	if (returnStr.IndexOf('.') > 0)
+		//		temp = temp.SkipWhile((char a) => { return a == '0'; }).ToArray<char>();
+		//	if (temp[0] == '.')
+		//		temp = temp.SkipWhile((char a) => { return a== '.';}).ToArray<char>();
 		//	temp = temp.Reverse().ToArray<char>();
-			if (returnStr.IndexOf('.') > 0)
-				temp = temp.SkipWhile((char a) => { return a == '0'; }).ToArray<char>();
-			if (temp[0] == '.')
-				temp = temp.SkipWhile((char a) => { return a== '.';}).ToArray<char>();
-			temp = temp.Reverse().ToArray<char>();
-			temp = temp.SkipWhile((char a) => { return a == '0'; }).ToArray<char>();
-			return new string(temp);
-		}
+		//	temp = temp.SkipWhile((char a) => { return a == '0'; }).ToArray<char>();
+		//	return new string(temp);
+		//}
 
 		//static int[] GetIntArray(string strIn)
 		//{

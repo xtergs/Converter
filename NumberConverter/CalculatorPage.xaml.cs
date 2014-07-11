@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -155,7 +156,9 @@ namespace NumberConverter
 				{
 					if (slag2.Integer == "0" && slag2.Fraction == "0")
 					{
-						return "Нou can not divide by zero";
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("DivideByZero");
+						//return "You can not divide by zero";
 					}
 					slag = (slag/slag2);
 					break;
@@ -808,13 +811,6 @@ namespace NumberConverter
 
 		private void CalculatorPage_Loaded(object sender, RoutedEventArgs e)
 		{
-#if DEBUG
-			FromBase = 2;
-			FromBase2 = 2;
-			ToBase = 2;
-			InputText.Text = "2.2";
-			InputText2.Text = "2";
-#endif
 			if (suspendPage != null)
 			{
 				FromBase = suspendPage.indexFrom;
@@ -831,9 +827,9 @@ namespace NumberConverter
 				InputText2.Text = suspendPage.InputText2;
 				Calculate();
 				//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
+				suspendPage = null;
 			}
 			InputText.Focus(FocusState.Programmatic);
-			suspendPage = null;
 		}
 	}
 }

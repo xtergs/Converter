@@ -121,6 +121,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <PRIResource Include="Languages\ru-Ru\Resources.resw" />
     <None Include="NumberConverter_TemporaryKey.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
