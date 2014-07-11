@@ -7,14 +7,26 @@
     xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
     xmlns:Controls="using:NumberConverter.WinRTXamlToolkit.Controls"
     x:Class="NumberConverter.MainPage"
-    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded">
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" GotFocus="Page_GotFocus">
     <Page.Resources>
         <!--<ResourceDictionary Source="Resource/DarkBlue.xaml"></ResourceDictionary>-->
         
     </Page.Resources>
 
     <Grid  Style="{StaticResource GridStyle1}" Margin="0,0,0,0">
-        <Grid x:Name="MainGrid"  Style="{StaticResource GridStyle1}" Margin="10,10,10,10" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="MenuGrid"  HorizontalAlignment="Left" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <HyperlinkButton x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" BorderBrush="Transparent" Style="{ThemeResource HyperlinkButtonStyle1}" SizeChanged="HyperlinkButton_SizeChanged" Grid.Column="1"/>
+            <HyperlinkButton x:Uid="Converter" Content="Converter" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="HyperlinkButton_Click" GotFocus="Button_GotFocus" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="0" BorderBrush="Transparent" Style="{ThemeResource HyperlinkButtonStyle1}" SizeChanged="HyperlinkButton_SizeChanged" IsEnabled="False"/>
+        </Grid>
+        <Grid x:Name="MainGrid"   Style="{StaticResource GridStyle1}" Margin="10,10,10,10" Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.5*"/>
@@ -23,23 +35,16 @@
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Grid x:Name="MenuGrid" Grid.ColumnSpan="5" HorizontalAlignment="Left" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <HyperlinkButton x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="1" BorderBrush="Transparent" Style="{ThemeResource HyperlinkButtonStyle1}" SizeChanged="HyperlinkButton_SizeChanged"/>
-                <HyperlinkButton x:Uid="Converter" Content="Converter" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="HyperlinkButton_Click" GotFocus="Button_GotFocus" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="0" BorderBrush="Transparent" Style="{ThemeResource HyperlinkButtonStyle1}" SizeChanged="HyperlinkButton_SizeChanged"/>
-            </Grid>
+            
 
-            <TextBox x:Uid="Result" x:Name="Result"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2"/>
+            <TextBox x:Uid="Result" x:Name="Result"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             <ComboBox x:Name="To" SelectedIndex="{Binding Path=ToBase, Mode=TwoWay, FallbackValue=0}" SelectionChanged="To_SelectionChanged" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
@@ -124,7 +129,7 @@
             </ComboBox>
 
             <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="5" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="5,10,5,60" Grid.Column="3" Grid.RowSpan="4">
-                <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0" SizeChanged="Buttons_SizeChanged_1"/>
+                <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0" SizeChanged="Buttons_SizeChanged_1" VerticalAlignment="Bottom"/>
             </Border>
 
             <ComboBox x:Name="From" SelectedIndex="{Binding Path=FromBase, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" MinWidth="109" Margin="5,50" Grid.Row="1" RightTapped="From_RightTapped" CacheMode="BitmapCache" Style="{ThemeResource  ComboBoxStyle1}">
@@ -215,7 +220,7 @@
                     </Flyout>
                 </FlyoutBase.AttachedFlyout>
             </ComboBox>
-            <TextBox x:Uid="InputText" x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="2" Margin="5,10,5,60" Header="" Grid.Row="1" Tapped="InputText_Tapped" GotFocus="InputText_GotFocus" SelectionChanged="InputText_SelectionChanged" PointerReleased="InputText_PointerReleased" KeyUp="InputText_KeyUp" PreventKeyboardDisplayOnProgrammaticFocus="True" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" />
+            <TextBox x:Uid="InputText" x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="2" Margin="5,10,5,60" Header="" Grid.Row="1" Tapped="InputText_Tapped" GotFocus="InputText_GotFocus" SelectionChanged="InputText_SelectionChanged" PointerReleased="InputText_PointerReleased" KeyUp="InputText_KeyUp" PreventKeyboardDisplayOnProgrammaticFocus="True" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" LostFocus="InputText_LostFocus" />
             <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Click="Button_Click_5" GotFocus="Button_GotFocus" IsTabStop="False" Grid.Column="2" Padding="12,4" MinWidth="0" MinHeight="0" Visibility="Collapsed">
                 <ToolTipService.ToolTip>
                     <TextBlock Text="Calculator" />
@@ -236,12 +241,7 @@
         <VisualStateGroup x:Name="ApplicationViewStates">
             <VisualState x:Name="FullScreenLandscape">
                 <Storyboard >
-                    <ObjectAnimationUsingKeyFrames 
-                        Storyboard.TargetName="From"
-                        Storyboard.TargetProperty="Grid.Row">
-                        <DiscreteObjectKeyFrame KeyTime="0"
-                                                Value="1"/>
-                    </ObjectAnimationUsingKeyFrames>
+                    
                 </Storyboard>
             </VisualState>
             <VisualState x:Name="SnappedLandscape">
@@ -252,6 +252,12 @@
                         <DiscreteObjectKeyFrame KeyTime="0"
                                                 Value="5,5,5,5"/>
                     </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="From" Storyboard.TargetProperty="Margin">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="5,40,5,60"></DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="To" Storyboard.TargetProperty="Margin">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="5,40,5,60"></DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
                     <ObjectAnimationUsingKeyFrames 
                         Storyboard.TargetName="From"
                         Storyboard.TargetProperty="Margin">
@@ -259,7 +265,10 @@
                                                 Value="5,5,5,5"/>
                     </ObjectAnimationUsingKeyFrames>
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="sizeKeyboard" Storyboard.TargetProperty="Margin">
-                        <DiscreteObjectKeyFrame KeyTime="0" Value="5,5,5,5"/>
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="5,5,5,100"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="MainGrid" Storyboard.TargetProperty="ColumnDefinitions[0].Width">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="Auto"></DiscreteObjectKeyFrame>
                     </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
             </VisualState>

@@ -7,10 +7,16 @@
     xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
     xmlns:Controls="using:NumberConverter.WinRTXamlToolkit.Controls"
     x:Class="NumberConverter.MainPage"
-    mc:Ignorable="d" SizeChanged="Page_SizeChanged">
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" GotFocus="Page_GotFocus">
+    <Page.Resources>
+        <!--<ResourceDictionary Source="Resource/DarkBlue.xaml"></ResourceDictionary>-->
 
-    <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,0,0">
-        <Grid x:Name="MainGrid"  Background="Black" >
+      
+
+    </Page.Resources>
+
+    <Grid  Style="{StaticResource GridStyle1}" Margin="0,0,0,0">
+        <Grid x:Name="MainGrid"  Style="{StaticResource GridStyle1}" Margin="10,10,10,10" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="0.5*"/>
@@ -23,24 +29,20 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            
-                <Grid Grid.ColumnSpan="5" Background="#FF464646">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="2">
-                        <ToolTipService.ToolTip>
-                            <TextBlock Text="Calculator" />
-                        </ToolTipService.ToolTip>
-                    </Button>
-                </Grid>
-            
-            <TextBox x:Name="Result"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="5" Margin="0,10" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result"/>
-            <ComboBox x:Name="To" SelectedIndex="{Binding Path=ToBase, Mode=TwoWay, FallbackValue=0}" SelectionChanged="To_SelectionChanged" Grid.Column="3" Margin="0,9.714,1.143,9.857" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="1" Grid.ColumnSpan="2" RightTapped="From_RightTapped">
+
+            <Grid x:Name="MenuGrid" Grid.ColumnSpan="5" HorizontalAlignment="Left" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <HyperlinkButton x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="Button_Click_3" GotFocus="Button_GotFocus" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="1" BorderBrush="Transparent"  SizeChanged="HyperlinkButton_SizeChanged"/>
+                <HyperlinkButton x:Uid="Converter" Content="Converter" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Click="HyperlinkButton_Click" GotFocus="Button_GotFocus" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="0" BorderBrush="Transparent"  SizeChanged="HyperlinkButton_SizeChanged"/>
+            </Grid>
+
+            <TextBox x:Uid="Result" x:Name="Result"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <ComboBox x:Name="To" SelectedIndex="{Binding Path=ToBase, Mode=TwoWay, FallbackValue=0}" SelectionChanged="To_SelectionChanged" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
@@ -48,7 +50,7 @@
                 <ComboBoxItem Content="25"/>
                 <ComboBoxItem Content="36"/>
                 <FlyoutBase.AttachedFlyout>
-                    <Flyout Placement="Bottom" Opened="Flyout_Opened">
+                    <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{StaticResource FlyoutStyle1}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -61,7 +63,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
-                            <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" Foreground="Black" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{StaticResource ListBoxStyle1}">
                                 <ListBoxItem Content="2"/>
                                 <ListBoxItem Content="3"/>
                                 <ListBoxItem Content="4"/>
@@ -75,7 +77,7 @@
                                 <ListBoxItem Content="10"/>
                                 <ListBoxItem Content="11"/>-->
                             </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                 <ListBoxItem Content="11"/>
                                 <ListBoxItem Content="12"/>
                                 <ListBoxItem Content="13"/>
@@ -89,7 +91,7 @@
                                 <ListBoxItem Content="22"/>
                                 <ListBoxItem Content="23"/>-->
                             </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                 <ListBoxItem Content="20"/>
                                 <ListBoxItem Content="21"/>
                                 <ListBoxItem Content="22"/>
@@ -104,7 +106,7 @@
                                 <ListBoxItem Content="35"/>
                                 <ListBoxItem Content="36"/>-->
                             </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                 <ListBoxItem Content="29"/>
                                 <ListBoxItem Content="30"/>
                                 <ListBoxItem Content="31"/>
@@ -123,10 +125,11 @@
                 </FlyoutBase.AttachedFlyout>
             </ComboBox>
 
-            <Border x:Name="sizeKeyboard" Grid.Row="4" Grid.ColumnSpan="5" SizeChanged="sizeKeyboard_SizeChanged" Background="#FF323232" Margin="0,10.286,0.143,-0.429"/>
-            <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0" SizeChanged="Buttons_SizeChanged_1" Background="#FF3B2574" VerticalAlignment="Bottom"/>
+            <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="5" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="5,10,5,60" Grid.Column="3" Grid.RowSpan="4">
+                <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0" SizeChanged="Buttons_SizeChanged_1"/>
+            </Border>
 
-            <ComboBox x:Name="From" SelectedIndex="{Binding Path=FromBase, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" MinWidth="109" Margin="0,9.714,0,9.857" Grid.Row="1" RightTapped="From_RightTapped" Grid.ColumnSpan="2" CacheMode="BitmapCache">
+            <ComboBox x:Name="From" SelectedIndex="{Binding Path=FromBase, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" Margin="5,50" Grid.Row="1" RightTapped="From_RightTapped" CacheMode="BitmapCache" Style="{ThemeResource  ComboBoxStyle1}">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
@@ -140,7 +143,7 @@
                 <ComboBoxItem Content="25"/>
                 <ComboBoxItem Content="36"/>
                 <FlyoutBase.AttachedFlyout>
-                    <Flyout Placement="Bottom" Opened="Flyout_Opened">
+                    <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition/>
@@ -153,7 +156,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
-                            <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" Foreground="Black" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Grid.Row="1" FontSize="18"  BorderThickness="0,0,0,0"  SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                 <ListBoxItem Content="2"/>
                                 <ListBoxItem Content="3"/>
                                 <ListBoxItem Content="4"/>
@@ -167,7 +170,7 @@
                                 <ListBoxItem Content="10"/>
                                 <ListBoxItem Content="11"/>-->
                             </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                 <ListBoxItem Content="11"/>
                                 <ListBoxItem Content="12"/>
                                 <ListBoxItem Content="13"/>
@@ -181,7 +184,7 @@
                                 <ListBoxItem Content="22"/>
                                 <ListBoxItem Content="23"/>-->
                             </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                 <ListBoxItem Content="20"/>
                                 <ListBoxItem Content="21"/>
                                 <ListBoxItem Content="22"/>
@@ -196,7 +199,7 @@
                                 <ListBoxItem Content="35"/>
                                 <ListBoxItem Content="36"/>-->
                             </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged">
+                            <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                 <ListBoxItem Content="29"/>
                                 <ListBoxItem Content="30"/>
                                 <ListBoxItem Content="31"/>
@@ -214,13 +217,14 @@
                     </Flyout>
                 </FlyoutBase.AttachedFlyout>
             </ComboBox>
-            <TextBox x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="5" Margin="0,10.143,0,10" Header="" Grid.Row="2" Tapped="InputText_Tapped" GotFocus="InputText_GotFocus" SelectionChanged="InputText_SelectionChanged" PointerReleased="InputText_PointerReleased" KeyUp="InputText_KeyUp" PreventKeyboardDisplayOnProgrammaticFocus="True" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" />
+            <TextBox x:Uid="InputText" x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="2" Margin="5,10,5,60" Header="" Grid.Row="1" Tapped="InputText_Tapped" GotFocus="InputText_GotFocus" SelectionChanged="InputText_SelectionChanged" PointerReleased="InputText_PointerReleased" KeyUp="InputText_KeyUp" PreventKeyboardDisplayOnProgrammaticFocus="True" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" Style="{StaticResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" LostFocus="InputText_LostFocus" />
             <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Click="Button_Click_5" GotFocus="Button_GotFocus" IsTabStop="False" Grid.Column="2" Padding="12,4" MinWidth="0" MinHeight="0" Visibility="Collapsed">
                 <ToolTipService.ToolTip>
                     <TextBlock Text="Calculator" />
                 </ToolTipService.ToolTip>
             </Button>
             <Button x:Name="Clearr" Content="X" Margin="90,119,0,24.857" Click="Button_Click" Padding="15,4,12,4" Width="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Visibility="Collapsed" Grid.ColumnSpan="3" Grid.RowSpan="2" />
+            <Button Content="Button" Grid.Column="2" HorizontalAlignment="Left" Margin="242,30,0,0" VerticalAlignment="Top" Style="{StaticResource ButtonStyle1}" Click="Button_Click_4" Visibility="Collapsed"/>
         </Grid>
         <Grid x:Name="Landscape" Visibility="Collapsed">
             <Grid.RowDefinitions>
@@ -239,6 +243,25 @@
                         Storyboard.TargetProperty="Grid.Row">
                         <DiscreteObjectKeyFrame KeyTime="0"
                                                 Value="1"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </VisualState>
+            <VisualState x:Name="SnappedLandscape">
+                <Storyboard >
+                    <ObjectAnimationUsingKeyFrames 
+                        Storyboard.TargetName="InputText"
+                        Storyboard.TargetProperty="Margin">
+                        <DiscreteObjectKeyFrame KeyTime="0"
+                                                Value="5,5,5,5"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames 
+                        Storyboard.TargetName="From"
+                        Storyboard.TargetProperty="Margin">
+                        <DiscreteObjectKeyFrame KeyTime="0"
+                                                Value="5,5,5,5"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="sizeKeyboard" Storyboard.TargetProperty="Margin">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="5,5,5,5"/>
                     </ObjectAnimationUsingKeyFrames>
                 </Storyboard>
             </VisualState>

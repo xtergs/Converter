@@ -5,11 +5,11 @@
 
 
     <!--Blue-->
-    <SolidColorBrush Color="#FFD69729" x:Name="BlueThemeColorBrush"></SolidColorBrush>
-
+    <SolidColorBrush Color="#FF43B42A" x:Name="BlueThemeColorBrush"></SolidColorBrush>
 
     <!--Blue bright-->
-    <SolidColorBrush Color="#FFF3A824" x:Name="BlueBrightThemeColorBrush"></SolidColorBrush>
+    <SolidColorBrush Color="#FF2FDA09" x:Name="BlueBrightThemeColorBrush"></SolidColorBrush>
+
 
     <!--ForegroundBrush-->
     <SolidColorBrush Color="White" x:Name="ForegroundWhieBrush"></SolidColorBrush>

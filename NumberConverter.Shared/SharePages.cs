@@ -96,6 +96,7 @@ namespace NumberConverter
 
 		public static void ScaleText(ComboBox element, double newHeight)
 		{
+			if (newHeight > 0)
 			element.FontSize = (newHeight) * 0.4;
 		}
 	}

@@ -128,28 +128,15 @@ namespace NumberConverter
 		{
 			var applicationCommands = args.Request.ApplicationCommands;
 
-			var newComand = new SettingsCommand("", "Settings", cmd =>
+			var newComand = new SettingsCommand("", "Thems", cmd =>
 			{
-				settingsPopup = new Popup();
-				settingsPopup.IsLightDismissEnabled = true;
-				settingsPopup.Width = 646;
-				settingsPopup.Height = Window.Current.Bounds.Height;
-				settingsPopup.ChildTransitions = new Windows.UI.Xaml.Media.Animation.TransitionCollection();
-				settingsPopup.ChildTransitions.Add(new PaneThemeTransition()
-				{
-					Edge = (SettingsPane.Edge == SettingsEdgeLocation.Right) ?
-					EdgeTransitionLocation.Right : EdgeTransitionLocation.Left
-				});
-				SettingsFlyout mypane = new SettingsFlyout();
-				mypane.Width = 646;
-				mypane.Height = Window.Current.Bounds.Height;
-				settingsPopup.Child = mypane;
-				settingsPopup.SetValue(Canvas.LeftProperty,
-				 SettingsPane.Edge == SettingsEdgeLocation.Right
-				 ? (Window.Current.Bounds.Width - 646) : 0);
+				var s = Window.Current.Content as Frame;
+				
+				//var d = typeof (s);
+				var a = new SettingsThems();
+				a.a = s.GetType();
+				a.Show();
 
-				settingsPopup.SetValue(Canvas.TopProperty, 0);
-				settingsPopup.IsOpen = true;
 			});
 			applicationCommands.Add(newComand);
 		}

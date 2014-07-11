@@ -13,10 +13,16 @@
 	<SolidColorBrush Color="#FF0b8194" x:Name="BlueThemeColorBrush"></SolidColorBrush>
 
 	<!--Blue bright-->
-	<SolidColorBrush Color="#FF11A0B8" x:Name="BlueBrightThemeColorBrush"></SolidColorBrush>
+	<SolidColorBrush Color="#FF18BBD6" x:Name="BlueBrightThemeColorBrush"></SolidColorBrush>
 
 	<!--TextBox-->
 	<SolidColorBrush Color="#FF3F3F3F" x:Name="BackgroundTextBoxBrush"></SolidColorBrush>
+
+	<SolidColorBrush Color="#FFAEAEAE" x:Name="ForegroudnActiveHyperlinkButtonBrush"></SolidColorBrush>
+
+	<SolidColorBrush Color="#FF1d1d1d" x:Name="BackgroundGrid"></SolidColorBrush>
+	
+	<SolidColorBrush Color="#FF07B0CB" x:Name="ToggleButtonPointerOverBackgroundThemeBrush"></SolidColorBrush>
 
 	<!--ComboBox-->
 	<Style x:Key="ComboBoxStyle1" TargetType="ComboBox">
@@ -155,7 +161,7 @@
 						<ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Grid.ColumnSpan="2">
 							<TextBlock x:Name="PlaceholderTextBlock" Foreground="{ThemeResource ComboBoxPlaceholderTextForegroundThemeBrush}" FontWeight="{ThemeResource ComboBoxPlaceholderTextThemeFontWeight}" Text="{TemplateBinding PlaceholderText}" />
 						</ContentPresenter>
-						<TextBlock x:Name="DropDownGlyph" AutomationProperties.AccessibilityView="Raw" Grid.Column="1"  FontFamily="{ThemeResource SymbolThemeFontFamily}" IsHitTestVisible="False" Margin="0" Grid.Row="1" Text="&#xE011;" Foreground="#FF0B8194" FontSize="50" TextAlignment="Center" VerticalAlignment="Stretch" Padding="0"/>
+						<TextBlock x:Name="DropDownGlyph" AutomationProperties.AccessibilityView="Raw" Grid.Column="1"  FontFamily="{ThemeResource SymbolThemeFontFamily}" IsHitTestVisible="False" Margin="0" Grid.Row="1" Text="&#xE011;" Foreground="{ThemeResource BlueThemeColorBrush}" FontSize="50" TextAlignment="Center" VerticalAlignment="Center" Padding="0" HorizontalAlignment="Center"/>
 						<Popup x:Name="Popup">
 							<Border x:Name="PopupBorder" BorderBrush="{StaticResource BackgroundComboboxBrush}" BorderThickness="{ThemeResource ComboBoxPopupBorderThemeThickness}" HorizontalAlignment="Stretch" Background="{StaticResource BackgroundComboboxBrush}">
 								<ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" Foreground="White" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" MinWidth="{ThemeResource ComboBoxPopupThemeMinWidth}" VerticalSnapPointsType="OptionalSingle" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalSnapPointsAlignment="Near" ZoomMode="Disabled">
@@ -171,14 +177,14 @@
 
 	<Style x:Key="FlyoutStyle1" TargetType="FlyoutPresenter">
 		<Setter Property="Background" Value="{ThemeResource BackgroundComboboxBrush}"/>
-		<Setter Property="Foreground" Value="White"/>
+		<Setter Property="Foreground" Value="{ThemeResource ForegroundWhieBrush}"/>
 	</Style>
 
 	<Style x:Key="ListBoxStyle1" TargetType="ListBox">
 		<Setter Property="Foreground" Value="{ThemeResource ForegroundWhieBrush}"/>
 		<Setter Property="Background" Value="{ThemeResource BackgroundComboboxBrush}"/>
 		<Setter Property="BorderBrush" Value="{ThemeResource ListBoxBorderThemeBrush}"/>
-		<Setter Property="BorderThickness" Value="{ThemeResource ListBoxBorderThemeThickness}"/>
+		<Setter Property="BorderThickness" Value="0,0,0,0"/>
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
 		<Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
@@ -383,10 +389,10 @@
 
 	<!--Grid-->
 	<Style x:Key="GridStyle1" TargetType="Grid">
-		<Setter Property="Background" Value="#FF1d1d1d"/>
+		<Setter Property="Background" Value="{ThemeResource BackgroundGrid}"/>
 	</Style>
 
-	<SolidColorBrush Color="#FF07B0CB" x:Name="ToggleButtonPointerOverBackgroundThemeBrush"></SolidColorBrush>
+	
 
 	<!--ToggleButton-->
 	<Style x:Key="ToggleButtonStyle1" TargetType="ToggleButton">
@@ -410,7 +416,7 @@
 								<VisualState x:Name="PointerOver">
 									<Storyboard>
 										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ToggleButtonPointerOverBackgroundThemeBrush}"/>
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource BlueBrightThemeColorBrush}"/>
 										</ObjectAnimationUsingKeyFrames>
 									</Storyboard>
 								</VisualState>
@@ -530,16 +536,15 @@
 							<ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 						</Border>
 						<Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
-						<Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
 
-
+	
 	<Style x:Key="HyperlinkButtonStyle1" TargetType="HyperlinkButton">
-		<Setter Property="Foreground" Value="#FFAEAEAE"/>
+		<Setter Property="Foreground" Value="{ThemeResource ForegroudnActiveHyperlinkButtonBrush}"/>
 		<Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}"/>
 		<Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderThemeBrush}"/>
 		<Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
@@ -600,84 +605,84 @@
 		</Setter>
 	</Style>
 
-    
-    
-    <Style x:Key="ButtonStyle1" TargetType="Button">
-        <Setter Property="Background" Value="{ThemeResource BackgroundComboboxBrush}"/>
-        <Setter Property="Foreground" Value="{ThemeResource ForegroundWhieBrush}"/>
-        <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}"/>
-        <Setter Property="BorderThickness" Value="0,0,0,0"/>
-        <Setter Property="Padding" Value="0,0,0,0"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
-                                <VisualState x:Name="PointerOver">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPointerOverForegroundThemeBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled">
-                                    <Storyboard>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}"/>
-                                        </ObjectAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                            </VisualStateGroup>
-                            <VisualStateGroup x:Name="FocusStates">
-                                <VisualState x:Name="Focused">
-                                    <Storyboard>
-                                        <DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
-                                        <!--<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>-->
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Unfocused"/>
-                                <VisualState x:Name="PointerFocused"/>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
-                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                        <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
-                        <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+	
+	
+	<Style x:Key="ButtonStyle1" TargetType="Button">
+		<Setter Property="Background" Value="{ThemeResource BackgroundComboboxBrush}"/>
+		<Setter Property="Foreground" Value="{ThemeResource ForegroundWhieBrush}"/>
+		<Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}"/>
+		<Setter Property="BorderThickness" Value="0,0,0,0"/>
+		<Setter Property="Padding" Value="0,0,0,0"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+		<Setter Property="FontWeight" Value="SemiBold"/>
+		<Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="Button">
+					<Grid>
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CommonStates">
+								<VisualState x:Name="Normal"/>
+								<VisualState x:Name="PointerOver">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPointerOverBackgroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPointerOverForegroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Pressed">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedBackgroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonPressedForegroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Disabled">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="Border">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBackgroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="Border">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledBorderThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+											<DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonDisabledForegroundThemeBrush}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+							</VisualStateGroup>
+							<VisualStateGroup x:Name="FocusStates">
+								<VisualState x:Name="Focused">
+									<Storyboard>
+										<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualWhite"/>
+										<!--<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBlack"/>-->
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Unfocused"/>
+								<VisualState x:Name="PointerFocused"/>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						<Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+							<ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+						</Border>
+						<Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
+						<Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="0.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualBlackStrokeThemeBrush}" StrokeDashArray="1,1"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 
-    <Style x:Key="BorderStyle1" TargetType="Border">
-        <Setter Property="BorderThickness" Value="0,3,0,3"/>
-        <Setter Property="BorderBrush" Value="{ThemeResource BlueThemeColorBrush}"/>
-    </Style>
+	<Style x:Key="BorderStyle1" TargetType="Border">
+		<Setter Property="BorderThickness" Value="0,3,0,3"/>
+		<Setter Property="BorderBrush" Value="{ThemeResource BlueThemeColorBrush}"/>
+	</Style>
 </ResourceDictionary>

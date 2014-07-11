@@ -44,10 +44,8 @@ namespace NumberConverter
 				MaxHeight = 1000,
 				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
 				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
-				BorderThickness = new Thickness(0),
-				Padding = new Thickness(0, 0, 0, 0),
-				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center,
-				Margin = new Thickness(0, marg_top, 0, marg_bot)
+				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center
+				//Margin = new Thickness(0, marg_top, 0, marg_bot)
 			};
 		}
 
@@ -61,7 +59,7 @@ namespace NumberConverter
 			marg_bot = -6;
 			marg_top = -15;
 #endif
-			col = Color.FromArgb(0xff, 0x3f, 0x3f, 0x3f);
+			//col = Color.FromArgb(0xff, 0x3f, 0x3f, 0x3f);
 
 			for (int i = 0; i < 36; i++)
 			{
@@ -78,7 +76,10 @@ namespace NumberConverter
 			temp = newButton("<-");
 			temp.Style = style;
 			panel.Children.Add(temp);
-			visibleCount = panel.Children.Count-2;
+			temp = newButton("CE");
+			temp.Style = style;
+			panel.Children.Add(temp);
+			visibleCount = panel.Children.Count-3;
 		}
 
 		// Resize for current height and width, using count current visible elements
@@ -131,13 +132,15 @@ namespace NumberConverter
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
 				int correction = 0;
+			int correctionX = 0;
 #if WINDOWS_PHONE_APP
 				correction +=15;
+			correctionX = -2;
 #endif
 			for (int i = 0; i < panel.Children.Count; i++)
 			{
 				((Button)panel.Children[i]).Height = h + correction;
-				((Button)panel.Children[i]).Width = w;
+				((Button)panel.Children[i]).Width = w + correctionX;
 				//((Button)panel.Children[i]).UpdateLayout();
 				((Button)panel.Children[i]).FontSize = h * 0.5;
 			}
@@ -159,7 +162,7 @@ namespace NumberConverter
 			if (count != visibleCount)
 			{
 				var temp = panel.Children;
-				for (int i = 0; i < temp.Count - 2 || i < visibleCount; i++)
+				for (int i = 0; i < temp.Count - 3 || i < visibleCount; i++)
 					if (i < count)
 					{
 						temp[i].Visibility = Visibility.Visible;
@@ -173,7 +176,7 @@ namespace NumberConverter
 				visibleCount = count;
 			}
 			if (needResize)
-				ResizeButton(visibleCount + 2);
+				ResizeButton(visibleCount + 3);
 		}
 	}
 

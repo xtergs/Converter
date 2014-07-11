@@ -67,7 +67,7 @@ namespace NumberConverter
 
 		private ComboBox parentFlyout;
 		private Dictionary<FrameworkElement, FrameworkElement> TextBoxToComboBox;
-		private double scaleFontTextBox;
+		private double scaleFontTextBox = 2.3;
 
 		public BlankPage1()
 		{
@@ -99,14 +99,26 @@ namespace NumberConverter
 		public void CreateKeyboard(Panel panel)
 		{
 			keyboard = new Keyboard(panel, Application.Current.Resources["ButtonStyle1"] as Style);
-			for (int i = 0; i < panel.Children.Count - 2; i++)
+			for (int i = 0; i < panel.Children.Count - 3; i++)
 			{
 				((Button) (panel.Children[i])).Click += Button_Click_1;
 			}
-			((Button) (panel.Children[panel.Children.Count - 2])).Click += Button_Click_Dot; // "."
-			((Button) (panel.Children[panel.Children.Count - 1])).Click += Backspace_Click; // backspace
+			((Button) (panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
+			((Button) (panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; // backspace
 			//((Button)(panel.Children[panel.Children.Count - 2])).SizeChanged += Buttons_SizeChanged_1;
+			((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
 		}
+
+		private void Button_Click_Clean(object sender, RoutedEventArgs e)
+		{
+			if (!(FocusManager.GetFocusedElement() is TextBox))
+				return;
+			var input = (TextBox)(FocusManager.GetFocusedElement());
+			if (input == Result)
+				return;
+			input.Text = "";
+		}
+
 
 		private void Backspace_Click(object sender, RoutedEventArgs e)
 		{
@@ -365,7 +377,7 @@ namespace NumberConverter
 			var selectedItem = ((ComboBoxItem) ((ComboBox) TextBoxToComboBox.First(a => a.Key == sender).Value).SelectedItem);
 			int _base = int.Parse(selectedItem.Content.ToString());
 			keyboard.SetVisibleButton(_base, false);
-			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, _base + 2);
+			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, _base + 3);
 		}
 
 		private void InputText2_GotFocus(object sender, RoutedEventArgs e)
@@ -375,7 +387,7 @@ namespace NumberConverter
 			var selectedItem = ((ComboBoxItem) ((ComboBox) TextBoxToComboBox.First(a => a.Key == sender).Value).SelectedItem);
 			int _base = int.Parse(selectedItem.Content.ToString());
 			keyboard.SetVisibleButton(_base, false);
-			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, _base + 2);
+			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, _base + 3);
 		}
 
 		private void Result_GotFocus(object sender, RoutedEventArgs e)
@@ -397,7 +409,7 @@ namespace NumberConverter
 
 		private void sizeKeyboard_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, fromBase + 2);
+			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, fromBase + 3);
 		}
 
 		private void To_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -485,7 +497,7 @@ namespace NumberConverter
 			if (statView.IsFullScreen)
 				if (statView.Orientation == ApplicationViewOrientation.Landscape)  //FullScreen and Landscape
 				{
-					var marginComboBox = new Thickness(20, 10, 20, 60);
+					var marginComboBox = new Thickness(20, 40, 20, 60);
 					var marginTextBox = new Thickness(20, 10, 20, 40);
 					var marginKeyboard = new Thickness(20, 10, 20, 60);
 					var marginOperat = new Thickness(20, 10, 20, 10);
@@ -560,23 +572,63 @@ namespace NumberConverter
 				}
 				else     //FullScreen and Portrate
 				{
-					//	//	MainGrid.Margin = new Thickness(10, 50, 10, 50);
-					//		Grid.SetColumnSpan(From, 2);
-					//		Grid.SetRow(InputText, 2);
-					//		Grid.SetColumn(InputText, 0);
-					//		Grid.SetRow(To, 1);
-					//		Grid.SetColumn(To, 3);
-					//		Grid.SetColumnSpan(To, 2);
+					var marginComboBox = new Thickness(5, 40, 5, 60);
+					var marginTextBox = new Thickness(5, 10, 5, 10);
+					var marginKeyboard = new Thickness(5, 10, 5, 10);
+					var marginOperat = new Thickness(5, 10, 5, 10);
 
-					//		//To.Margin = new Thickness(0, 0, 0, 0);
-					//		//To.Height = double.NaN;
-					//		//To.Width = double.NaN;
-					//		Grid.SetRow(Result, 3);
-					//		Grid.SetColumn(Result, 0);
-					//		Grid.SetRow(sizeKeyboard, 4);
-					//		Grid.SetRowSpan(sizeKeyboard, 1);
-					//		Grid.SetRow((FrameworkElement)Buttons, 4);
-					//		Grid.SetRowSpan((FrameworkElement)Buttons, 1);
+					MainGrid.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[3].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[4].Height = new GridLength(1, GridUnitType.Star);
+					MainGrid.RowDefinitions[5].Height = new GridLength(2, GridUnitType.Star);
+					MainGrid.ColumnDefinitions[2].Width = GridLength.Auto;
+
+					InputTextGrid.RowDefinitions[1].Height = GridLength.Auto;
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 1);
+					InputText.Margin = marginTextBox;
+
+					From.Margin = marginComboBox;
+
+					InputText2Grid.RowDefinitions[1].Height = GridLength.Auto;
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 1);
+					InputText2.Margin = marginTextBox;
+
+					From2.Margin = marginComboBox;
+
+					ResultGrid.RowDefinitions[1].Height = GridLength.Auto;
+					//Grid.SetRow(Result, 3);
+					//Grid.SetRowSpan(Result, 2);
+					//Grid.SetColumnSpan(Result, 2);
+					Result.Margin = marginTextBox;
+
+					//Grid.SetRow(To, 3);
+					//Grid.SetRowSpan(To, 1);
+					To.Margin = marginComboBox;
+
+					Buttons_operation.Margin = marginOperat;
+
+					//Grid.SetRow(sizeKeyboard, 1);
+					//Grid.SetRowSpan(sizeKeyboard, 5);
+					//Grid.SetColumn(sizeKeyboard, 3);
+					//Grid.SetColumnSpan(sizeKeyboard, 2);
+					Grid.SetRow(sizeKeyboard, 5);
+					Grid.SetColumn(sizeKeyboard, 0);
+					sizeKeyboard.Margin = marginKeyboard;
+
+					Grid.SetColumn(MenuGrid, 0);
+
+					//InputText.Margin = new Thickness(10, 10, 10, 60);
+					//From.Margin = new Thickness(10, 40, 10, 60);
+					//Result.Margin = new Thickness(10, 10, 10, 60);
+					//To.Margin = new Thickness(10, 40, 10, 60);
+					//sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
+					//MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
+					//scaleFontTextBox = 0.25;
+					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					scaleFontTextBox = 0.25;
 				}
 			else  // not full screen
 			{

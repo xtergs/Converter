@@ -71,13 +71,14 @@ namespace NumberConverter
 		public void CreateKeyboard(Panel panel)
 		{
 			keyboard = new Keyboard(panel, (Application.Current.Resources["ButtonStyle1"]) as Style);
-			for (int i = 0; i < panel.Children.Count - 2; i++)
+			for (int i = 0; i < panel.Children.Count - 3; i++)
 			{
 				((Button)(panel.Children[i])).Click += Button_Click_1;
 			}
-			((Button)(panel.Children[panel.Children.Count - 2])).Click += Button_Click_Dot; // "."
-			((Button)(panel.Children[panel.Children.Count - 2])).SizeChanged += Buttons_SizeChanged;
-			((Button)(panel.Children[panel.Children.Count - 1])).Click += Backspace_Click; //backspace
+			((Button)(panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
+			((Button)(panel.Children[panel.Children.Count - 3])).SizeChanged += Buttons_SizeChanged;
+			((Button)(panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; //backspace
+			((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
 		}
 
 		private void Button_Click_Dot(object sender, RoutedEventArgs e)
@@ -85,6 +86,11 @@ namespace NumberConverter
 			InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
 			if (InputText.Text.IndexOf(((Button)sender).Content.ToString()) < 0) //точки нету
 				Button_Click_1(sender, e);
+		}
+
+		private void Button_Click_Clean(object sender, RoutedEventArgs e)
+		{
+			InputText.Text = "";
 		}
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -109,6 +115,7 @@ namespace NumberConverter
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
 			SharePages.AddTextTextBox(((Button)sender).Content.ToString(), InputText);
+			InputText.Select(InputText.Text.Length, 0);
 		}
 		
 		private void InputText_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -134,7 +141,7 @@ namespace NumberConverter
 					fromBase = int.Parse((((ComboBoxItem)((ComboBox)sender).SelectedItem)).Content.ToString());
 					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,	InputText.Text, (uint)toBase);
 					keyboard.SetVisibleButton(fromBase);
-					keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
+					keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
 				}
 			}
 			catch (Exception ee)
@@ -206,10 +213,10 @@ namespace NumberConverter
 
 					Grid.SetColumn(MenuGrid, 1);
 
-					InputText.Margin = new Thickness(10, 10, 10, 60);
-					From.Margin = new Thickness(10, 40, 10, 60);
+					InputText.Margin = new Thickness(10, 20, 10, 60);
+					From.Margin = new Thickness(20, 40, 20, 60);
 					Result.Margin = new Thickness(10, 10, 10, 60);
-					To.Margin = new Thickness(10, 40, 10, 60);
+					To.Margin = new Thickness(20, 40, 20, 60);
 					sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					scaleFontTextBox = 0.25;
@@ -233,27 +240,34 @@ namespace NumberConverter
 				}
 				else     //FullScreen and Portrate
 				{
-			//	//	MainGrid.Margin = new Thickness(10, 50, 10, 50);
-			//		Grid.SetColumnSpan(From, 2);
-			//		Grid.SetRow(InputText, 2);
-			//		Grid.SetColumn(InputText, 0);
-			//		Grid.SetRow(To, 1);
-			//		Grid.SetColumn(To, 3);
-			//		Grid.SetColumnSpan(To, 2);
+					Grid.SetRowSpan(InputText, 1);
+					Grid.SetColumnSpan(InputText, 4);
 
-			//		//To.Margin = new Thickness(0, 0, 0, 0);
-			//		//To.Height = double.NaN;
-			//		//To.Width = double.NaN;
-			//		Grid.SetRow(Result, 3);
-			//		Grid.SetColumn(Result, 0);
-			//		Grid.SetRow(sizeKeyboard, 4);
-			//		Grid.SetRowSpan(sizeKeyboard, 1);
-			//		Grid.SetRow((FrameworkElement)Buttons, 4);
-			//		Grid.SetRowSpan((FrameworkElement)Buttons, 1);
+					Grid.SetRow(To, 2);
+					Grid.SetRowSpan(To, 1);
+
+					Grid.SetRow(Result, 2);
+					Grid.SetRowSpan(Result, 1);
+					Grid.SetColumnSpan(Result, 4);
+
+					Grid.SetRow(sizeKeyboard, 3);
+					Grid.SetColumn(sizeKeyboard, 0);
+					Grid.SetColumnSpan(sizeKeyboard, 5);
+
+					Grid.SetColumn(MenuGrid, 0);
+
+					InputText.Margin = new Thickness(5, 5, 5, 5);
+					From.Margin = new Thickness(5, 40, 5, 60);
+					Result.Margin = new Thickness(5, 5, 5, 5);
+					To.Margin = new Thickness(5, 40, 5, 60);
+					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
+					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					//VisualStateManager.GoToState(this, "SnappedLandscape", true);
+					scaleFontTextBox = 0.35;
 				}
 			else  // not full screen
 			{
-				if (this.ActualWidth <= 510 && ActualWidth >= 490)
+				if (this.ActualWidth <= 510 && ActualWidth >= 490 )
 				{
 					Grid.SetRowSpan(InputText, 1);
 					Grid.SetColumnSpan(InputText, 4);
@@ -277,6 +291,7 @@ namespace NumberConverter
 					To.Margin = new Thickness(5, 40, 5, 60);
 					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					//VisualStateManager.GoToState(this, "SnappedLandscape", true);
 					scaleFontTextBox = 0.35;
 				}
 				else
@@ -340,15 +355,18 @@ namespace NumberConverter
 			//combo.FontSize = e.NewSize.Height * 0.7;
 		}
 
-		private void Button_Click_3(object sender, RoutedEventArgs e)
+		void SaveState()
 		{
-			//MainGrid.Visibility = Visibility.Collapsed;
 			suspendPage = new SuspendPage();
 			suspendPage.indexFrom = FromBase;
 			//suspendPage.indexFrom2 = FromBase2;
 			suspendPage.indexTo = ToBase;
 			suspendPage.InputText = InputText.Text;
-			//suspendPage.InputText2 = InputText2.Text;
+		}
+
+		private void Button_Click_3(object sender, RoutedEventArgs e)
+		{
+			SaveState();
 			this.Frame.Navigate(typeof(BlankPage1));
 			
 		}
@@ -360,11 +378,12 @@ namespace NumberConverter
 
 		private void sizeKeyboard_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 2);
+			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 3);
 		}
 		
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
+			SaveState();
 			this.Frame.Navigate(typeof(BlankPage1));
 		}
 
@@ -454,6 +473,7 @@ namespace NumberConverter
 			ResourceDictionary newDictionary = new ResourceDictionary();
 			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkOrange.xaml", UriKind.Absolute);
 			Application.Current.Resources = newDictionary;
+			SaveState();
 			Frame.Navigate(typeof(MainPage));
 			Frame.BackStack.RemoveAt(0);
 			//VisualStateManager.GoToState(this, "SnappedLandscape", false);
@@ -474,7 +494,7 @@ namespace NumberConverter
 				
 				ToBase = suspendPage.indexTo;
 				InputText.Text = suspendPage.InputText;
-				keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
+				keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
 				if (From.Items != null  && To.Items != null)
 				{
 					From.SelectedItem = From.Items[FromBase];
@@ -484,6 +504,17 @@ namespace NumberConverter
 				InputText.Focus(FocusState.Programmatic);
 				suspendPage = null;
 			}
+		}
+
+		private void Page_GotFocus(object sender, RoutedEventArgs e)
+		{
+			//if (e.OriginalSource is TextBox)
+			//	((TextBox) e.OriginalSource).Focus(FocusState.Programmatic);
+		}
+
+		private void InputText_LostFocus(object sender, RoutedEventArgs e)
+		{
+			
 		}
 		
 	}
