@@ -17,4 +17,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)SuspendPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WrapPanel.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Languages\en-EN\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Languages\ru-Ru\Resources.resw" />
+  </ItemGroup>
 </Project>

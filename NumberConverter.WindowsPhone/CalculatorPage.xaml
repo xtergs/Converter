@@ -10,18 +10,32 @@
     <Page.Resources>
         <ResourceDictionary>
             
+
+
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid   IsTapEnabled="False" Style="{ThemeResource GridStyle1}">
-        <Grid x:Name="MainGrid"  IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid x:Name ="MenuGrid"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="30,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <HyperlinkButton x:Uid="Converter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Content="Converter" Click="Button_Click_5" SizeChanged="Button_SizeChanged_1" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0" Margin="8,0,0,0"/>
+            <HyperlinkButton x:Uid="Calculator" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" Content="Calculator" SizeChanged="Button_SizeChanged_1" IsEnabled="False" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0"/>
+        </Grid>
+        <Grid x:Name="MainGrid"  IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
@@ -29,14 +43,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid x:Name ="MenuGrid"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="30,0,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <HyperlinkButton x:Uid="Converter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Content="Converter" Click="Button_Click_5" SizeChanged="Button_SizeChanged_1" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0" Margin="8,0,0,0"/>
-                <HyperlinkButton x:Uid="Calculator" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" Content="Calculator" SizeChanged="Button_SizeChanged_1" IsEnabled="False" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0"/>
-            </Grid>
+            
 
             <Grid Grid.Row="1" Grid.Column="1"  >
                 <Grid.ColumnDefinitions>
@@ -248,10 +255,10 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <ToggleButton x:Name="Button_Plus" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press"  IsTabStop="False" Checked="Button_Plus_Checked" SizeChanged="Button_SizeChanged" IsChecked="True" Padding="0" Unchecked="Button_Plus_Unchecked" Style="{ThemeResource ToggleButtonStyle1}"/>
-                <ToggleButton x:Name="Button_Minus" Content="-" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False" Margin="0"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_Minus_Checked" Padding="0" Unchecked="Button_Minus_Unchecked" Style="{ThemeResource ToggleButtonStyle1}"/>
-                <ToggleButton x:Name="Button_multipl" Content="x" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_multipl_Checked" Padding="0" ClickMode="Press" Unchecked="Button_multipl_Unchecked" Style="{ThemeResource ToggleButtonStyle1}"/>
-                <ToggleButton x:Name="Button_divide" Content="/" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_divide_Checked" Padding="0" Unchecked="Button_divide_Unchecked" Style="{ThemeResource ToggleButtonStyle1}"/>
+                <ToggleButton x:Name="Button_Plus" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press"  IsTabStop="False" Checked="Button_Plus_Checked" SizeChanged="Button_SizeChanged" IsChecked="True" Padding="0" Unchecked="Button_Plus_Unchecked" Style="{StaticResource ToggleButtonStyle1}" Margin="1,0"/>
+                <ToggleButton x:Name="Button_Minus" Content="-" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False" Margin="1,0"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_Minus_Checked" Padding="0" Unchecked="Button_Minus_Unchecked" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0"/>
+                <ToggleButton x:Name="Button_multipl" Content="x" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_multipl_Checked" Padding="0" ClickMode="Press" Unchecked="Button_multipl_Unchecked" Style="{ThemeResource ToggleButtonStyle1}" Margin="1,0"/>
+                <ToggleButton x:Name="Button_divide" Content="/" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_divide_Checked" Padding="0" Unchecked="Button_divide_Unchecked" Style="{ThemeResource ToggleButtonStyle1}" Margin="1,0"/>
             </Grid>
             <Grid Grid.Row="4" x:Name="ResultGrid">
                 <Grid.RowDefinitions>
@@ -342,7 +349,7 @@
                     </FlyoutBase.AttachedFlyout>
                 </ComboBox>
             </Grid>
-            <Border  Margin="20,0" Grid.RowSpan="2" VerticalAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BorderStyle1}"/>
+            <Border  Margin="20,0" Grid.RowSpan="2" VerticalAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BorderStyle1}" BorderThickness="0,2"/>
         </Grid>
 
     </Grid>

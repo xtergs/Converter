@@ -213,11 +213,11 @@ namespace NumberConverter
 
 					Grid.SetColumn(MenuGrid, 1);
 
-					InputText.Margin = new Thickness(10, 10, 10, 60);
-					From.Margin = new Thickness(10, 40, 10, 60);
-					Result.Margin = new Thickness(10, 10, 10, 60);
-					To.Margin = new Thickness(10, 40, 10, 60);
-					sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
+					InputText.Margin = new Thickness(5, 5, 5, 0);
+					From.Margin = new Thickness(5, 10, 5, 0);
+					Result.Margin = new Thickness(5, 5, 5, 5);
+					To.Margin = new Thickness(5, 10, 5, 0);
+					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					scaleFontTextBox = 0.25;
 			//		//MainGrid.Margin = new Thickness(10, 10, 10, 10);
@@ -257,10 +257,10 @@ namespace NumberConverter
 					Grid.SetColumn(MenuGrid, 0);
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
-					From.Margin = new Thickness(5, 40, 5, 60);
+					From.Margin = new Thickness(5, 10, 5, 0);
 					Result.Margin = new Thickness(5, 5, 5, 5);
-					To.Margin = new Thickness(5, 40, 5, 60);
-					sizeKeyboard.Margin = new Thickness(5, 0, 5, 0);
+					To.Margin = new Thickness(5, 10, 5, 0);
+					sizeKeyboard.Margin = new Thickness(0, 0, 0, 0);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					scaleFontTextBox = 0.35;
 				}
