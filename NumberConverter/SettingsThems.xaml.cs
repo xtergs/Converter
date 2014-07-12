@@ -29,50 +29,43 @@ namespace NumberConverter
 
 		private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
 		{
+			var uri = new Uri("ms-resource:/Files/Resource/DarkOrangeTheme.xaml", UriKind.Absolute);
+			ChangeTheme(uri);
+		}
+
+		void ChangeTheme(Uri uri)
+		{
 			ResourceDictionary newDictionary = new ResourceDictionary();
-			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkOrange.xaml", UriKind.Absolute);
+			newDictionary.Source = uri;
 			Application.Current.Resources = newDictionary;
-			var s = Window.Current.GetType();
-			bool bb = Window.Current.Content is MainPage;
+			newDictionary = new ResourceDictionary();
+			newDictionary.Source = uri;
+			Application.Current.Resources = newDictionary;
+			//Application.Current.Resources = newDictionary;
+			//var s = Window.Current.GetType();
+			//bool bb = Window.Current.Content is MainPage;
 			//bool dd = Window.Current.Content is 
 			(Window.Current.Content as Frame).Navigate(typeof(MainPage));
-		//	this.Hide();
-			//SaveState();
-			//Frame.Navigate(typeof(MainPage));
-			//Frame.BackStack.RemoveAt(0);
+			//(Window.Current.Content as Frame).Navigate(typeof(MainPage));
 		}
 
 		private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
 		{
-			ResourceDictionary newDictionary = new ResourceDictionary();
-			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkBlue.xaml", UriKind.Absolute);
-			Application.Current.Resources = newDictionary;
-			var s = Window.Current.GetType();
-			bool bb = Window.Current.Content is MainPage;
-			//bool dd = Window.Current.Content is 
-			(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+			var uri = new Uri("ms-resource:/Files/Resource/DarkBlueTheme.xaml", UriKind.Absolute);
+			ChangeTheme(uri);
+			//ChangeTheme(uri);
 		}
 
 		private void HyperlinkButton_Click_2(object sender, RoutedEventArgs e)
 		{
-			ResourceDictionary newDictionary = new ResourceDictionary();
-			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkGreen.xaml", UriKind.Absolute);
-			Application.Current.Resources = newDictionary;
-			var s = Window.Current.GetType();
-			bool bb = Window.Current.Content is MainPage;
-			//bool dd = Window.Current.Content is 
-			(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+			var uri = new Uri("ms-resource:/Files/Resource/DarkGreenTheme.xaml", UriKind.Absolute);
+			ChangeTheme(uri);
 		}
 
 		private void HyperlinkButton_Click_3(object sender, RoutedEventArgs e)
 		{
-			ResourceDictionary newDictionary = new ResourceDictionary();
-			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkRed.xaml", UriKind.Absolute);
-			Application.Current.Resources = newDictionary;
-			var s = Window.Current.GetType();
-			bool bb = Window.Current.Content is MainPage;
-			//bool dd = Window.Current.Content is 
-			(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+			var uri = new Uri("ms-resource:/Files/Resource/DarkRedTheme.xaml", UriKind.Absolute);
+			ChangeTheme(uri);
 		}
 	}
 }
