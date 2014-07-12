@@ -97,8 +97,8 @@ namespace NumberConverter
 		
 		public void ResizeButton(double height, double width, int countKeys)
 		{
-			double maxHeight = height - 10;
-			double maxWidth = width - 10;
+			double maxHeight = height - 5;
+			double maxWidth = width - 5;
 			double areaForKeyboard = maxHeight * maxWidth;
 
 			double a = Math.Sqrt(areaForKeyboard / countKeys);

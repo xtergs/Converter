@@ -207,9 +207,9 @@ namespace NumberConverter
 					Grid.SetRowSpan(To, 1);
 
 					Grid.SetRow(sizeKeyboard, 1);
-					Grid.SetRowSpan(sizeKeyboard, 5);
+					Grid.SetRowSpan(sizeKeyboard, 10);
 					Grid.SetColumn(sizeKeyboard, 3);
-					Grid.SetColumnSpan(sizeKeyboard, 2);
+					Grid.SetColumnSpan(sizeKeyboard, 3);
 
 					Grid.SetColumn(MenuGrid, 1);
 
@@ -217,7 +217,7 @@ namespace NumberConverter
 					From.Margin = new Thickness(5, 10, 5, 0);
 					Result.Margin = new Thickness(5, 5, 5, 5);
 					To.Margin = new Thickness(5, 10, 5, 0);
-					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
+					sizeKeyboard.Margin = new Thickness(0, 0,0,0);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					scaleFontTextBox = 0.25;
 			//		//MainGrid.Margin = new Thickness(10, 10, 10, 10);
@@ -417,9 +417,11 @@ namespace NumberConverter
 			//	((TextBox)sender).IsReadOnly = false;
 		}
 
+		object focusedTextBox;
+
 		private void InputText_GotFocus(object sender, RoutedEventArgs e)
 		{
-			
+			focusedTextBox = sender;
 		}
 
 		private void InputText_SelectionChanged(object sender, RoutedEventArgs e)
@@ -508,6 +510,13 @@ namespace NumberConverter
 		private void InputText_LostFocus(object sender, RoutedEventArgs e)
 		{
 			
+		}
+
+		private void sizeKeyboard_GotFocus(object sender, RoutedEventArgs e)
+		{
+			
+				
+				
 		}
 		
 	}

@@ -374,12 +374,12 @@
         <Setter Property="FontFamily" Value="{ThemeResource PhoneFontFamilyNormal}"/>
         <Setter Property="FontWeight" Value="{ThemeResource PhoneButtonFontWeight}"/>
         <Setter Property="FontSize" Value="{ThemeResource TextStyleLargeFontSize}"/>
-        <Setter Property="Padding" Value="9.5,0"/>
+        <Setter Property="Padding" Value="0,0"/>
         <Setter Property="MinHeight" Value="{ThemeResource PhoneButtonMinHeight}"/>
         <Setter Property="MinWidth" Value="{ThemeResource PhoneButtonMinWidth}"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="1,-7,1,-7"></Setter>
+        <Setter Property="Margin" Value="1,-9,1,-9"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
