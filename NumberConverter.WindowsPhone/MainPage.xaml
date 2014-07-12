@@ -134,8 +134,8 @@
                 </FlyoutBase.AttachedFlyout>
             </ComboBox>
 
-            <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="5" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="0" Grid.Column="3" Grid.RowSpan="4" GotFocus="sizeKeyboard_GotFocus" VerticalAlignment="Bottom">
-                <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0" SizeChanged="Buttons_SizeChanged_1"/>
+            <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="5" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="0" Grid.Column="3" Grid.RowSpan="4" GotFocus="sizeKeyboard_GotFocus">
+                <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0" SizeChanged="Buttons_SizeChanged_1" VerticalAlignment="Bottom"/>
             </Border>
 
             <ComboBox x:Name="From" SelectedIndex="{Binding Path=FromBase, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" Margin="5,50" Grid.Row="1" RightTapped="From_RightTapped" CacheMode="BitmapCache" Style="{ThemeResource  ComboBoxStyle1}">

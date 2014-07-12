@@ -128,7 +128,10 @@ namespace NumberConverter
 			//if ((w) * row <= maxHeight) // marg_bot + marg_top - correction for buttons in WP8.1
 			//	h = w;
 			//else
-				h = (maxHeight) / row; 
+#if WINDOWS_PHONE_APP
+			maxHeight += row*2;
+#endif
+			h = (maxHeight) / row; 
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
 				int correction = 0;
