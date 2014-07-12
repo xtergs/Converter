@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.ApplicationSettings;
@@ -127,8 +128,9 @@ namespace NumberConverter
 		void currentPane_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
 		{
 			var applicationCommands = args.Request.ApplicationCommands;
-
-			var newComand = new SettingsCommand("", "Thems", cmd =>
+			var resourceLoader = new ResourceLoader();
+						string text = resourceLoader.GetString("Themes");
+			var newComand = new SettingsCommand("", text , cmd =>
 			{
 				var s = Window.Current.Content as Frame;
 				

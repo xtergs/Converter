@@ -132,4 +132,13 @@
   <data name="Result.PlaceholderText" xml:space="preserve">
     <value>Result</value>
   </data>
+  <data name="Settings.Title" xml:space="preserve">
+    <value>Themes</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Themes" xml:space="preserve">
+    <value>Themes</value>
+  </data>
 </root>
