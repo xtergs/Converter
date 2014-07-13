@@ -12,6 +12,7 @@ namespace NumberConverter
 {
 	class SharePages
 	{
+		private static TextBox lastTextBox;
 		public static void AddComboBoxItem(ComboBoxItem item, ComboBox combobox, bool isSelet)
 		{
 			if (!combobox.Items.Any((a) =>
@@ -99,6 +100,21 @@ namespace NumberConverter
 		{
 			if (newHeight > 0)
 			element.FontSize = (newHeight) * 0.4;
+		}
+
+		private static void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			//	InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
+			TextBox input;
+			if (!(FocusManager.GetFocusedElement() is TextBox))
+				input = lastTextBox;
+			else
+				input = (TextBox)(FocusManager.GetFocusedElement());
+			var x = input.SelectionStart; //временное запоминание
+			//	input.Text = input.Text.Insert(input.SelectionStart, ((Button) sender).Content.ToString());
+			//	input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
+			//InputText.Text += ((Button)sender).Content.ToString();
+			SharePages.AddTextTextBox(((Button)sender).Content.ToString(), input);
 		}
 	}
 }

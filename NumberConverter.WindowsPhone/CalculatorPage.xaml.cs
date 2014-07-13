@@ -33,6 +33,9 @@ namespace NumberConverter
 		private int toBase;
 		private int fromBaseIndex, fromBase2Index, toBaseIndex;
 		private static SuspendPage suspendPage;
+
+		private TextBox lastTextBox;
+
 		//string BAse;
 		public int FromBase
 		{
@@ -206,15 +209,18 @@ namespace NumberConverter
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
 			//	InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
+			TextBox input;
 			if (!(FocusManager.GetFocusedElement() is TextBox))
-				return;
-			var input = (TextBox) (FocusManager.GetFocusedElement());
+				input = lastTextBox;
+			else
+			input = (TextBox) (FocusManager.GetFocusedElement());
 			if (input == Result)
 				return;
 			var x = input.SelectionStart; //временное запоминание
-			input.Text = input.Text.Insert(input.SelectionStart, ((Button) sender).Content.ToString());
-			input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
+		//	input.Text = input.Text.Insert(input.SelectionStart, ((Button) sender).Content.ToString());
+		//	input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
 			//InputText.Text += ((Button)sender).Content.ToString();
+			SharePages.AddTextTextBox(((Button)sender).Content.ToString(),input);
 		}
 
 
@@ -374,6 +380,7 @@ namespace NumberConverter
 		{
 			//Buttons.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			//int count = int.Parse(((ComboBoxItem)From2.SelectedItem).Content.ToString());
+			lastTextBox = (TextBox) sender;
 			var selectedItem = ((ComboBoxItem) ((ComboBox) TextBoxToComboBox.First(a => a.Key == sender).Value).SelectedItem);
 			int _base = int.Parse(selectedItem.Content.ToString());
 			keyboard.SetVisibleButton(_base, false);
