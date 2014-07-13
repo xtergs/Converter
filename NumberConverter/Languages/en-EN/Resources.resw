@@ -144,6 +144,9 @@
   <data name="Result.PlaceholderText" xml:space="preserve">
     <value>Result</value>
   </data>
+  <data name="SelectBase.Text" xml:space="preserve">
+    <value>Select other base</value>
+  </data>
   <data name="Settings.Title" xml:space="preserve">
     <value>Themes</value>
   </data>

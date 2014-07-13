@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="be91b1be-4370-4056-a01b-8042f9ab0d9a" Publisher="CN=Artem" Version="0.1.0.0" />
-  <mp:PhoneIdentity PhoneProductId="be91b1be-4370-4056-a01b-8042f9ab0d9a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="16444ArtemShaban.580353B0D12F7" Publisher="CN=1A51811B-286B-4548-A66F-E4361E191A0F" Version="1.0.2.0" />
+  <mp:PhoneIdentity PhoneProductId="f7f0617d-b672-4c85-b4b4-d17084bfde58" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>NumberConverter.WindowsPhone</DisplayName>
-    <PublisherDisplayName>Artem</PublisherDisplayName>
+    <DisplayName>Конвертер чисел</DisplayName>
+    <PublisherDisplayName>Artem Shaban</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="NumberConverter.WindowsPhone.App">
-      <m3:VisualElements DisplayName="NumberConverter.WindowsPhone" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="NumberConverter.WindowsPhone" ForegroundText="light" BackgroundColor="transparent">
+      <m3:VisualElements DisplayName="Конвертер чисел" Square150x150Logo="Assets\Logo.png" Square44x44Logo="Assets\SmallLogo.png" Description="NumberConverter.WindowsPhone" ForegroundText="light" BackgroundColor="transparent">
         <m3:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square71x71Logo="Assets\Square71x71Logo.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />

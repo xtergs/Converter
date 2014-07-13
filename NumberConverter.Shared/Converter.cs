@@ -93,7 +93,7 @@ namespace Converter
 		//	double res;
 			StringBuilder returnStr = new StringBuilder();
 			var returnValue = new LongDouble();
-
+			returnValue.IsMinus = valueIn.IsMinus;
 			// convert decimital part	
 
 			decimal dres = 0;
@@ -145,6 +145,7 @@ namespace Converter
 			//temp = temp.Reverse().ToArray<char>();
 			//temp = temp.SkipWhile((char a) => { return a == '0'; }).ToArray<char>();
 			//return new string(temp);
+			returnValue.IsMinus = valueIn.IsMinus;
 			return returnValue;
 		}
 

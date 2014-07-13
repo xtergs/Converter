@@ -1,5 +1,5 @@
-MainPackage=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_1.0.100.0_Bundle\NumberConverter_1.0.100.0_AnyCPU.appx
-SymbolPackage=C:\Programming\Converter\NumberConverter\AppPackages\NumberConverter_1.0.100.0_Test\NumberConverter_1.0.100.0_AnyCPU.appxsym
-ResourcePack=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_1.0.100.0_Bundle\NumberConverter_1.0.100.0_language-ru.appx
-ResourcePack=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_1.0.100.0_Bundle\NumberConverter_1.0.100.0_scale-140.appx
-ResourcePack=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_1.0.100.0_Bundle\NumberConverter_1.0.100.0_scale-180.appx
+MainPackage=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_1.0.102.0_Bundle\NumberConverter_1.0.102.0_AnyCPU.appx
+SymbolPackage=C:\Programming\Converter\NumberConverter\AppPackages\NumberConverter_1.0.102.0_Test\NumberConverter_1.0.102.0_AnyCPU.appxsym
+ResourcePack=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_1.0.102.0_Bundle\NumberConverter_1.0.102.0_language-ru.appx
+ResourcePack=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_1.0.102.0_Bundle\NumberConverter_1.0.102.0_scale-140.appx
+ResourcePack=C:\Programming\Converter\NumberConverter\bin\Release\NumberConverter_1.0.102.0_Bundle\NumberConverter_1.0.102.0_scale-180.appx

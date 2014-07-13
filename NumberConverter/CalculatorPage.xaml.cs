@@ -231,8 +231,8 @@ namespace NumberConverter
 			{
 				if (From != null || From2 != null)
 				{
-					Calculate();
 					keyboard.SetVisibleButton(int.Parse((((ComboBoxItem) ((ComboBox) sender).SelectedItem)).Content.ToString()), true);
+					Calculate();
 				}
 			}
 			catch (Exception ee)

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="16444ArtemShaban.580353B0D12F7" Publisher="CN=1A51811B-286B-4548-A66F-E4361E191A0F" Version="1.0.100.0" />
+  <Identity Name="16444ArtemShaban.580353B0D12F7" Publisher="CN=1A51811B-286B-4548-A66F-E4361E191A0F" Version="1.0.102.0" />
   <Properties>
     <DisplayName>Конвертер чисел</DisplayName>
     <PublisherDisplayName>Artem Shaban</PublisherDisplayName>

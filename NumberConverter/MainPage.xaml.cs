@@ -139,9 +139,9 @@ namespace NumberConverter
 				if (sender != null && Result != null)
 				{
 					fromBase = int.Parse((((ComboBoxItem)((ComboBox)sender).SelectedItem)).Content.ToString());
-					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,	InputText.Text, (uint)toBase);
 					keyboard.SetVisibleButton(fromBase);
 					keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
+					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,	InputText.Text, (uint)toBase);
 				}
 			}
 			catch (Exception ee)
@@ -297,8 +297,8 @@ namespace NumberConverter
 					Grid.SetColumn(MenuGrid, 0);
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
-					From.Margin = new Thickness(5, 40, 5, 60);
-					Result.Margin = marginComboBox;
+					From.Margin = marginComboBox;
+					Result.Margin = new Thickness(5, 5, 5, 5);
 					To.Margin = marginComboBox;
 					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;

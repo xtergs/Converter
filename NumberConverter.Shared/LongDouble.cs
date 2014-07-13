@@ -36,7 +36,7 @@ namespace NumberConverter
 		public BigInteger IntegerBig { get { return BigInteger.Parse(integer); } }
 		public decimal FractionDec { get { return decimal.Parse("0" + splitter + Fraction); } }
 
-		bool IsMinus { get; set; }
+		public bool IsMinus { get; set; }
 
 		private bool IsDouble
 		{

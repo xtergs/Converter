@@ -86,7 +86,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
                                 <ListBox Grid.Row="1" FontSize="18" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                     <ListBoxItem Content="2"/>
                                     <ListBoxItem Content="3"/>
@@ -181,7 +181,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
                                 <ListBox Grid.Row="1" FontSize="18"  BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                     <ListBoxItem Content="2"/>
                                     <ListBoxItem Content="3"/>
@@ -286,7 +286,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
                                 <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                     <ListBoxItem Content="2"/>
                                     <ListBoxItem Content="3"/>
