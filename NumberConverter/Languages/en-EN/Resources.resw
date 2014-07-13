@@ -124,7 +124,7 @@
     <value>This application is designed to convert the number in base to 36. Also allows arithmetic operations on different number systems.</value>
   </data>
   <data name="ApplicationDescription" xml:space="preserve">
-    <value>Settings</value>
+    <value>This application is designed to convert the number in base to 36. Also allows arithmetic operations on different number systems.</value>
   </data>
   <data name="ApplicationName" xml:space="preserve">
     <value>Numeric Conveter</value>

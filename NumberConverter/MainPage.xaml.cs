@@ -193,9 +193,13 @@ namespace NumberConverter
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var statView = ApplicationView.GetForCurrentView();
+
+			MenuGrid.ColumnDefinitions[0].Width = new GridLength(MainGrid.ColumnDefinitions[0].ActualWidth);
 			if (statView.IsFullScreen)
 				if (statView.Orientation == ApplicationViewOrientation.Landscape)  //FullScreen and Landscape
 				{
+					var marginComboBox = new Thickness(20, 40, 20, 60);
+
 					Grid.SetRowSpan(InputText, 2);
 					Grid.SetColumnSpan(InputText, 2);
 
@@ -215,31 +219,35 @@ namespace NumberConverter
 
 					InputText.Margin = new Thickness(10, 20, 10, 60);
 					Result.Margin = new Thickness(10, 10, 10, 60);
-					From.Margin = new Thickness(20, 40, 20, 60);
-					To.Margin = new Thickness(20, 40, 20, 60);
+					From.Margin = marginComboBox;
+					To.Margin = marginComboBox;
 					sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					scaleFontTextBox = 0.25;
-			//		//MainGrid.Margin = new Thickness(10, 10, 10, 10);
-			//		Grid.SetColumnSpan(From, 1);
-			//		Grid.SetRow(InputText, 1);
-			//		Grid.SetColumn(InputText, 1);
-			//		Grid.SetRow(To, 2);
-			//		Grid.SetRowSpan(To, 1);
-			//		Grid.SetColumn(To, 0);
-			//		Grid.SetColumnSpan(To, 1);
-			//		//To.Margin = new Thickness(0, 0, 0, 0);
-			//		//To.Height = double.NaN;
-			//		//To.Width = double.NaN;
-			//		Grid.SetRow(Result, 2);
-			//		Grid.SetColumn(Result, 1);
-			//		Grid.SetRow(sizeKeyboard, 3);
-			//		Grid.SetRowSpan(sizeKeyboard, 4);
-			//		Grid.SetRow((FrameworkElement)Buttons, 3);
-			//		Grid.SetRowSpan((FrameworkElement)Buttons, 4);
+					
+					//		//MainGrid.Margin = new Thickness(10, 10, 10, 10);
+					//		Grid.SetColumnSpan(From, 1);
+					//		Grid.SetRow(InputText, 1);
+					//		Grid.SetColumn(InputText, 1);
+					//		Grid.SetRow(To, 2);
+					//		Grid.SetRowSpan(To, 1);
+					//		Grid.SetColumn(To, 0);
+					//		Grid.SetColumnSpan(To, 1);
+					//		//To.Margin = new Thickness(0, 0, 0, 0);
+					//		//To.Height = double.NaN;
+					//		//To.Width = double.NaN;
+					//		Grid.SetRow(Result, 2);
+					//		Grid.SetColumn(Result, 1);
+					//		Grid.SetRow(sizeKeyboard, 3);
+					//		Grid.SetRowSpan(sizeKeyboard, 4);
+					//		Grid.SetRow((FrameworkElement)Buttons, 3);
+					//		Grid.SetRowSpan((FrameworkElement)Buttons, 4);
 				}
 				else     //FullScreen and Portrate
 				{
+
+					var marginComboBox = new Thickness(5, 40, 5, 120);
+
 					Grid.SetRowSpan(InputText, 1);
 					Grid.SetColumnSpan(InputText, 4);
 
@@ -258,10 +266,11 @@ namespace NumberConverter
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
 					Result.Margin = new Thickness(5, 5, 5, 5);
-					From.Margin = new Thickness(5, 40, 5, 60);
-					To.Margin = new Thickness(5, 40, 5, 60);
+					From.Margin = marginComboBox;
+					To.Margin = marginComboBox;
 					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					MenuGrid.ColumnDefinitions[0].Width = GridLength.Auto;
 					//VisualStateManager.GoToState(this, "SnappedLandscape", true);
 					scaleFontTextBox = 0.35;
 				}
@@ -269,6 +278,8 @@ namespace NumberConverter
 			{
 				if (this.ActualWidth <= 510 )
 				{
+					var marginComboBox = new Thickness(5, 40, 5, 60);
+
 					Grid.SetRowSpan(InputText, 1);
 					Grid.SetColumnSpan(InputText, 4);
 
@@ -287,15 +298,18 @@ namespace NumberConverter
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
 					From.Margin = new Thickness(5, 40, 5, 60);
-					Result.Margin = new Thickness(5, 5, 5, 5);
-					To.Margin = new Thickness(5, 40, 5, 60);
+					Result.Margin = marginComboBox;
+					To.Margin = marginComboBox;
 					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					MenuGrid.ColumnDefinitions[0].Width = GridLength.Auto;
 					//VisualStateManager.GoToState(this, "SnappedLandscape", true);
 					scaleFontTextBox = 0.35;
 				}
 				else
 				{
+					var marginComboBox = new Thickness(5, 10, 5, 60);
+
 					Grid.SetRowSpan(InputText, 2);
 					Grid.SetColumnSpan(InputText, 2);
 
@@ -315,8 +329,8 @@ namespace NumberConverter
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
 					From.Margin = new Thickness(5, 40, 5, 60);
-					Result.Margin = new Thickness(5, 5, 5, 5);
-					To.Margin = new Thickness(5, 40, 5, 60);
+					Result.Margin = marginComboBox;
+					To.Margin = marginComboBox;
 					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
 					scaleFontTextBox = 0.25;

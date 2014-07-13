@@ -23,12 +23,12 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name ="MenuGrid"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding ColumnDefinitions[0].Width, ElementName=MainGrid, Mode=OneWay}"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <HyperlinkButton x:Uid="Calculator" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Content="Calculator" SizeChanged="Button_SizeChanged_1" IsEnabled="False" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0"/>
-            <HyperlinkButton x:Uid="Converter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Converter" Click="Button_Click_5" SizeChanged="Button_SizeChanged_1" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0" Margin="8,0,0,0" Grid.Column="1"/>
+            <HyperlinkButton x:Uid="Converter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Converter" Click="Button_Click_5" SizeChanged="Button_SizeChanged_1" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0" Margin="0" Grid.Column="1"/>
         </Grid>
         <Grid Grid.Row="1" x:Name="MainGrid"  IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" >
             <Grid.ColumnDefinitions>
@@ -50,10 +50,10 @@
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Uid="InputText" x:Name="InputText" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" KeyUp="InputText2_KeyUp" PlaceholderText="Enter the term" Style="{ThemeResource TextBoxStyle1}"/>
+                <TextBox x:Uid="InputText" x:Name="InputText" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" KeyUp="InputText2_KeyUp" PlaceholderText="Enter the term" Style="{ThemeResource TextBoxStyle1}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                 <Button x:Name="Clearr" Grid.Column="1" Content="X" Margin="-3,22,0,22" Click="Button_Click" Padding="15,4,12,4" Width="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Visibility="Collapsed" />
             </Grid>
-            <TextBox x:Uid="InputText" x:Name="InputText2" HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Margin="20,10,20,40" FontSize="100" CharacterSpacing="3" SizeChanged="TextBox_SizeChanged" TextChanged="TextBox_TextChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" KeyUp="InputText2_KeyUp" PlaceholderText="Enter the term" Style="{StaticResource TextBoxStyle1}"/>
+            <TextBox x:Uid="InputText" x:Name="InputText2" HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Margin="20,10,20,40" FontSize="100" CharacterSpacing="3" SizeChanged="TextBox_SizeChanged" TextChanged="TextBox_TextChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" KeyUp="InputText2_KeyUp" PlaceholderText="Enter the term" Style="{StaticResource TextBoxStyle1}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             <Grid Grid.Row="1" x:Name="InputTextGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -247,7 +247,7 @@
             <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="3" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="20,10,20,40" Grid.Column="3" Grid.RowSpan="6">
                 <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="5" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1" Background="#003B2574" VerticalAlignment="Bottom"/>
             </Border>
-            <TextBox x:Uid="Result" x:Name="Result" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" Grid.Row="4" IsReadOnly="True" GotFocus="Result_GotFocus" PlaceholderText="Result" Style="{StaticResource TextBoxStyle1}"/>
+            <TextBox x:Uid="Result" x:Name="Result" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" Grid.Row="4" IsReadOnly="True" GotFocus="Result_GotFocus" PlaceholderText="Result" Style="{StaticResource TextBoxStyle1}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             <Grid x:Name="Buttons_operation" Grid.Column="1" Grid.Row="2" Margin="20,10" SizeChanged="Buttons_operation_SizeChanged">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>

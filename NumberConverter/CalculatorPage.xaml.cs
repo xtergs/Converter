@@ -68,6 +68,7 @@ namespace NumberConverter
 		private ComboBox parentFlyout;
 		private Dictionary<FrameworkElement, FrameworkElement> TextBoxToComboBox;
 		private double scaleFontTextBox = 2.3;
+		private TextBox LastFocusTextBox;
 
 		public BlankPage1()
 		{
@@ -83,7 +84,7 @@ namespace NumberConverter
 			TextBoxToComboBox.Add(InputText2, From2);
 			TextBoxToComboBox.Add(Result, To);
 			DataContext = this;
-
+			LastFocusTextBox = InputText;
 
 #if WINDOWS_PHONE_APP
 			int marg_up = -6;
@@ -206,15 +207,20 @@ namespace NumberConverter
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
 			//	InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
+			TextBox input;
 			if (!(FocusManager.GetFocusedElement() is TextBox))
-				return;
-			var input = (TextBox) (FocusManager.GetFocusedElement());
+				input = LastFocusTextBox;
+			else
+			 input = (TextBox) (FocusManager.GetFocusedElement());
 			if (input == Result)
 				return;
-			var x = input.SelectionStart; //временное запоминание
-			input.Text = input.Text.Insert(input.SelectionStart, ((Button) sender).Content.ToString());
-			input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
+			//var x = input.SelectionStart; //временное запоминание
+			//input.Text = input.Text.Insert(input.SelectionStart, ((Button) sender).Content.ToString());
+			//input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
 			//InputText.Text += ((Button)sender).Content.ToString();
+			//input.Text += ((Button) sender).Content.ToString();
+			//input.Focus(FocusState.Programmatic);
+			SharePages.AddTextTextBox(((Button) sender).Content.ToString(), input);
 		}
 
 
@@ -374,6 +380,7 @@ namespace NumberConverter
 		{
 			//Buttons.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			//int count = int.Parse(((ComboBoxItem)From2.SelectedItem).Content.ToString());
+			LastFocusTextBox = (TextBox) sender;
 			var selectedItem = ((ComboBoxItem) ((ComboBox) TextBoxToComboBox.First(a => a.Key == sender).Value).SelectedItem);
 			int _base = int.Parse(selectedItem.Content.ToString());
 			keyboard.SetVisibleButton(_base, false);
@@ -493,6 +500,8 @@ namespace NumberConverter
 			//	MainGrid.Margin = new Thickness(0, 0, 0, 0);
 			//}
 
+			MenuGrid.ColumnDefinitions[0].Width = new GridLength(MainGrid.ColumnDefinitions[0].ActualWidth);
+
 			var statView = ApplicationView.GetForCurrentView();
 			if (statView.IsFullScreen)
 				if (statView.Orientation == ApplicationViewOrientation.Landscape)  //FullScreen and Landscape
@@ -544,6 +553,7 @@ namespace NumberConverter
 					sizeKeyboard.Margin = marginKeyboard;
 
 					Grid.SetColumn(MenuGrid, 1);
+					
 
 					//InputText.Margin = new Thickness(10, 10, 10, 60);
 					//From.Margin = new Thickness(10, 40, 10, 60);
@@ -628,6 +638,7 @@ namespace NumberConverter
 					//MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					//scaleFontTextBox = 0.25;
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					MenuGrid.ColumnDefinitions[0].Width = GridLength.Auto;
 					scaleFontTextBox = 0.25;
 				}
 			else  // not full screen

@@ -76,6 +76,7 @@ namespace NumberConverter
 			//inputText.SelectionStart = x + text.Length; // set caret in the end of pasted
 			//inputText.SelectedText = String.Empty;
 			inputText.Text += text;
+			inputText.Focus(FocusState.Programmatic);
 		}
 
 		public static void ResizeFontTextBox(TextBox textBox, double fontScale)

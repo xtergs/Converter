@@ -529,7 +529,7 @@
 		<Setter Property="Background" Value="{ThemeResource HyperlinkButtonBackgroundThemeBrush}"/>
 		<Setter Property="BorderBrush" Value="{ThemeResource HyperlinkButtonBorderThemeBrush}"/>
 		<Setter Property="BorderThickness" Value="{ThemeResource HyperlinkButtonBorderThemeThickness}"/>
-		<Setter Property="Padding" Value="12,4,12,5"/>
+		<Setter Property="Padding" Value="0,0,0,0"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
 		<Setter Property="VerticalAlignment" Value="Center"/>
 		<Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
@@ -575,7 +575,7 @@
 								<VisualState x:Name="PointerFocused"/>
 							</VisualStateGroup>
 						</VisualStateManager.VisualStateGroups>
-						<Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+						<Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="0">
 							<ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 						</Border>
 						<Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Opacity="0" StrokeDashOffset="1.5" StrokeEndLineCap="Square" Stroke="{ThemeResource FocusVisualWhiteStrokeThemeBrush}" StrokeDashArray="1,1"/>
