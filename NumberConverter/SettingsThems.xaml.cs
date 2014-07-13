@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -35,6 +36,12 @@ namespace NumberConverter
 
 		void ChangeTheme(Uri uri)
 		{
+			if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("Theme"))
+				ApplicationData.Current.LocalSettings.Values.Add("Theme", uri.ToString());
+			else
+			{
+				ApplicationData.Current.LocalSettings.Values["Theme"] = uri.ToString();
+			}
 			ResourceDictionary newDictionary = new ResourceDictionary();
 			newDictionary.Source = uri;
 			Application.Current.Resources = newDictionary;

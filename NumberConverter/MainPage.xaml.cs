@@ -267,7 +267,7 @@ namespace NumberConverter
 				}
 			else  // not full screen
 			{
-				if (this.ActualWidth <= 510 && ActualWidth >= 490 )
+				if (this.ActualWidth <= 510 )
 				{
 					Grid.SetRowSpan(InputText, 1);
 					Grid.SetColumnSpan(InputText, 4);

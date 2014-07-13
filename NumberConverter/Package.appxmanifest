@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="eedf6fc6-eccf-421c-9bb8-aa1a5b0d2a35" Publisher="CN=Artem_01" Version="0.5.0.10" />
+  <Identity Name="16444ArtemShaban.580353B0D12F7" Publisher="CN=1A51811B-286B-4548-A66F-E4361E191A0F" Version="1.0.100.0" />
   <Properties>
-    <DisplayName>NumberConverter</DisplayName>
-    <PublisherDisplayName>Artem</PublisherDisplayName>
+    <DisplayName>Конвертер чисел</DisplayName>
+    <PublisherDisplayName>Artem Shaban</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
@@ -15,8 +15,8 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="NumberConverter.App">
-      <m2:VisualElements DisplayName="NumberConverter" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="ms-resource:ApplicationDescription" ForegroundText="light" BackgroundColor="#252525">
-        <m2:DefaultTile Square70x70Logo="Assets\Square70x70Logo.png" ShortName="NumberConverter" Square310x310Logo="Assets\Square310x310Logo.png" Wide310x150Logo="Assets\Wide310x150Logo.png" DefaultSize="square150x150Logo">
+      <m2:VisualElements DisplayName="ms-resource:ApplicationName" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="ms-resource:ApplicationDescription" ForegroundText="light" BackgroundColor="#252525">
+        <m2:DefaultTile Square70x70Logo="Assets\Square70x70Logo.png" ShortName="ms-resource:ApplicationName" Square310x310Logo="Assets\Square310x310Logo.png" Wide310x150Logo="Assets\Wide310x150Logo.png" DefaultSize="square150x150Logo">
           <m2:ShowNameOnTiles>
             <m2:ShowOn Tile="square150x150Logo" />
             <m2:ShowOn Tile="wide310x150Logo" />
@@ -30,6 +30,7 @@
           <m2:Rotation Preference="portraitFlipped" />
           <m2:Rotation Preference="landscapeFlipped" />
         </m2:InitialRotationPreference>
+        <m2:ApplicationView MinWidth="width500" />
       </m2:VisualElements>
     </Application>
   </Applications>

@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -35,6 +36,7 @@ namespace NumberConverter
 		{
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;
+			
 		}
 
 		/// <summary>
@@ -83,6 +85,27 @@ namespace NumberConverter
 			}
 
 			Subscribe();
+
+			if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Theme"))
+			{
+				{
+					var uri = new Uri(ApplicationData.Current.LocalSettings.Values["Theme"].ToString(), UriKind.Absolute);
+					ResourceDictionary newDictionary = new ResourceDictionary();
+					newDictionary.Source = uri;
+					Application.Current.Resources = newDictionary;
+					newDictionary = new ResourceDictionary();
+					newDictionary.Source = uri;
+					Application.Current.Resources = newDictionary;
+					//Application.Current.Resources = newDictionary;
+					//var s = Window.Current.GetType();
+					//bool bb = Window.Current.Content is MainPage;
+					//bool dd = Window.Current.Content is 
+					(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+					//(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+				}
+
+			}
+
 			// Ensure the current window is active
 			Window.Current.Activate();
 		}
@@ -137,6 +160,19 @@ namespace NumberConverter
 				//var d = typeof (s);
 				var a = new SettingsThems();
 				a.a = s.GetType();
+				a.Show();
+
+			});
+			applicationCommands.Add(newComand);
+
+			text = resourceLoader.GetString("About");
+			newComand = new SettingsCommand("", text, cmd =>
+			{
+				
+
+				//var d = typeof (s);
+				var a = new About();
+				a.Title = text;
 				a.Show();
 
 			});

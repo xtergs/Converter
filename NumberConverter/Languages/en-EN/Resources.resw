@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="AboutT.Text" xml:space="preserve">
+    <value>This application is designed to convert the number in base to 36. Also allows arithmetic operations on different number systems.</value>
+  </data>
   <data name="ApplicationDescription" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Numeric Conveter</value>
   </data>
   <data name="Calculator.Content" xml:space="preserve">
     <value>Calculator</value>
@@ -130,7 +139,7 @@
     <value>You can't divide by zero</value>
   </data>
   <data name="InputText.PlaceholderText" xml:space="preserve">
-    <value>Enter the term</value>
+    <value>Enter the value</value>
   </data>
   <data name="Result.PlaceholderText" xml:space="preserve">
     <value>Result</value>
@@ -138,8 +147,8 @@
   <data name="Settings.Title" xml:space="preserve">
     <value>Themes</value>
   </data>
-  <data name="Support" xml:space="preserve">
-    <value>!!!</value>
+  <data name="SupportT.Text" xml:space="preserve">
+    <value>Questions and suggestions can be sent by e-mail Xtergs@gmail.com</value>
   </data>
   <data name="Themes" xml:space="preserve">
     <value>Themes</value>
