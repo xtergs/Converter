@@ -4,6 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NumberConverter">
     <Application.Resources>
-        <ResourceDictionary Source="Resource/DarkBlue.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="Resource/DarkBlueTheme.xaml"/>
 </Application.Resources>
 </Application>

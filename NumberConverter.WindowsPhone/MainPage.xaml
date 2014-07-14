@@ -35,10 +35,10 @@
         <Grid x:Name="MainGrid"  Style="{StaticResource GridStyle1}" Margin="0" Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -71,7 +71,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                            <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
                             <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{StaticResource ListBoxStyle1}">
                                 <ListBoxItem Content="2"/>
                                 <ListBoxItem Content="3"/>
@@ -164,7 +164,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                            <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
                             <ListBox Grid.Row="1" FontSize="18"  BorderThickness="0,0,0,0"  SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                 <ListBoxItem Content="2"/>
                                 <ListBoxItem Content="3"/>
@@ -226,7 +226,7 @@
                     </Flyout>
                 </FlyoutBase.AttachedFlyout>
             </ComboBox>
-            <TextBox x:Uid="InputText" x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="0"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="2" Margin="5,10,5,60" Header="" Grid.Row="1" Tapped="InputText_Tapped" GotFocus="InputText_GotFocus" SelectionChanged="InputText_SelectionChanged" PointerReleased="InputText_PointerReleased" KeyUp="InputText_KeyUp" PreventKeyboardDisplayOnProgrammaticFocus="True" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" Style="{StaticResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" LostFocus="InputText_LostFocus" />
+            <TextBox x:Uid="InputText" x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  PointerPressed="InputText_PointerPressed" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="2" Margin="5,10,5,60" Header="" Grid.Row="1" Tapped="InputText_Tapped" GotFocus="InputText_GotFocus" SelectionChanged="InputText_SelectionChanged" PointerReleased="InputText_PointerReleased" KeyUp="InputText_KeyUp" PreventKeyboardDisplayOnProgrammaticFocus="True" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" Style="{StaticResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" LostFocus="InputText_LostFocus" />
             <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Click="Button_Click_5" GotFocus="Button_GotFocus" IsTabStop="False" Grid.Column="2" Padding="12,4" MinWidth="0" MinHeight="0" Visibility="Collapsed">
                 <ToolTipService.ToolTip>
                     <TextBlock Text="Calculator" />

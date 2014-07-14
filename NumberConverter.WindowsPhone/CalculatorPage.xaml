@@ -30,7 +30,7 @@
         </Grid>
         <Grid x:Name="MainGrid"  IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" Grid.Row="1" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
@@ -60,7 +60,7 @@
                     <RowDefinition Height="0.5*"/>
 
                 </Grid.RowDefinitions>
-                <ComboBox x:Name="From" SelectedIndex="{Binding Path=FromBase, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" MinWidth="109" Margin="20,20,20,60" RightTapped="From_Holding" Style="{ThemeResource ComboBoxStyle1}" >
+                <ComboBox x:Name="From" SelectedIndex="{Binding Path=FromBase, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" Margin="20,20,20,60" RightTapped="From_Holding" Style="{ThemeResource ComboBoxStyle1}" >
                     <ComboBoxItem Content="2"/>
                     <ComboBoxItem Content="8"/>
                     <ComboBoxItem Content="10"/>
@@ -86,7 +86,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
                                 <ListBox Grid.Row="1" FontSize="18" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                     <ListBoxItem Content="2"/>
                                     <ListBoxItem Content="3"/>
@@ -181,7 +181,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
                                 <ListBox Grid.Row="1" FontSize="18"  BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                     <ListBoxItem Content="2"/>
                                     <ListBoxItem Content="3"/>
@@ -266,7 +266,7 @@
                     <RowDefinition Height="0.5*"/>
 
                 </Grid.RowDefinitions>
-                <ComboBox x:Name="To" SelectedIndex="{Binding Path=ToBase, Mode=TwoWay, FallbackValue=0}" SelectionChanged="To_SelectionChanged" Margin="20,20,20,60" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" RightTapped="From_Holding" Holding="From_Holding" Style="{ThemeResource ComboBoxStyle1}">
+                <ComboBox x:Name="To" SelectedIndex="{Binding Path=ToBase, Mode=TwoWay, FallbackValue=0}" SelectionChanged="To_SelectionChanged" Margin="20,20,20,60" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" RightTapped="From_Holding" Holding="From_Holding" Style="{ThemeResource ComboBoxStyle1}">
                     <ComboBoxItem Content="2"/>
                     <ComboBoxItem Content="8"/>
                     <ComboBoxItem Content="10"/>
@@ -286,7 +286,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
+                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
                                 <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
                                     <ListBoxItem Content="2"/>
                                     <ListBoxItem Content="3"/>

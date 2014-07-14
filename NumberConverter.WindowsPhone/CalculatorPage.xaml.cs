@@ -600,7 +600,8 @@ namespace NumberConverter
 					//sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
 					//MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					//scaleFontTextBox = 0.25;
-					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
+					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
+				//	MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
 					scaleFontTextBox = 0.25;
 				}
 			else  // not full screen

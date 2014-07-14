@@ -3,27 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:NumberConverter.Resource">
 
-    <!--ForegroundBrush-->
-    <SolidColorBrush Color="White" x:Name="ForegroundWhieBrush"></SolidColorBrush>
-
-    <!--ComboBox, Button-->
-    <SolidColorBrush Color="#FF3F3F3F" x:Name="BackgroundComboboxBrush"></SolidColorBrush>
-
-    <!--Blue-->
-    <SolidColorBrush Color="#FF0b8194" x:Name="BlueThemeColorBrush"></SolidColorBrush>
-
-    <!--Blue bright-->
-    <SolidColorBrush Color="#FF18BBD6" x:Name="BlueBrightThemeColorBrush"></SolidColorBrush>
-
-    <!--TextBox-->
-    <SolidColorBrush Color="#FF3F3F3F" x:Name="BackgroundTextBoxBrush"></SolidColorBrush>
-
-    <SolidColorBrush Color="#FFAEAEAE" x:Name="ForegroudnActiveHyperlinkButtonBrush"></SolidColorBrush>
-
-    <SolidColorBrush Color="#FF1d1d1d" x:Name="BackgroundGrid"></SolidColorBrush>
-
-    <SolidColorBrush Color="#FF07B0CB" x:Name="ToggleButtonPointerOverBackgroundThemeBrush"></SolidColorBrush>
-
     <x:Double x:Key="TextControlThemeMinWidth">51</x:Double>
     <x:Double x:Key="TextControlThemeMinHeight">33</x:Double>
     <Thickness x:Key="TextControlBorderThemeThickness">2.5001</Thickness>
@@ -37,7 +16,7 @@
     <x:Double x:Key="TextControlBorderThemeOpacity">0.8</x:Double>
     
     <Style x:Key="TextBoxStyle1" TargetType="TextBox">
-        <Setter Property="MinWidth" Value="{ThemeResource TextControlThemeMinWidth}"/>
+        <Setter Property="MinWidth" Value="0"/>
         <Setter Property="MinHeight" Value="{ThemeResource TextControlThemeMinHeight}"/>
         <Setter Property="Foreground" Value="{ThemeResource ForegroundWhieBrush}"/>
         <Setter Property="SelectionHighlightColor" Value="{ThemeResource TextSelectionHighlightColorThemeBrush}"/>
