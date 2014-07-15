@@ -518,6 +518,21 @@ namespace NumberConverter
 				
 				
 		}
+
+		void SaveState()
+		{
+			suspendPage = new SuspendPage();
+			suspendPage.indexFrom = FromBase;
+			//suspendPage.indexFrom2 = FromBase2;
+			suspendPage.indexTo = ToBase;
+			suspendPage.InputText = InputText.Text;
+		}
+
+		private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
+		{
+			SaveState();
+			this.Frame.Navigate(typeof(Themes));
+		}
 		
 	}
 }

@@ -7,6 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -96,6 +97,26 @@ namespace NumberConverter
                     throw new Exception("Failed to create initial page");
                 }
             }
+
+			if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Theme"))
+			{
+				{
+					var uri = new Uri(ApplicationData.Current.LocalSettings.Values["Theme"].ToString(), UriKind.Absolute);
+					ResourceDictionary newDictionary = new ResourceDictionary();
+					newDictionary.Source = uri;
+					Application.Current.Resources = newDictionary;
+					newDictionary = new ResourceDictionary();
+					newDictionary.Source = uri;
+					Application.Current.Resources = newDictionary;
+					//Application.Current.Resources = newDictionary;
+					//var s = Window.Current.GetType();
+					//bool bb = Window.Current.Content is MainPage;
+					//bool dd = Window.Current.Content is 
+					(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+					//(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+				}
+
+			}
 
             // Ensure the current window is active
             Window.Current.Activate();

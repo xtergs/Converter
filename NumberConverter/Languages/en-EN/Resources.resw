@@ -118,51 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>О приложении</value>
+    <value>About</value>
   </data>
   <data name="AboutT.Text" xml:space="preserve">
-    <value>Данное приложение предназначено для конвеертации числа в систему считсления до 36. Также позволяет производить арифметические операции над разными системами счисления.</value>
-  </data>
-  <data name="ApplicaionNameT.Text" xml:space="preserve">
-    <value>Конвертер чисел</value>
+    <value>This application is designed to convert the number in base to 36. Also allows arithmetic operations on different number systems.</value>
   </data>
   <data name="ApplicationDescription" xml:space="preserve">
-    <value>Данное приложение предназначено для конвеертации числа в систему считсления до 36. Также позволяет производить арифметические операции над разными системами счисления.</value>
+    <value>This application is designed to convert the number in base to 36. Also allows arithmetic operations on different number systems.</value>
   </data>
   <data name="ApplicationName" xml:space="preserve">
-    <value>Конвертер чисел</value>
+    <value>Numeric Converter</value>
   </data>
   <data name="Calculator.Content" xml:space="preserve">
-    <value>Калькулятор</value>
+    <value>Calculator</value>
   </data>
   <data name="Converter.Content" xml:space="preserve">
-    <value>Конвертер</value>
+    <value>Converter</value>
   </data>
   <data name="DivideByZero" xml:space="preserve">
-    <value>Нельзя делить на 0</value>
+    <value>You can't divide by zero</value>
   </data>
   <data name="InputText.PlaceholderText" xml:space="preserve">
-    <value>Введите число</value>
+    <value>Enter the value</value>
   </data>
   <data name="Result.PlaceholderText" xml:space="preserve">
-    <value>Результат</value>
+    <value>Result</value>
   </data>
   <data name="SelectBase.Text" xml:space="preserve">
-    <value>Выберите систему счисления</value>
+    <value>Select other base</value>
   </data>
   <data name="Settings.Title" xml:space="preserve">
-    <value>Темы</value>
+    <value>Themes</value>
   </data>
   <data name="SupportT.Text" xml:space="preserve">
-    <value>Вопросы и предложения можно высылать по электронной почте Xtergs@gmail.com</value>
+    <value>Questions and suggestions can be sent by e-mail Xtergs@gmail.com</value>
   </data>
   <data name="Themes" xml:space="preserve">
-    <value>Темы</value>
-  </data>
-  <data name="ThemesB.Content" xml:space="preserve">
-    <value>Темы</value>
-  </data>
-  <data name="ThemesT.Text" xml:space="preserve">
-    <value>Темы</value>
+    <value>Themes</value>
   </data>
 </root>

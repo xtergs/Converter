@@ -1,2 +1,5 @@
-MainPackage=C:\Programming\Converter\NumberConverter.WindowsPhone\bin\Release\NumberConverter.WindowsPhone_1.0.2.0_Bundle\NumberConverter.WindowsPhone_1.0.2.0_AnyCPU.appx
-SymbolPackage=C:\Programming\Converter\NumberConverter.WindowsPhone\AppPackages\NumberConverter.WindowsPhone_1.0.2.0_Test\NumberConverter.WindowsPhone_1.0.2.0_AnyCPU.appxsym
+MainPackage=C:\Programming\Converter\NumberConverter.WindowsPhone\bin\Release\NumberConverter.WindowsPhone_1.1.2.4_Bundle\NumberConverter.WindowsPhone_1.1.2.4_AnyCPU.appx
+SymbolPackage=C:\Programming\Converter\NumberConverter.WindowsPhone\AppPackages\NumberConverter.WindowsPhone_1.1.2.4_Test\NumberConverter.WindowsPhone_1.1.2.4_AnyCPU.appxsym
+ResourcePack=C:\Programming\Converter\NumberConverter.WindowsPhone\bin\Release\NumberConverter.WindowsPhone_1.1.2.4_Bundle\NumberConverter.WindowsPhone_1.1.2.4_language-ru.appx
+ResourcePack=C:\Programming\Converter\NumberConverter.WindowsPhone\bin\Release\NumberConverter.WindowsPhone_1.1.2.4_Bundle\NumberConverter.WindowsPhone_1.1.2.4_scale-100.appx
+ResourcePack=C:\Programming\Converter\NumberConverter.WindowsPhone\bin\Release\NumberConverter.WindowsPhone_1.1.2.4_Bundle\NumberConverter.WindowsPhone_1.1.2.4_scale-140.appx

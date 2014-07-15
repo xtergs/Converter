@@ -20,13 +20,15 @@
             <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid x:Name ="MenuGrid"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="0">
+        <Grid x:Name ="MenuGrid"  Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <HyperlinkButton x:Uid="Converter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Content="Converter" Click="Button_Click_5" SizeChanged="Button_SizeChanged_1" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0" Margin="8,0,0,0"/>
             <HyperlinkButton x:Uid="Calculator" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" Content="Calculator" SizeChanged="Button_SizeChanged_1" IsEnabled="False" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0"/>
+            <HyperlinkButton x:Uid="Converter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Content="Converter" Click="Button_Click_5" SizeChanged="Button_SizeChanged_1" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0" Margin="0,0,0,0"/>
+            <HyperlinkButton x:Uid="ThemesB" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Content="Calculator" SizeChanged="Button_SizeChanged_1" IsEnabled="False" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0"/>
         </Grid>
         <Grid x:Name="MainGrid"  IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" Grid.Row="1" >
             <Grid.ColumnDefinitions>
