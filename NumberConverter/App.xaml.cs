@@ -130,7 +130,7 @@ namespace NumberConverter
 		private void OnSuspending(object sender, SuspendingEventArgs e)
 		{
 			var deferral = e.SuspendingOperation.GetDeferral();
-			Unsubscribe();
+		//	Unsubscribe();
 			//TODO: Save application state and stop any background activity
 			deferral.Complete();
 		}

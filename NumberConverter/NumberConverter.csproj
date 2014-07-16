@@ -17,7 +17,7 @@
     <PackageCertificateKeyFile>NumberConverter_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
-    <AppxBundle>Auto</AppxBundle>
+    <AppxBundle>Always</AppxBundle>
     <PackageCertificateThumbprint>07B99E21B5CBA3CC43F230658E9D90309214A36C</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -127,8 +127,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <PRIResource Include="Languages\en-EN\Resources.resw" />
-    <PRIResource Include="Languages\ru-Ru\Resources.resw" />
     <None Include="NumberConverter_StoreKey.pfx" />
     <None Include="NumberConverter_TemporaryKey.pfx" />
     <None Include="packages.config" />
