@@ -258,6 +258,47 @@ namespace NumberConverter
 			return result;
 		}
 
+		public static bool operator <(LongDouble value1, LongDouble value2)
+		{
+			if (value1.IsMinus && !value2.IsMinus)
+				return true;
+			if (!value1.IsMinus && value2.IsMinus)
+				return false;
+
+			//Both are positive
+			if (!value1.IsMinus && !value2.IsMinus)
+			{
+				//Integer
+				if (value1.IntegerBig < value2.IntegerBig)
+					return true;
+
+				//Fraction
+				if (value1.FractionDec < value2.FractionDec)
+					return true;
+				
+				//if both are equal or value1 > value2
+				return false;
+			}
+			else //Both are negative
+			{
+				//Integer
+				if (value1.IntegerBig > value2.IntegerBig)
+					return true;
+
+				//Fraction
+				if (value1.FractionDec > value2.FractionDec)
+					return true;
+
+				//if both are equal or -value1 < -value2
+				return false;
+			}
+		}
+
+		public static bool operator >(LongDouble value1, LongDouble value2)
+		{
+			return !(value1 < value2);
+		}
+
 		public static string Splitter { get { return splitter; } }
 
 		bool isLong;
