@@ -191,5 +191,28 @@
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames />
-  <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=7276517b-c67b-43f5-9db2-8f719aa8bd79" />
+  <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=7276517b-c67b-43f5-9db2-8f719aa8bd79">
+    <BundleInfo>
+      <PackageInfo>
+        <OsMinVersion>6.3.0.0</OsMinVersion>
+        <PackageArchitecture></PackageArchitecture>
+        <PackageMaxArchitectureVersion>1.1.5.4</PackageMaxArchitectureVersion>
+      </PackageInfo>
+      <PackageInfo>
+        <OsMinVersion>6.3.0.0</OsMinVersion>
+        <PackageArchitecture></PackageArchitecture>
+        <PackageMaxArchitectureVersion>1.1.5.4</PackageMaxArchitectureVersion>
+      </PackageInfo>
+      <PackageInfo>
+        <OsMinVersion>6.3.0.0</OsMinVersion>
+        <PackageArchitecture>neutral</PackageArchitecture>
+        <PackageMaxArchitectureVersion>1.1.5.4</PackageMaxArchitectureVersion>
+      </PackageInfo>
+      <PackageInfo>
+        <OsMinVersion>6.3.0.0</OsMinVersion>
+        <PackageArchitecture></PackageArchitecture>
+        <PackageMaxArchitectureVersion>1.1.5.4</PackageMaxArchitectureVersion>
+      </PackageInfo>
+    </BundleInfo>
+  </PackageInfoList>
 </StoreAssociation>
