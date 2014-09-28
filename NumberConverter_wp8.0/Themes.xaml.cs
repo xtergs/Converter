@@ -157,26 +157,5 @@ namespace NumberConverter
 			var uri = new Uri("ms-resource:/Files/Resource/DarkRedTheme.xaml", UriKind.Absolute);
 			ChangeTheme(uri);
 		}
-
-		private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-		{
-			if (e.Velocities.Linear.X > 0)
-				Frame.Navigate(typeof(BlankPage1));
-		}
-
-		private void HyperlinkButton_Click_4(object sender, RoutedEventArgs e)
-		{
-			Frame.Navigate(typeof(MainPage));
-		}
-
-		private void HyperlinkButton_Click_5(object sender, RoutedEventArgs e)
-		{
-			Frame.Navigate(typeof(BlankPage1));
-		}
-
-		private void HyperlinkButton_SizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			((ButtonBase)sender).FontSize = e.NewSize.Height * 0.5;
-		}
 	}
 }

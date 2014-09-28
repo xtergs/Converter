@@ -153,6 +153,9 @@
   <data name="Settings.Title" xml:space="preserve">
     <value>Темы</value>
   </data>
+  <data name="SettingsLB.Content" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
   <data name="SupportT.Text" xml:space="preserve">
     <value>Вопросы и предложения можно высылать по электронной почте Xtergs@gmail.com</value>
   </data>

@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ManipulationMode="TranslateX" ManipulationCompleted="Page_ManipulationCompleted">
 
     <Grid x:Name="LayoutRoot">
 
@@ -18,17 +18,26 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        <Grid x:Name="MenuGrid" Grid.ColumnSpan="5" HorizontalAlignment="Left" Grid.Column="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <HyperlinkButton x:Uid="Calculator" Content="Calculator!!" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="1" BorderBrush="Transparent"  Style="{StaticResource HyperlinkButtonStyle1}"  Click="HyperlinkButton_Click_5" SizeChanged="HyperlinkButton_SizeChanged"/>
+            <HyperlinkButton x:Uid="Converter" Content="Converter!!" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  IsTabStop="False" Margin="0,0,5,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="0" BorderBrush="Transparent"   Style="{StaticResource HyperlinkButtonStyle1}" IsEnabled="True"  Click="HyperlinkButton_Click_4" SizeChanged="HyperlinkButton_SizeChanged"/>
+            <HyperlinkButton x:Uid="SettingsLB" Content="Converter" HorizontalAlignment="Right" VerticalAlignment="Stretch"  IsTabStop="False" Margin="0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="2" BorderBrush="Transparent"    Style="{StaticResource HyperlinkButtonStyle1}" IsEnabled="False" SizeChanged="HyperlinkButton_SizeChanged" Visibility="Collapsed"/>
+        </Grid>
         <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock x:Uid="ApplicaionNameT" Text="a" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock x:Uid="ThemesT" Text="page title" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        <StackPanel Grid.Row="1" Margin="19,0,0,0">
+            <TextBlock x:Uid="ThemesT" Text="ThemesS"  Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
-        <StackPanel Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+        <StackPanel Grid.Row="2" x:Name="ContentRoot" Margin="19,9.5,19,0">
             <HyperlinkButton Content="Dark Blue" Click="HyperlinkButton_Click"/>
             <HyperlinkButton Content="Dark Green" Click="HyperlinkButton_Click_1"/>
             <HyperlinkButton Content="Dark Orange" Click="HyperlinkButton_Click_2"/>

@@ -762,19 +762,16 @@ namespace NumberConverter
 
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
-			SaveState();
-			Frame.Navigate(typeof (MainPage));
-
-		}
-
-		void SaveState()
-		{
-			suspendPage = new SuspendPage();
-			suspendPage.indexFrom = FromBase;
-			suspendPage.indexFrom2 = FromBase2;
-			suspendPage.indexTo = ToBase;
-			suspendPage.InputText = InputText.Text;
-			suspendPage.InputText2 = InputText2.Text;
+			if (Frame.CanGoBack)
+			{
+				suspendPage = new SuspendPage();
+				suspendPage.indexFrom = FromBase;
+				suspendPage.indexFrom2 = FromBase2;
+				suspendPage.indexTo = ToBase;
+				suspendPage.InputText = InputText.Text;
+				suspendPage.InputText2 = InputText2.Text;
+				this.Frame.GoBack();
+			}
 		}
 
 		private void From_Holding(object sender, HoldingRoutedEventArgs e)
@@ -859,20 +856,6 @@ namespace NumberConverter
 				suspendPage = null;
 			}
 			InputText.Focus(FocusState.Programmatic);
-		}
-
-		private void CalculatorPage_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-		{
-			if (e.Velocities.Linear.X > 1)
-				Frame.Navigate(typeof(MainPage));
-			//else if (e.Velocities.Linear.X < -1)
-			//	Frame.Navigate(typeof (Themes));
-		}
-
-		private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
-		{
-			SaveState();
-			Frame.Navigate(typeof (Themes));
 		}
 	}
 }

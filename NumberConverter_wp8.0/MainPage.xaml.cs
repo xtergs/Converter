@@ -7,7 +7,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
-using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -77,7 +76,7 @@ namespace NumberConverter
 				((Button)(panel.Children[i])).Click += Button_Click_1;
 			}
 			((Button)(panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
-			//((Button)(panel.Children[panel.Children.Count - 3])).SizeChanged += Buttons_SizeChanged;
+			((Button)(panel.Children[panel.Children.Count - 3])).SizeChanged += Buttons_SizeChanged;
 			((Button)(panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; //backspace
 			((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
 		}
@@ -119,6 +118,14 @@ namespace NumberConverter
 			InputText.Select(InputText.Text.Length, 0);
 		}
 		
+		private void InputText_PointerPressed(object sender, PointerRoutedEventArgs e)
+		{
+			//if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+			//	((TextBox)sender).IsReadOnly = true;
+			//else
+			//	((TextBox)sender).IsReadOnly = false;
+		}
+
 		private void From_Holding(object sender, HoldingRoutedEventArgs e)
 		{
 			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
@@ -162,9 +169,27 @@ namespace NumberConverter
 
 		private void Result_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
+
 			SharePages.ResizeFontTextBox((TextBox)sender, scaleFontTextBox);
 		}
 				
+		private void Buttons_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			//var x = ((Button)sender);
+			//if (x.Height == double.NaN)
+
+			//x.Height = Clearr.ActualWidth-50;
+			//x.Width = Clearr.ActualWidth -50;
+			//x.FontSize = x.Height - 50;
+		}
+
+		private void Buttons_SizeChanged_1(object sender, SizeChangedEventArgs e)
+		{
+
+		}
+
+		
+
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var statView = ApplicationView.GetForCurrentView();
@@ -341,6 +366,11 @@ namespace NumberConverter
 			
 		}
 
+		private void Button_GotFocus(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
 		private void sizeKeyboard_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 3);
@@ -379,11 +409,29 @@ namespace NumberConverter
 			openedFlyout = sender as Flyout;
 		}
 
+		private void InputText_Tapped(object sender, TappedRoutedEventArgs e)
+		{
+			//if (e.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
+			//	((TextBox)sender).IsReadOnly = true;
+			//else
+			//	((TextBox)sender).IsReadOnly = false;
+		}
+
 		object focusedTextBox;
 
 		private void InputText_GotFocus(object sender, RoutedEventArgs e)
 		{
 			focusedTextBox = sender;
+		}
+
+		private void InputText_SelectionChanged(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void InputText_PointerReleased(object sender, PointerRoutedEventArgs e)
+		{
+
 		}
 
 		private void Backspace_Click(object sender, RoutedEventArgs e)
@@ -427,6 +475,12 @@ namespace NumberConverter
 			//ApplicationViewStates.SetValue(); = SnappedLandscape;
 		}
 
+		private void Button_Click_4(object sender, RoutedEventArgs e)
+		{
+			
+			//App.Current.Resources
+		}
+
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (suspendPage != null)
@@ -447,6 +501,23 @@ namespace NumberConverter
 			}
 		}
 
+		private void Page_GotFocus(object sender, RoutedEventArgs e)
+		{
+			//if (e.OriginalSource is TextBox)
+			//	((TextBox) e.OriginalSource).Focus(FocusState.Programmatic);
+		}
+
+		private void InputText_LostFocus(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void sizeKeyboard_GotFocus(object sender, RoutedEventArgs e)
+		{
+			
+				
+				
+		}
 
 		void SaveState()
 		{
@@ -461,13 +532,6 @@ namespace NumberConverter
 		{
 			SaveState();
 			this.Frame.Navigate(typeof(Themes));
-		}
-
-		private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
-		{
-			double x = e.Velocities.Linear.X;
-			if (x < -1)
-				Frame.Navigate(typeof(BlankPage1));
 		}
 		
 	}
