@@ -39,5 +39,33 @@ namespace UnitTestLibrary1
 	    }
 
 
+		[TestMethod]
+		public void IntegerPartOr()
+		{
+			//Arrange
+			LongDouble value1 = new LongDouble("2");
+			LongDouble value2 = new LongDouble("1");
+
+			//Act
+			var result = value1 | value2;
+
+			//Assert
+			Assert.IsTrue(result.ToString() == "3");
+		}
+
+		[TestMethod]
+		public void IntegerDoubleOr()
+		{
+			//Arrange
+			LongDouble value1 = new LongDouble("2.0000");
+			LongDouble value2 = new LongDouble("1.0000");
+
+			//Act
+			var result = value1 | value2;
+
+			//Assert
+			Assert.IsTrue(result.ToString() == "3");
+		}
+
     }
 }

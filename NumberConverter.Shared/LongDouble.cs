@@ -314,7 +314,20 @@ namespace NumberConverter
 			return result;
 		}
 
-		
+		public static LongDouble operator |(LongDouble value1, LongDouble value2)
+		{
+			if (value1 == null)
+				throw new ArgumentNullException("value1");
+			if (value2 == null)
+				throw new ArgumentNullException("value2");
+			if (value2.IsDouble || value1.IsDouble)
+				throw new Exception("can operate only on integer");
+
+			var result = new LongDouble();
+			result.Integer = (value1.IntegerBig | value2.IntegerBig).ToString();
+
+			return result;
+		}
 
 		public static string Splitter { get { return splitter; } }
 
