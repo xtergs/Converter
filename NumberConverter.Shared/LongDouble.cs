@@ -355,6 +355,51 @@ namespace NumberConverter
 			return result;
 		}
 
+		public static LongDouble operator ~(LongDouble value1)
+		{
+			if (value1 == null)
+				throw new ArgumentNullException("value1");
+			if (value1.IsDouble)
+				throw new Exception("can operate only on integer");
+
+			var result = new LongDouble();
+			result.Integer = (~value1.IntegerBig).ToString();
+
+			return result;
+		}
+
+		public LongDouble Pow(int value1)
+		{
+			if (value1 == 0)
+				return new LongDouble("1");
+			var result = new LongDouble(this.ToString());
+			if (value1 > 0)
+				for (int i = 1; i < value1; i++)
+					result *= this;
+			else
+			{
+				value1 *= -1;
+				for (int i = 1; i < value1; i++)
+					result *= this;
+				result = new LongDouble("1")/result;
+			}
+			return result;
+		}
+
+		public static LongDouble XOR(LongDouble value1, LongDouble value2)
+		{
+			if (value1 == null)
+				throw new ArgumentNullException("value1");
+			if (value2 == null)
+				throw new ArgumentNullException("value2");
+			if (value2.IsDouble || value1.IsDouble)
+				throw new Exception("can operate only on integer");
+
+			var result = new LongDouble();
+			result.Integer = (value1.IntegerBig ^ value2.IntegerBig).ToString();
+			return result;
+		}
+
 		public static string Splitter { get { return splitter; } }
 
 		bool isLong;
