@@ -72,6 +72,8 @@ namespace NumberConverter
 		private Dictionary<FrameworkElement, FrameworkElement> TextBoxToComboBox;
 		private double scaleFontTextBox = 3.5;
 
+		private List<ToggleButton> operationList; 
+
 		public BlankPage1()
 		{
 			this.InitializeComponent();
@@ -87,13 +89,25 @@ namespace NumberConverter
 			TextBoxToComboBox.Add(Result, To);
 			DataContext = this;
 
+			operationList = new List<ToggleButton>();
+			operationList.Add(Button_Plus);
+			operationList.Add(Button_Minus);
+			operationList.Add(Button_multipl);
+			operationList.Add(Button_divide);
+			operationList.Add(Button_Pow);
+			operationList.Add(Button_No);
+			operationList.Add(Button_LShift);
+			operationList.Add(Button_RShift);
+			operationList.Add(Button_Or);
+			operationList.Add(Button_AND);
 
 #if WINDOWS_PHONE_APP
-			int marg_up = -6;
-			Button_Plus.Margin = new Thickness(0, marg_up, 0, 0);
-			Button_Minus.Margin = new Thickness(0, marg_up, 0, 0);
-			Button_divide.Margin = new Thickness(0, marg_up, 0, 0);
-			Button_multipl.Margin = new Thickness(0, marg_up, 0, 0);
+			//int marg_up = -6;
+			//Button_Plus.Margin = new Thickness(0, marg_up, marg_up, 0);
+			//Button_Minus.Margin = new Thickness(0, marg_up, 0, 0);
+			//Button_divide.Margin = new Thickness(0, marg_up, 0, 0);
+			//Button_multipl.Margin = new Thickness(0, marg_up, 0, 0);
+			//Button_No.Margin = new Thickness(0, 0, 0, marg_up);
 #endif
 
 
@@ -178,6 +192,38 @@ namespace NumberConverter
 					slag = (slag/slag2);
 					break;
 				}
+				case 4:
+					;
+					break;
+				case 5:
+					;
+					break;
+				case 6:
+					if (slag2.IsDouble)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("ShiftInteger");
+					}
+					if (slag2.IntegerBig > int.MaxValue)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("IntegerMax") + " " + int.MaxValue;
+					}
+					slag = slag << int.Parse(slag2.Integer);
+					break;
+				case 7:
+					if (slag2.IsDouble)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("ShiftInteger");
+					}
+					if (slag2.IntegerBig > int.MaxValue)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("IntegerMax") + " " + int.MaxValue;
+					}
+					slag = slag >> int.Parse(slag2.Integer);
+					break;
 			}
 			return Converter.Converter.ConvertTo(10, slag, (uint) toBase).ToString();
 		}
@@ -329,48 +375,58 @@ namespace NumberConverter
 				Button_Plus.IsChecked = true;
 			else
 				return;
-			if (Button_Minus != null)
-				Button_Minus.IsChecked = false;
-			if (Button_multipl != null)
-				Button_multipl.IsChecked = false;
-			if (Button_divide != null)
-				Button_divide.IsChecked = false;
+			for (int i = 0; i < operationList.Count; i++)
+			{
+				if (i == op)
+					continue;
+				if (operationList[i] != null)
+					operationList[i].IsChecked = false;
+			}
 			Calculate();
 		}
 
 		private void Button_Minus_Checked(object sender, RoutedEventArgs e)
 		{
 			op = 1;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = false;
-			if (Button_multipl != null)
-				Button_multipl.IsChecked = false;
-			if (Button_divide != null)
-				Button_divide.IsChecked = false;
+			if (Button_Minus != null)
+				Button_Minus.IsChecked = true;
+			for (int i = 0; i < operationList.Count; i++)
+			{
+				if (i == op)
+					continue;
+				if (operationList[i] != null)
+					operationList[i].IsChecked = false;
+			}
 			Calculate();
 		}
 
 		private void Button_multipl_Checked(object sender, RoutedEventArgs e)
 		{
 			op = 2;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = false;
-			if (Button_Minus != null)
-				Button_Minus.IsChecked = false;
-			if (Button_divide != null)
-				Button_divide.IsChecked = false;
+			if (Button_multipl != null)
+				Button_multipl.IsChecked = true;
+			for (int i = 0; i < operationList.Count; i++)
+			{
+				if (i == op)
+					continue;
+				if (operationList[i] != null)
+					operationList[i].IsChecked = false;
+			}
 			Calculate();
 		}
 
 		private void Button_divide_Checked(object sender, RoutedEventArgs e)
 		{
 			op = 3;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = false;
-			if (Button_Minus != null)
-				Button_Minus.IsChecked = false;
-			if (Button_multipl != null)
-				Button_multipl.IsChecked = false;
+			if (Button_divide != null)
+				Button_divide.IsChecked = true;
+			for (int i = 0; i < operationList.Count; i++)
+			{
+				if (i == op)
+					continue;
+				if (operationList[i] != null)
+					operationList[i].IsChecked = false;
+			}
 			Calculate();
 		}
 
@@ -754,10 +810,9 @@ namespace NumberConverter
 #if WINDOWS_PHONE_APP
 			correction = 15;
 #endif
-			Button_divide.Height = e.NewSize.Height + correction;
-			Button_Minus.Height = e.NewSize.Height + correction;
-			Button_Plus.Height = e.NewSize.Height + correction;
-			Button_multipl.Height = e.NewSize.Height + correction;
+			var grd = (Grid) sender;
+			for (int i = 0; i < operationList.Count; i++)
+				operationList[i].Height = e.NewSize.Height / grd.RowDefinitions.Count + correction;
 		}
 
 		private void Button_Click_5(object sender, RoutedEventArgs e)
@@ -802,33 +857,25 @@ namespace NumberConverter
 
 		private void Button_Plus_Unchecked(object sender, RoutedEventArgs e)
 		{
-			if (!Button_Minus.IsChecked.Value &&
-			    !Button_multipl.IsChecked.Value &&
-			    !Button_divide.IsChecked.Value)
+			if (op == 0)
 				Button_Plus.IsChecked = true;
 		}
 
 		private void Button_Minus_Unchecked(object sender, RoutedEventArgs e)
 		{
-			if (!Button_Plus.IsChecked.Value &&
-			    !Button_multipl.IsChecked.Value &&
-			    !Button_divide.IsChecked.Value)
+			if (op == 1)
 				Button_Minus.IsChecked = true;
 		}
 
 		private void Button_multipl_Unchecked(object sender, RoutedEventArgs e)
 		{
-			if (!Button_Plus.IsChecked.Value &&
-			    !Button_Minus.IsChecked.Value &&
-			    !Button_divide.IsChecked.Value)
+			if (op == 3)
 				Button_multipl.IsChecked = true;
 		}
 
 		private void Button_divide_Unchecked(object sender, RoutedEventArgs e)
 		{
-			if (!Button_Plus.IsChecked.Value &&
-			    !Button_Minus.IsChecked.Value &&
-			    !Button_multipl.IsChecked.Value)
+			if (op == 4)
 				Button_divide.IsChecked = true;
 		}
 
