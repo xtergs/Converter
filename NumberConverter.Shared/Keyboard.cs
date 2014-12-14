@@ -26,13 +26,18 @@ namespace NumberConverter
 		int marg_bot = 0;
 		int marg_top = 0;
 
+		public int MaxButtonHeight { get; set; }
+		public int MaxButtonWidth { get; set; }
+
 		public Keyboard(Panel panel, Style style)
 		{
+			MaxButtonHeight = 1000;
+			MaxButtonWidth = 1000;
 			this.panel = panel;
 			CreateKeyboard(this.panel, style);
 		}
 
-		Button newButton(string text)
+		Button newButton(string text, Style style)
 		{
 			return new Button()
 			{
@@ -41,15 +46,17 @@ namespace NumberConverter
 				IsTabStop = false,
 				MinWidth = 0,
 				MinHeight = 0,
-				MaxHeight = 1000,
-				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
-				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
-				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center
+				MaxHeight = MaxButtonHeight,
+				MaxWidth = MaxButtonWidth,
+				VerticalAlignment = VerticalAlignment.Stretch,
+				HorizontalAlignment = HorizontalAlignment.Stretch,
+				VerticalContentAlignment = VerticalAlignment.Center,
+				Style = style
 				//Margin = new Thickness(0, marg_top, 0, marg_bot)
 			};
 		}
 
-		public const  string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		public const  string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'";
 		public void CreateKeyboard(Panel panel, Style style)
 		{
 			
@@ -63,22 +70,20 @@ namespace NumberConverter
 
 			for (int i = 0; i < 36; i++)
 			{
-				temp = newButton(letters[i].ToString());
-				temp.Style = style;
+				temp = newButton(letters[i].ToString(), style);
 				//temp.Click += Button_Click_1;
 				panel.Children.Add(temp);
 			}
-			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-			temp.Style = style;
-			//temp.Click += Button_Click_Dot;
-			//temp.SizeChanged += Buttons_SizeChanged;
+
+			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, style);
 			panel.Children.Add(temp);
-			temp = newButton("<-");
-			temp.Style = style;
+
+			temp = newButton("<-",style);
 			panel.Children.Add(temp);
-			temp = newButton("CE");
-			temp.Style = style;
+
+			temp = newButton("CE",style);
 			panel.Children.Add(temp);
+
 			visibleCount = panel.Children.Count-3;
 		}
 
@@ -101,11 +106,13 @@ namespace NumberConverter
 			double maxWidth = width - 5;
 			double areaForKeyboard = maxHeight * maxWidth;
 
-			double a = Math.Sqrt(areaForKeyboard / countKeys);
+			double a = Math.Sqrt(areaForKeyboard / countKeys); //average lenght of size
 			int row = 0;
 			int column = 0;
 			double h = a;
 			double w = a;
+
+			//approximately count rows and coumns
 			while (row * column < countKeys)
 			{
 				a -= 5;
@@ -134,7 +141,7 @@ namespace NumberConverter
 			h = (maxHeight) / row; 
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
-				int correction = 0;
+			int correction = 0;
 			int correctionX = 0;
 #if WINDOWS_PHONE_APP
 				correction +=15;

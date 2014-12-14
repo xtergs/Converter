@@ -328,16 +328,9 @@ namespace NumberConverter
 			//combo.FontSize = e.NewSize.Height * 0.7;
 		}
 
-		private void Button_Click_3(object sender, RoutedEventArgs e)
+		private void CalculatorHyperlink_Click(object sender, RoutedEventArgs e)
 		{
-			//MainGrid.Visibility = Visibility.Collapsed;
-			suspendPage = new SuspendPage();
-			suspendPage.indexFrom = FromBase;
-			//suspendPage.indexFrom2 = FromBase2;
-			suspendPage.indexTo = ToBase;
-			suspendPage.InputText = InputText.Text;
-			//suspendPage.InputText2 = InputText2.Text;
-			this.Frame.Navigate(typeof(BlankPage1));
+			GoToCalculator();
 			
 		}
 
@@ -348,7 +341,7 @@ namespace NumberConverter
 		
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
-			this.Frame.Navigate(typeof(BlankPage1));
+			GoToCalculator();
 		}
 
 		private void From_RightTapped(object sender, RightTappedRoutedEventArgs e)
@@ -459,15 +452,26 @@ namespace NumberConverter
 
 		private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
 		{
+			GoToThemes();
+		}
+
+		void GoToThemes()
+		{
 			SaveState();
 			this.Frame.Navigate(typeof(Themes));
 		}
 
-		private void Page_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+		void GoToCalculator()
+		{
+			SaveState();
+			this.Frame.Navigate(typeof(BlankPage1));
+		}
+
+		private void Swipe(object sender, ManipulationCompletedRoutedEventArgs e)
 		{
 			double x = e.Velocities.Linear.X;
 			if (x < -1)
-				Frame.Navigate(typeof(BlankPage1));
+				GoToCalculator();
 		}
 		
 	}

@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ManipulationMode="TranslateX" ManipulationCompleted="Page_ManipulationCompleted">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ManipulationMode="TranslateX" ManipulationCompleted="Swipe">
 
     <Grid x:Name="LayoutRoot">
 
@@ -19,7 +19,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid x:Name="MenuGrid" Grid.ColumnSpan="5" HorizontalAlignment="Left" Grid.Column="3" >
             <Grid.ColumnDefinitions>
@@ -43,5 +45,8 @@
             <HyperlinkButton Content="Dark Orange" Click="HyperlinkButton_Click_2"/>
             <HyperlinkButton Content="Dark Red" Click="HyperlinkButton_Click_3"/>
         </StackPanel>
+        <TextBlock Text="ButtonSizeSS" Grid.Row="3" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"></TextBlock>
+        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="110,52.5,0,-52" Grid.Row="4" VerticalAlignment="Top" Width="100" LargeChange="1" Maximum="300" Minimum="20" Value="20" TickPlacement="Inline"/>
+        <Button Content="1" HorizontalAlignment="Left" Margin="84,156.5,0,-97.667" Grid.Row="4" VerticalAlignment="Top" Width="{Binding Value, ElementName=slider}" Height="{Binding Value, ElementName=slider}" MinHeight="10" MinWidth="10"/>
     </Grid>
 </Page>

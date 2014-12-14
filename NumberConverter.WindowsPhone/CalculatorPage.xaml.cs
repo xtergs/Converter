@@ -762,9 +762,19 @@ namespace NumberConverter
 
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
-			SaveState();
-			Frame.Navigate(typeof (MainPage));
+			GoToConverter();
+		}
 
+		void GoToConverter()
+		{
+			SaveState();
+			Frame.Navigate(typeof(MainPage));
+		}
+
+		void GoToThemes()
+		{
+			SaveState();
+			Frame.Navigate(typeof(Themes));
 		}
 
 		void SaveState()
@@ -861,18 +871,17 @@ namespace NumberConverter
 			InputText.Focus(FocusState.Programmatic);
 		}
 
-		private void CalculatorPage_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+		private void Swipe(object sender, ManipulationCompletedRoutedEventArgs e)
 		{
 			if (e.Velocities.Linear.X > 1)
-				Frame.Navigate(typeof(MainPage));
-			//else if (e.Velocities.Linear.X < -1)
-			//	Frame.Navigate(typeof (Themes));
+				GoToConverter();
+			else if (e.Velocities.Linear.X < -1)
+				GoToThemes();
 		}
 
 		private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
 		{
-			SaveState();
-			Frame.Navigate(typeof (Themes));
+			GoToThemes();
 		}
 	}
 }
