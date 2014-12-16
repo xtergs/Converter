@@ -89,6 +89,7 @@ namespace NumberConverter
 			TextBoxToComboBox.Add(Result, To);
 			DataContext = this;
 
+<<<<<<< HEAD
 			operationList = new List<ToggleButton>();
 			operationList.Add(Button_Plus);
 			operationList.Add(Button_Minus);
@@ -100,8 +101,10 @@ namespace NumberConverter
 			operationList.Add(Button_RShift);
 			operationList.Add(Button_Or);
 			operationList.Add(Button_AND);
+=======
 			InputText.Focus(FocusState.Pointer);
 			//lastTextBox = InputText;
+>>>>>>> master
 
 #if WINDOWS_PHONE_APP
 			//int marg_up = -6;
@@ -125,7 +128,7 @@ namespace NumberConverter
 		}
 
 		private void KeyboardOnOnButtonClick(object sender, ButtonClickArgs args)
-			{
+		{
 			//	InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
 			TextBox input;
 			if (!(FocusManager.GetFocusedElement() is TextBox))
@@ -139,7 +142,7 @@ namespace NumberConverter
 			//	input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
 			//InputText.Text += ((Button)sender).Content.ToString();
 			SharePages.AddTextTextBox(args.Button.Content.ToString(), input);
-			}
+		}
 
 		private void Button_Click_Clean(object sender, ButtonClickArgs e)
 		{
@@ -218,7 +221,7 @@ namespace NumberConverter
 					{
 						var resourceLoader = new ResourceLoader();
 						return resourceLoader.GetString("ShiftInteger");
-			}
+					}
 					if (slag2.IntegerBig > int.MaxValue)
 					{
 						var resourceLoader = new ResourceLoader();

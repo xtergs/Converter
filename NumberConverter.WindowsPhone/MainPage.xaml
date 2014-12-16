@@ -7,7 +7,7 @@
     xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
     xmlns:Controls="using:NumberConverter.WinRTXamlToolkit.Controls"
     x:Class="NumberConverter.MainPage"
-    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" ManipulationCompleted="Page_ManipulationCompleted" ManipulationMode="TranslateX">
+    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" ManipulationCompleted="Page_ManipulationCompleted" ManipulationMode="TranslateX" Unloaded="Page_Unloaded">
     <Page.Resources>
         <!--<ResourceDictionary Source="Resource/DarkBlue.xaml"></ResourceDictionary>-->
 

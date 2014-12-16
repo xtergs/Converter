@@ -17,14 +17,22 @@ using NumberConverter.WinRTXamlToolkit.Controls;
 
 namespace NumberConverter
 {
-	class Keyboard
+	internal class Keyboard
 	{
-		static Color col = new Color();
-		Panel panel;
-		int visibleCount;
+		#region variable and const
 
-		int marg_bot = 0;
-		int marg_top = 0;
+		private static Color col = new Color();
+		private Panel panel;
+		private int visibleCount;
+
+		private int marg_bot = 0;
+		private int marg_top = 0;
+
+		public const string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+		#endregion
+
+		#region Constructors
 
 		public Keyboard(Panel panel, Style style)
 		{
@@ -32,7 +40,7 @@ namespace NumberConverter
 			CreateKeyboard(this.panel, style);
 		}
 
-		Button newButton(string text)
+		private Button newButton(string text)
 		{
 			return new Button()
 			{
@@ -49,10 +57,10 @@ namespace NumberConverter
 			};
 		}
 
-		public const  string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 		public void CreateKeyboard(Panel panel, Style style)
 		{
-			
+
 			Button temp;
 
 #if WINDOWS_PHONE_APP
@@ -65,22 +73,49 @@ namespace NumberConverter
 			{
 				temp = newButton(letters[i].ToString());
 				temp.Style = style;
-				//temp.Click += Button_Click_1;
+				temp.Click += TempOnClick;
 				panel.Children.Add(temp);
 			}
 			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 			temp.Style = style;
-			//temp.Click += Button_Click_Dot;
-			//temp.SizeChanged += Buttons_SizeChanged;
+			temp.Click += Button_Click_Dot;
 			panel.Children.Add(temp);
+
 			temp = newButton("<-");
 			temp.Style = style;
+			temp.Click += BackspaceOnClick;
 			panel.Children.Add(temp);
+
 			temp = newButton("CE");
 			temp.Style = style;
+			temp.Click += CleanOnClick;
 			panel.Children.Add(temp);
-			visibleCount = panel.Children.Count-3;
+			visibleCount = panel.Children.Count - 3;
 		}
+
+		private void BackspaceOnClick(object sender, RoutedEventArgs e)
+		{
+			OnOnBackspaceClick(new ButtonClickArgs() {Button = (Button) sender});
+		}
+
+		private void CleanOnClick(object sender, RoutedEventArgs e)
+		{
+			OnOnCleanClick(new ButtonClickArgs() {Button = (Button) sender});
+		}
+
+		private void Button_Click_Dot(object sender, RoutedEventArgs e)
+		{
+			OnOnDotClick(new ButtonClickArgs() {Button = (Button) sender});
+		}
+
+		private void TempOnClick(object sender, RoutedEventArgs routedEventArgs)
+		{
+			OnOnButtonClick(new ButtonClickArgs() {Button = (Button) sender});
+		}
+
+		#endregion
+
+		#region Functions
 
 		// Resize for current height and width, using count current visible elements
 		public void ResizeButton()
@@ -94,36 +129,36 @@ namespace NumberConverter
 			ResizeButton(panel.ActualHeight, panel.ActualWidth, countKeys);
 		}
 
-		
+
 		public void ResizeButton(double height, double width, int countKeys)
 		{
 			double maxHeight = height - 5;
 			double maxWidth = width - 5;
-			double areaForKeyboard = maxHeight * maxWidth;
+			double areaForKeyboard = maxHeight*maxWidth;
 
-			double a = Math.Sqrt(areaForKeyboard / countKeys);
+			double a = Math.Sqrt(areaForKeyboard/countKeys);
 			int row = 0;
 			int column = 0;
 			double h = a;
 			double w = a;
-			while (row * column < countKeys)
+			while (row*column < countKeys)
 			{
 				a -= 5;
-				row = (int)(maxHeight / a);
-				column = (int)(maxWidth / a);
+				row = (int) (maxHeight/a);
+				column = (int) (maxWidth/a);
 			}
 
 			h = a;
-			while (row * column - countKeys - 1 >= row - 1)
+			while (row*column - countKeys - 1 >= row - 1)
 				column--;
-			w = maxWidth / column;
+			w = maxWidth/column;
 #if DEBUG
-			double x = Math.Round(3.8,MidpointRounding.ToEven);
+			double x = Math.Round(3.8, MidpointRounding.ToEven);
 			double x1 = Math.Round(3.8, MidpointRounding.AwayFromZero);
 			double x2 = Math.Floor(3.8);
 #endif
 			//row = (int)((double)(countKeys / column));
-			if ((countKeys / column) - row > 0 )
+			if ((countKeys/column) - row > 0)
 				row++;
 			//if ((w) * row <= maxHeight) // marg_bot + marg_top - correction for buttons in WP8.1
 			//	h = w;
@@ -131,10 +166,10 @@ namespace NumberConverter
 #if WINDOWS_PHONE_APP
 			maxHeight += row*2;
 #endif
-			h = (maxHeight) / row; 
+			h = (maxHeight)/row;
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
-				int correction = 0;
+			int correction = 0;
 			int correctionX = 0;
 #if WINDOWS_PHONE_APP
 				correction +=15;
@@ -142,14 +177,14 @@ namespace NumberConverter
 #endif
 			for (int i = 0; i < panel.Children.Count; i++)
 			{
-				((Button)panel.Children[i]).Height = h + correction;
-				((Button)panel.Children[i]).Width = w + correctionX;
+				((Button) panel.Children[i]).Height = h + correction;
+				((Button) panel.Children[i]).Width = w + correctionX;
 				//((Button)panel.Children[i]).UpdateLayout();
-				((Button)panel.Children[i]).FontSize = h * 0.5;
+				((Button) panel.Children[i]).FontSize = h*0.5;
 			}
 			//	((WrapPanel)panel).ItemHeight = h;
 			//	((WrapPanel)panel).ItemWidth = w;
-			
+
 		}
 
 		public void HideAll()
@@ -181,6 +216,53 @@ namespace NumberConverter
 			if (needResize)
 				ResizeButton(visibleCount + 3);
 		}
+
+		#endregion
+
+		#region events
+
+		public event ButtonClick OnButtonClick;
+
+		protected virtual void OnOnButtonClick(ButtonClickArgs args)
+		{
+			ButtonClick handler = OnButtonClick;
+			if (handler != null) handler(this, args);
+		}
+
+		public delegate void ButtonClick(object sender, ButtonClickArgs args);
+
+		public event BackspaceClick OnBackspaceClick;
+
+		protected virtual void OnOnBackspaceClick(ButtonClickArgs args)
+		{
+			BackspaceClick handler = OnBackspaceClick;
+			if (handler != null) handler(this, args);
+		}
+
+		public delegate void BackspaceClick(object sender, ButtonClickArgs args);
+
+		public event CleanClick OnCleanClick;
+
+		protected virtual void OnOnCleanClick(ButtonClickArgs args)
+		{
+			CleanClick handler = OnCleanClick;
+			if (handler != null) handler(this, args);
+		}
+
+
+		public delegate void CleanClick(object sender, ButtonClickArgs args);
+
+		public event DotClick OnDotClick;
+
+		public virtual void OnOnDotClick(ButtonClickArgs args)
+		{
+			DotClick handler = OnDotClick;
+			if (handler != null) handler(this, args);
+		}
+
+		public delegate void DotClick(object sender, ButtonClickArgs args);
+
+		#endregion
 	}
 
 }
