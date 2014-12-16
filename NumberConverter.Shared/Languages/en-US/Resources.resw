@@ -174,4 +174,7 @@
   <data name="ThemesT.Text" xml:space="preserve">
     <value>Themes</value>
   </data>
+  <data name="PowInteger" xml:space="preserve">
+    <value>Power should be an integer</value>
+  </data>
 </root>
