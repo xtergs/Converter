@@ -87,6 +87,8 @@ namespace NumberConverter
 			TextBoxToComboBox.Add(Result, To);
 			DataContext = this;
 
+			InputText.Focus(FocusState.Pointer);
+			//lastTextBox = InputText;
 
 #if WINDOWS_PHONE_APP
 			int marg_up = -6;
@@ -102,17 +104,30 @@ namespace NumberConverter
 		public void CreateKeyboard(Panel panel)
 		{
 			keyboard = new Keyboard(panel, Application.Current.Resources["ButtonStyle1"] as Style);
-			for (int i = 0; i < panel.Children.Count - 3; i++)
-			{
-				((Button) (panel.Children[i])).Click += Button_Click_1;
-			}
-			((Button) (panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
-			((Button) (panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; // backspace
-			//((Button)(panel.Children[panel.Children.Count - 2])).SizeChanged += Buttons_SizeChanged_1;
-			((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
+			keyboard.OnButtonClick += KeyboardOnOnButtonClick;
+			keyboard.OnDotClick += Button_Click_Dot; // "."
+			keyboard.OnBackspaceClick += Backspace_Click; // backspace
+			keyboard.OnCleanClick += Button_Click_Clean; //Clean
 		}
 
-		private void Button_Click_Clean(object sender, RoutedEventArgs e)
+		private void KeyboardOnOnButtonClick(object sender, ButtonClickArgs args)
+		{
+			//	InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
+			TextBox input;
+			if (!(FocusManager.GetFocusedElement() is TextBox))
+				input = lastTextBox;
+			else
+				input = (TextBox)(FocusManager.GetFocusedElement());
+			if (input == Result)
+				return;
+			var x = input.SelectionStart; //временное запоминание
+			//	input.Text = input.Text.Insert(input.SelectionStart, ((Button) sender).Content.ToString());
+			//	input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
+			//InputText.Text += ((Button)sender).Content.ToString();
+			SharePages.AddTextTextBox(args.Button.Content.ToString(), input);
+		}
+
+		private void Button_Click_Clean(object sender, ButtonClickArgs e)
 		{
 			if (!(FocusManager.GetFocusedElement() is TextBox))
 				return;
@@ -123,7 +138,7 @@ namespace NumberConverter
 		}
 
 
-		private void Backspace_Click(object sender, RoutedEventArgs e)
+		private void Backspace_Click(object sender, ButtonClickArgs e)
 		{
 			if (!(FocusManager.GetFocusedElement() is TextBox))
 				return;
@@ -134,15 +149,15 @@ namespace NumberConverter
 			input.Select(input.Text.Length, 0);
 		}
 
-		private void Button_Click_Dot(object sender, RoutedEventArgs e)
+		private void Button_Click_Dot(object sender, ButtonClickArgs e)
 		{
 			if (!(FocusManager.GetFocusedElement() is TextBox))
 				return;
 			var input = (TextBox) (FocusManager.GetFocusedElement());
 			if (input == Result)
 				return;
-			if (input.Text.IndexOf(((Button) sender).Content.ToString()) < 0) //точки нету
-				Button_Click_1(sender, e);
+			if (input.Text.IndexOf(e.Button.Content.ToString()) < 0) //точки нету
+				KeyboardOnOnButtonClick(sender, e);
 		}
 
 		private void ResultText(string text)
@@ -205,25 +220,6 @@ namespace NumberConverter
 		{
 			InputText.Text = "";
 		}
-
-		private void Button_Click_1(object sender, RoutedEventArgs e)
-		{
-			//	InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
-			TextBox input;
-			if (!(FocusManager.GetFocusedElement() is TextBox))
-				input = lastTextBox;
-			else
-			input = (TextBox) (FocusManager.GetFocusedElement());
-			if (input == Result)
-				return;
-			var x = input.SelectionStart; //временное запоминание
-		//	input.Text = input.Text.Insert(input.SelectionStart, ((Button) sender).Content.ToString());
-		//	input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
-			//InputText.Text += ((Button)sender).Content.ToString();
-			SharePages.AddTextTextBox(((Button)sender).Content.ToString(),input);
-		}
-
-
 
 		private void From_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
