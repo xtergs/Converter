@@ -100,6 +100,7 @@ namespace NumberConverter
 			operationList.Add(Button_RShift);
 			operationList.Add(Button_Or);
 			operationList.Add(Button_AND);
+
 			InputText.Focus(FocusState.Pointer);
 			//lastTextBox = InputText;
 
@@ -364,13 +365,11 @@ namespace NumberConverter
 		}
 
 
-		private void Button_Plus_Checked(object sender, RoutedEventArgs e)
+		private void ButtonOperationChecked(object sender, RoutedEventArgs e)
 		{
-			op = 0;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = true;
-			else
-				return;
+			var button = (ToggleButton) sender;
+			op = StrToOp(button.Content.ToString());
+			button.IsChecked = true;
 			for (int i = 0; i < operationList.Count; i++)
 			{
 				if (i == op)
@@ -851,10 +850,11 @@ namespace NumberConverter
 
 		}
 
-		private void Button_Plus_Unchecked(object sender, RoutedEventArgs e)
+		private void ButtonOperationUnchecked(object sender, RoutedEventArgs e)
 		{
-			if (op == 0)
-				Button_Plus.IsChecked = true;
+			var button = (ToggleButton) sender;
+			if (op == StrToOp(button.Content.ToString()))
+				button.IsChecked = true;
 		}
 
 		private void Button_Minus_Unchecked(object sender, RoutedEventArgs e)
@@ -865,14 +865,56 @@ namespace NumberConverter
 
 		private void Button_multipl_Unchecked(object sender, RoutedEventArgs e)
 		{
-			if (op == 3)
+			if (op == 2)
 				Button_multipl.IsChecked = true;
 		}
 
 		private void Button_divide_Unchecked(object sender, RoutedEventArgs e)
 		{
-			if (op == 4)
+			if (op == 3)
 				Button_divide.IsChecked = true;
+		}
+
+		int StrToOp(string str)
+		{
+			int operation = -1;
+			switch (str)
+			{
+				case "+":
+					operation = 0;
+					break;
+				case "-":
+					operation = 1;
+					break;
+				case "*":
+					operation = 2;
+					break;
+				case "/":
+					operation = 3;
+					break;
+				case "^":
+					operation = 4;
+					break;
+				case "~":
+					operation = 5;
+					break;
+				case "<<":
+					operation = 6;
+					break;
+				case ">>":
+					operation = 7;
+					break;
+				case "|":
+					operation = 8;
+					break;
+				case "&":
+					operation = 9;
+					break;
+				case "xor":
+					operation = 10;
+					break;
+			}
+			return operation;
 		}
 
 		private void Button_SizeChanged_1(object sender, SizeChangedEventArgs e)
@@ -883,6 +925,18 @@ namespace NumberConverter
 
 		private void CalculatorPage_Loaded(object sender, RoutedEventArgs e)
 		{
+			operationList = new List<ToggleButton>();
+			operationList.Add(Button_Plus);
+			operationList.Add(Button_Minus);
+			operationList.Add(Button_multipl);
+			operationList.Add(Button_divide);
+			operationList.Add(Button_Pow);
+			operationList.Add(Button_No);
+			operationList.Add(Button_LShift);
+			operationList.Add(Button_RShift);
+			operationList.Add(Button_Or);
+			operationList.Add(Button_AND);
+
 			if (suspendPage != null)
 			{
 				FromBase = suspendPage.indexFrom;
@@ -916,6 +970,11 @@ namespace NumberConverter
 		{
 			SaveState();
 			Frame.Navigate(typeof (Themes));
+		}
+
+		private void aButtonOperationUnchecked(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
