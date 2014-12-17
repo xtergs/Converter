@@ -72,26 +72,22 @@ namespace NumberConverter
 		public void CreateKeyboard(Panel panel)
 		{
 			keyboard = new Keyboard(panel, (Application.Current.Resources["ButtonStyle1"]) as Style);
-			for (int i = 0; i < panel.Children.Count - 3; i++)
-			{
-				((Button)(panel.Children[i])).Click += Button_Click_1;
-			}
-			((Button)(panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
-			//((Button)(panel.Children[panel.Children.Count - 3])).SizeChanged += Buttons_SizeChanged;
-			((Button)(panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; //backspace
-			((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
+			keyboard.OnButtonClick += Button_Click_1;
+			keyboard.OnDotClick += Button_Click_Dot; // "."
+			keyboard.OnBackspaceClick += Backspace_Click; // backspace
+			keyboard.OnCleanClick += Button_Click_Clean; //Clean
 		}
 
-		private void Button_Click_Dot(object sender, RoutedEventArgs e)
+		private void Button_Click_Dot(object sender, ButtonClickArgs e)
 		{
 			InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
-			if (InputText.Text.IndexOf(((Button)sender).Content.ToString()) < 0) //точки нету
+			if (InputText.Text.IndexOf(e.Button.Content.ToString()) < 0) //точки нету
 				Button_Click_1(sender, e);
 		}
 
-		private void Button_Click_Clean(object sender, RoutedEventArgs e)
+		private void Button_Click_Clean(object sender, ButtonClickArgs e)
 		{
-			InputText.Text = "";
+			InputText.Text = String.Empty;
 		}
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -110,12 +106,12 @@ namespace NumberConverter
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			InputText.Text = "";
+			InputText.Text = String.Empty;
 		}
 
-		private void Button_Click_1(object sender, RoutedEventArgs e)
+		private void Button_Click_1(object sender, ButtonClickArgs e)
 		{
-			SharePages.AddTextTextBox(((Button)sender).Content.ToString(), InputText);
+			SharePages.AddTextTextBox(e.Button.Content.ToString(), InputText);
 			InputText.Select(InputText.Text.Length, 0);
 		}
 		
@@ -379,7 +375,7 @@ namespace NumberConverter
 			focusedTextBox = sender;
 		}
 
-		private void Backspace_Click(object sender, RoutedEventArgs e)
+		private void Backspace_Click(object sender, ButtonClickArgs e)
 		{
 			SharePages.Backspace(InputText);
 			InputText.Select(InputText.Text.Length, 0);
@@ -392,16 +388,6 @@ namespace NumberConverter
 			
 			//if (e.Key)
 			SharePages.InputText_KeyUp(sender, e, fromBase);
-		}
-
-		private void Button_Click_2(object sender, RoutedEventArgs e)
-		{
-			ResourceDictionary newDictionary = new ResourceDictionary();
-			System.UriBuilder a = new UriBuilder();
-			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkOrange.xaml", UriKind.Absolute);
-		///	newDictionary.Source = new Uri(@"Resource/DarkOrange.xaml", UriKind.RelativeOrAbsolute);
-			Application.Current.Resources = newDictionary;
-			this.UpdateLayout();
 		}
 
 		private void HyperlinkButton_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -440,6 +426,14 @@ namespace NumberConverter
 			}
 		}
 
+		private void Page_Unloaded(object sender, RoutedEventArgs e)
+		{
+			keyboard.OnButtonClick -= Button_Click_1;
+			keyboard.OnDotClick -= Button_Click_Dot; // "."
+			keyboard.OnBackspaceClick -= Backspace_Click; // backspace
+			keyboard.OnCleanClick -= Button_Click_Clean; //Clean
+		}
+
 
 		void SaveState()
 		{
@@ -473,6 +467,8 @@ namespace NumberConverter
 			if (x < -1)
 				GoToCalculator();
 		}
+
+		
 		
 	}
 }

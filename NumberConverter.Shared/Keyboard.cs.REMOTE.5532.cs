@@ -34,18 +34,13 @@ namespace NumberConverter
 
 		#region Constructors
 
-		public int MaxButtonHeight { get; set; }
-		public int MaxButtonWidth { get; set; }
-
 		public Keyboard(Panel panel, Style style)
 		{
-			MaxButtonHeight = 1000;
-			MaxButtonWidth = 1000;
 			this.panel = panel;
 			CreateKeyboard(this.panel, style);
 		}
 
-		Button newButton(string text, Style style)
+		private Button newButton(string text)
 		{
 			return new Button()
 			{
@@ -54,20 +49,18 @@ namespace NumberConverter
 				IsTabStop = false,
 				MinWidth = 0,
 				MinHeight = 0,
-				MaxHeight = MaxButtonHeight,
-				MaxWidth = MaxButtonWidth,
-				VerticalAlignment = VerticalAlignment.Stretch,
-				HorizontalAlignment = HorizontalAlignment.Stretch,
-				VerticalContentAlignment = VerticalAlignment.Center,
-				Style = style
+				MaxHeight = 1000,
+				VerticalAlignment = Windows.UI.Xaml.VerticalAlignment.Stretch,
+				HorizontalAlignment = Windows.UI.Xaml.HorizontalAlignment.Stretch,
+				VerticalContentAlignment = Windows.UI.Xaml.VerticalAlignment.Center
 				//Margin = new Thickness(0, marg_top, 0, marg_bot)
 			};
 		}
 
-		public const  string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 		public void CreateKeyboard(Panel panel, Style style)
 		{
-			
+
 			Button temp;
 
 #if WINDOWS_PHONE_APP
@@ -136,21 +129,19 @@ namespace NumberConverter
 			ResizeButton(panel.ActualHeight, panel.ActualWidth, countKeys);
 		}
 
-		
+
 		public void ResizeButton(double height, double width, int countKeys)
 		{
 			double maxHeight = height - 5;
 			double maxWidth = width - 5;
 			double areaForKeyboard = maxHeight*maxWidth;
 
-			double a = Math.Sqrt(areaForKeyboard / countKeys); //average lenght of size
+			double a = Math.Sqrt(areaForKeyboard/countKeys);
 			int row = 0;
 			int column = 0;
 			double h = a;
 			double w = a;
-
-			//approximately count rows and coumns
-			while (row * column < countKeys)
+			while (row*column < countKeys)
 			{
 				a -= 5;
 				row = (int) (maxHeight/a);
@@ -178,7 +169,7 @@ namespace NumberConverter
 			h = (maxHeight)/row;
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
-				int correction = 0;
+			int correction = 0;
 			int correctionX = 0;
 #if WINDOWS_PHONE_APP
 				correction +=15;
@@ -193,7 +184,7 @@ namespace NumberConverter
 			}
 			//	((WrapPanel)panel).ItemHeight = h;
 			//	((WrapPanel)panel).ItemWidth = w;
-			
+
 		}
 
 		public void HideAll()

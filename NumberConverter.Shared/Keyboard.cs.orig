@@ -45,7 +45,11 @@ namespace NumberConverter
 			CreateKeyboard(this.panel, style);
 		}
 
+<<<<<<< HEAD
 		Button newButton(string text, Style style)
+=======
+		private Button newButton(string text)
+>>>>>>> NewOperations
 		{
 			return new Button()
 			{
@@ -64,10 +68,14 @@ namespace NumberConverter
 			};
 		}
 
-		public const  string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+<<<<<<< HEAD
+		public const  string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'";
+=======
+
+>>>>>>> NewOperations
 		public void CreateKeyboard(Panel panel, Style style)
 		{
-			
+
 			Button temp;
 
 #if WINDOWS_PHONE_APP
@@ -78,6 +86,23 @@ namespace NumberConverter
 
 			for (int i = 0; i < 36; i++)
 			{
+<<<<<<< HEAD
+				temp = newButton(letters[i].ToString(), style);
+				//temp.Click += Button_Click_1;
+				panel.Children.Add(temp);
+			}
+
+			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator, style);
+			panel.Children.Add(temp);
+
+			temp = newButton("<-",style);
+			panel.Children.Add(temp);
+
+			temp = newButton("CE",style);
+			panel.Children.Add(temp);
+
+			visibleCount = panel.Children.Count-3;
+=======
 				temp = newButton(letters[i].ToString());
 				temp.Style = style;
 				temp.Click += TempOnClick;
@@ -118,6 +143,7 @@ namespace NumberConverter
 		private void TempOnClick(object sender, RoutedEventArgs routedEventArgs)
 		{
 			OnOnButtonClick(new ButtonClickArgs() {Button = (Button) sender});
+>>>>>>> NewOperations
 		}
 
 		#endregion
@@ -136,21 +162,29 @@ namespace NumberConverter
 			ResizeButton(panel.ActualHeight, panel.ActualWidth, countKeys);
 		}
 
-		
+
 		public void ResizeButton(double height, double width, int countKeys)
 		{
 			double maxHeight = height - 5;
 			double maxWidth = width - 5;
 			double areaForKeyboard = maxHeight*maxWidth;
 
+<<<<<<< HEAD
 			double a = Math.Sqrt(areaForKeyboard / countKeys); //average lenght of size
+=======
+			double a = Math.Sqrt(areaForKeyboard/countKeys);
+>>>>>>> NewOperations
 			int row = 0;
 			int column = 0;
 			double h = a;
 			double w = a;
+<<<<<<< HEAD
 
 			//approximately count rows and coumns
 			while (row * column < countKeys)
+=======
+			while (row*column < countKeys)
+>>>>>>> NewOperations
 			{
 				a -= 5;
 				row = (int) (maxHeight/a);
@@ -178,7 +212,7 @@ namespace NumberConverter
 			h = (maxHeight)/row;
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
-				int correction = 0;
+			int correction = 0;
 			int correctionX = 0;
 #if WINDOWS_PHONE_APP
 				correction +=15;
@@ -193,7 +227,7 @@ namespace NumberConverter
 			}
 			//	((WrapPanel)panel).ItemHeight = h;
 			//	((WrapPanel)panel).ItemWidth = w;
-			
+
 		}
 
 		public void HideAll()
