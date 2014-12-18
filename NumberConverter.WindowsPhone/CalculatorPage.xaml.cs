@@ -95,11 +95,12 @@ namespace NumberConverter
 			operationList.Add(Button_multipl);
 			operationList.Add(Button_divide);
 			operationList.Add(Button_Pow);
-			operationList.Add(Button_No);
+			operationList.Add(Button_Xor);
 			operationList.Add(Button_LShift);
 			operationList.Add(Button_RShift);
 			operationList.Add(Button_Or);
 			operationList.Add(Button_AND);
+
 			InputText.Focus(FocusState.Pointer);
 			//lastTextBox = InputText;
 
@@ -207,18 +208,28 @@ namespace NumberConverter
 					slag = (slag/slag2);
 					break;
 				}
-				case 4:
+				case 4: // ^
+					if (slag2.IsDouble)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("PowInteger");
+					}
+					if (slag2.IntegerBig > int.MaxValue)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("IntegerMax") + " " + int.MaxValue;
+					}
+					slag = slag.Pow(int.Parse(slag2.Integer));
+					break;
+				case 5: //~
 					;
 					break;
-				case 5:
-					;
-					break;
-				case 6:
+				case 6: //<<
 					if (slag2.IsDouble)
 					{
 						var resourceLoader = new ResourceLoader();
 						return resourceLoader.GetString("ShiftInteger");
-			}
+					}
 					if (slag2.IntegerBig > int.MaxValue)
 					{
 						var resourceLoader = new ResourceLoader();
@@ -226,7 +237,7 @@ namespace NumberConverter
 					}
 					slag = slag << int.Parse(slag2.Integer);
 					break;
-				case 7:
+				case 7: //>>
 					if (slag2.IsDouble)
 					{
 						var resourceLoader = new ResourceLoader();
@@ -239,13 +250,52 @@ namespace NumberConverter
 					}
 					slag = slag >> int.Parse(slag2.Integer);
 					break;
+				case 8: //|
+					if (slag2.IsDouble || slag.IsDouble)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("OperateOnlyInteger");
+					}
+					if (slag2.IntegerBig > int.MaxValue || slag.IntegerBig > int.MaxValue)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("IntegerMax") + " " + int.MaxValue;
+					}
+					slag = slag | slag2;
+					break;
+				case 9: //&
+					if (slag2.IsDouble || slag.IsDouble)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("OperateOnlyInteger");
+					}
+					if (slag2.IntegerBig > int.MaxValue || slag.IntegerBig > int.MaxValue)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("IntegerMax") + " " + int.MaxValue;
+					}
+					slag = slag & slag2;
+					break;
+				case 10: //xor
+					if (slag2.IsDouble || slag.IsDouble)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("OperateOnlyInteger");
+					}
+					if (slag2.IntegerBig > int.MaxValue || slag.IntegerBig > int.MaxValue)
+					{
+						var resourceLoader = new ResourceLoader();
+						return resourceLoader.GetString("IntegerMax") + " " + int.MaxValue;
+					}
+					slag = LongDouble.XOR(slag, slag2);
+					break;
 			}
 			return Converter.Converter.ConvertTo(10, slag, (uint) toBase).ToString();
 		}
 
 		private void Calculate()
 		{
-			if (InputText.Text != "" && InputText2.Text != "")
+			if ( !String.IsNullOrWhiteSpace(InputText.Text) && !String.IsNullOrWhiteSpace(InputText2.Text))
 				Result.Text = Operation(InputText.Text, InputText2.Text);
 		}
 
@@ -364,16 +414,18 @@ namespace NumberConverter
 		}
 
 
-		private void Button_Plus_Checked(object sender, RoutedEventArgs e)
+		private void ButtonOperationChecked(object sender, RoutedEventArgs e)
 		{
-			op = 0;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = true;
-			else
+			var button = (ToggleButton) sender;
+			op = StrToOp(button.Content.ToString());
+			button.IsChecked = true;
+
+			if (operationList == null)
 				return;
+
 			for (int i = 0; i < operationList.Count; i++)
 			{
-				if (i == op)
+				if (StrToOp(operationList[i].Content.ToString()) == op)
 					continue;
 				if (operationList[i] != null)
 					operationList[i].IsChecked = false;
@@ -861,10 +913,11 @@ namespace NumberConverter
 
 		}
 
-		private void Button_Plus_Unchecked(object sender, RoutedEventArgs e)
+		private void ButtonOperationUnchecked(object sender, RoutedEventArgs e)
 		{
-			if (op == 0)
-				Button_Plus.IsChecked = true;
+			var button = (ToggleButton) sender;
+			if (op == StrToOp(button.Content.ToString()))
+				button.IsChecked = true;
 		}
 
 		private void Button_Minus_Unchecked(object sender, RoutedEventArgs e)
@@ -875,14 +928,56 @@ namespace NumberConverter
 
 		private void Button_multipl_Unchecked(object sender, RoutedEventArgs e)
 		{
-			if (op == 3)
+			if (op == 2)
 				Button_multipl.IsChecked = true;
 		}
 
 		private void Button_divide_Unchecked(object sender, RoutedEventArgs e)
 		{
-			if (op == 4)
+			if (op == 3)
 				Button_divide.IsChecked = true;
+		}
+
+		int StrToOp(string str)
+		{
+			int operation = 0;
+			switch (str.ToLower())
+			{
+				case "+":
+					operation = 0;
+					break;
+				case "-":
+					operation = 1;
+					break;
+				case "*":
+					operation = 2;
+					break;
+				case "/":
+					operation = 3;
+					break;
+				case "^":
+					operation = 4;
+					break;
+				case "~":
+					operation = 5;
+					break;
+				case "<<":
+					operation = 6;
+					break;
+				case ">>":
+					operation = 7;
+					break;
+				case "|":
+					operation = 8;
+					break;
+				case "&":
+					operation = 9;
+					break;
+				case "xor":
+					operation = 10;
+					break;
+			}
+			return operation;
 		}
 
 		private void Button_SizeChanged_1(object sender, SizeChangedEventArgs e)
@@ -925,6 +1020,11 @@ namespace NumberConverter
 		private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
 		{
 			GoToThemes();
+		}
+
+		private void aButtonOperationUnchecked(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
