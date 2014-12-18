@@ -77,76 +77,7 @@
                     <ComboBoxItem Content="36"/>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout Placement="Bottom" Opened="Flyout_Opened"  FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}" >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
-                                <ListBox Grid.Row="1" FontSize="18" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="2"/>
-                                    <ListBoxItem Content="3"/>
-                                    <ListBoxItem Content="4"/>
-                                    <ListBoxItem Content="5"/>
-                                    <ListBoxItem Content="6"/>
-                                    <ListBoxItem Content="7"/>
-                                    <ListBoxItem Content="8"/>
-                                    <ListBoxItem Content="9"/>
-                                    <ListBoxItem Content="10"/>
-                                    <!--<ListBoxItem Content="11"/>
-                                <ListBoxItem Content="10"/>
-                                <ListBoxItem Content="11"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="11"/>
-                                    <ListBoxItem Content="12"/>
-                                    <ListBoxItem Content="13"/>
-                                    <ListBoxItem Content="14"/>
-                                    <ListBoxItem Content="15"/>
-                                    <ListBoxItem Content="16"/>
-                                    <ListBoxItem Content="17"/>
-                                    <ListBoxItem Content="18"/>
-                                    <ListBoxItem Content="19"/>
-                                    <!--<ListBoxItem Content="20"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="20"/>
-                                    <ListBoxItem Content="21"/>
-                                    <ListBoxItem Content="22"/>
-                                    <ListBoxItem Content="23"/>
-                                    <ListBoxItem Content="24"/>
-                                    <ListBoxItem Content="25"/>
-                                    <ListBoxItem Content="26"/>
-                                    <ListBoxItem Content="27"/>
-                                    <ListBoxItem Content="28"/>
-                                    <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="29"/>
-                                    <ListBoxItem Content="30"/>
-                                    <ListBoxItem Content="31"/>
-                                    <ListBoxItem Content="32"/>
-                                    <ListBoxItem Content="33"/>
-                                    <ListBoxItem Content="34"/>
-                                    <ListBoxItem Content="35"/>
-                                    <ListBoxItem Content="36"/>
-                                    <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                                </ListBox>
-                            </Grid>
+                            <local:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"></local:FlyoutListbox>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </ComboBox>
@@ -172,76 +103,7 @@
                     <ComboBoxItem Content="36"/>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
-                                <ListBox Grid.Row="1" FontSize="18"  BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="2"/>
-                                    <ListBoxItem Content="3"/>
-                                    <ListBoxItem Content="4"/>
-                                    <ListBoxItem Content="5"/>
-                                    <ListBoxItem Content="6"/>
-                                    <ListBoxItem Content="7"/>
-                                    <ListBoxItem Content="8"/>
-                                    <ListBoxItem Content="9"/>
-                                    <ListBoxItem Content="10"/>
-                                    <!--<ListBoxItem Content="11"/>
-                                <ListBoxItem Content="10"/>
-                                <ListBoxItem Content="11"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="1"  FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="11"/>
-                                    <ListBoxItem Content="12"/>
-                                    <ListBoxItem Content="13"/>
-                                    <ListBoxItem Content="14"/>
-                                    <ListBoxItem Content="15"/>
-                                    <ListBoxItem Content="16"/>
-                                    <ListBoxItem Content="17"/>
-                                    <ListBoxItem Content="18"/>
-                                    <ListBoxItem Content="19"/>
-                                    <!--<ListBoxItem Content="20"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="2"  FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="20"/>
-                                    <ListBoxItem Content="21"/>
-                                    <ListBoxItem Content="22"/>
-                                    <ListBoxItem Content="23"/>
-                                    <ListBoxItem Content="24"/>
-                                    <ListBoxItem Content="25"/>
-                                    <ListBoxItem Content="26"/>
-                                    <ListBoxItem Content="27"/>
-                                    <ListBoxItem Content="28"/>
-                                    <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="3"  FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="29"/>
-                                    <ListBoxItem Content="30"/>
-                                    <ListBoxItem Content="31"/>
-                                    <ListBoxItem Content="32"/>
-                                    <ListBoxItem Content="33"/>
-                                    <ListBoxItem Content="34"/>
-                                    <ListBoxItem Content="35"/>
-                                    <ListBoxItem Content="36"/>
-                                    <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                                </ListBox>
-                            </Grid>
+                            <local:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"></local:FlyoutListbox>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </ComboBox>
@@ -277,7 +139,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="0.5*"/>
-
                 </Grid.RowDefinitions>
                 <ComboBox x:Name="To" SelectedIndex="{Binding Path=ToBase, Mode=TwoWay, FallbackValue=0}" SelectionChanged="To_SelectionChanged" Margin="20,20,20,60" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" RightTapped="From_Holding" Holding="From_Holding" Style="{ThemeResource ComboBoxStyle1}">
                     <ComboBoxItem Content="2"/>
@@ -288,82 +149,12 @@
                     <ComboBoxItem Content="36"/>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock x:Uid="SelectBase" Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
-                                <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="2"/>
-                                    <ListBoxItem Content="3"/>
-                                    <ListBoxItem Content="4"/>
-                                    <ListBoxItem Content="5"/>
-                                    <ListBoxItem Content="6"/>
-                                    <ListBoxItem Content="7"/>
-                                    <ListBoxItem Content="8"/>
-                                    <ListBoxItem Content="9"/>
-                                    <ListBoxItem Content="10"/>
-                                    <!--<ListBoxItem Content="11"/>
-                                <ListBoxItem Content="10"/>
-                                <ListBoxItem Content="11"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="11"/>
-                                    <ListBoxItem Content="12"/>
-                                    <ListBoxItem Content="13"/>
-                                    <ListBoxItem Content="14"/>
-                                    <ListBoxItem Content="15"/>
-                                    <ListBoxItem Content="16"/>
-                                    <ListBoxItem Content="17"/>
-                                    <ListBoxItem Content="18"/>
-                                    <ListBoxItem Content="19"/>
-                                    <!--<ListBoxItem Content="20"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="20"/>
-                                    <ListBoxItem Content="21"/>
-                                    <ListBoxItem Content="22"/>
-                                    <ListBoxItem Content="23"/>
-                                    <ListBoxItem Content="24"/>
-                                    <ListBoxItem Content="25"/>
-                                    <ListBoxItem Content="26"/>
-                                    <ListBoxItem Content="27"/>
-                                    <ListBoxItem Content="28"/>
-                                    <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                                </ListBox>
-                                <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                    <ListBoxItem Content="29"/>
-                                    <ListBoxItem Content="30"/>
-                                    <ListBoxItem Content="31"/>
-                                    <ListBoxItem Content="32"/>
-                                    <ListBoxItem Content="33"/>
-                                    <ListBoxItem Content="34"/>
-                                    <ListBoxItem Content="35"/>
-                                    <ListBoxItem Content="36"/>
-                                    <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                                </ListBox>
-                            </Grid>
+                            <local:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"></local:FlyoutListbox>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </ComboBox>
             </Grid>
             <Border  Margin="20,0" Grid.RowSpan="2" VerticalAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BorderStyle1}" BorderThickness="0,2"/>
         </Grid>
-
     </Grid>
 </Page>

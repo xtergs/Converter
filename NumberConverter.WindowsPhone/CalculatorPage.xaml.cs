@@ -568,11 +568,15 @@ namespace NumberConverter
 		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var listbox = ((ListBox) sender);
-			var str = ((ListBoxItem) listbox.SelectedItem).Content;
-			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
-			var comboItem = new ComboBoxItem();
-			comboItem.Content = str;
-			SharePages.AddComboBoxItem(comboItem, parentFlyout, true);
+			var listBoxItem = (ListBoxItem) listbox.SelectedItem;
+			if (listBoxItem != null)
+			{
+				var str = listBoxItem.Content;
+				//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
+				var comboItem = new ComboBoxItem();
+				comboItem.Content = str;
+				SharePages.AddComboBoxItem(comboItem, parentFlyout, true);
+			}
 			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
 			//fly.Hide();
 			openedFlyout.Hide();

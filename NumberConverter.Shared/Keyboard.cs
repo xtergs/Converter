@@ -78,22 +78,22 @@ namespace NumberConverter
 
 			for (int i = 0; i < 36; i++)
 			{
-				temp = newButton(letters[i].ToString());
+				temp = newButton(letters[i].ToString(), style);
 				temp.Style = style;
 				temp.Click += TempOnClick;
 				panel.Children.Add(temp);
 			}
-			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,style);
 			temp.Style = style;
 			temp.Click += Button_Click_Dot;
 			panel.Children.Add(temp);
 
-			temp = newButton("<-");
+			temp = newButton("<-",style);
 			temp.Style = style;
 			temp.Click += BackspaceOnClick;
 			panel.Children.Add(temp);
 
-			temp = newButton("CE");
+			temp = newButton("CE",style);
 			temp.Style = style;
 			temp.Click += CleanOnClick;
 			panel.Children.Add(temp);
@@ -274,4 +274,8 @@ namespace NumberConverter
 		#endregion
 	}
 
+	internal class ButtonClickArgs
+	{
+		public Button Button { get; set; }
+	}
 }
