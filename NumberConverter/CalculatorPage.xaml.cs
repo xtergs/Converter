@@ -100,14 +100,29 @@ namespace NumberConverter
 		public void CreateKeyboard(Panel panel)
 		{
 			keyboard = new Keyboard(panel, Application.Current.Resources["ButtonStyle1"] as Style);
-			for (int i = 0; i < panel.Children.Count - 3; i++)
-			{
-				((Button) (panel.Children[i])).Click += Button_Click_1;
-			}
+			keyboard.OnButtonClick += keyboard_OnButtonClick;
+			//for (int i = 0; i < panel.Children.Count - 3; i++)
+			//{
+			//	((Button) (panel.Children[i])).Click += Button_Click_1;
+			//}
 			((Button) (panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
 			((Button) (panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; // backspace
 			//((Button)(panel.Children[panel.Children.Count - 2])).SizeChanged += Buttons_SizeChanged_1;
 			((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
+		}
+
+		void keyboard_OnButtonClick(object sender, ButtonClickArgs args)
+		{
+
+			TextBox input;
+			if (!(FocusManager.GetFocusedElement() is TextBox))
+				input = LastFocusTextBox;
+			else
+				input = (TextBox)(FocusManager.GetFocusedElement());
+			if (input == Result)
+				return;
+
+			SharePages.AddTextTextBox(args.Button.Content.ToString(), input);
 		}
 
 		private void Button_Click_Clean(object sender, RoutedEventArgs e)
@@ -206,21 +221,7 @@ namespace NumberConverter
 
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
-			//	InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
-			TextBox input;
-			if (!(FocusManager.GetFocusedElement() is TextBox))
-				input = LastFocusTextBox;
-			else
-			 input = (TextBox) (FocusManager.GetFocusedElement());
-			if (input == Result)
-				return;
-			//var x = input.SelectionStart; //временное запоминание
-			//input.Text = input.Text.Insert(input.SelectionStart, ((Button) sender).Content.ToString());
-			//input.SelectionStart = x + ((Button) sender).Content.ToString().Length;
-			//InputText.Text += ((Button)sender).Content.ToString();
-			//input.Text += ((Button) sender).Content.ToString();
-			//input.Focus(FocusState.Programmatic);
-			SharePages.AddTextTextBox(((Button) sender).Content.ToString(), input);
+			
 		}
 
 
