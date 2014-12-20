@@ -374,8 +374,7 @@ namespace NumberConverter
 				return new LongDouble("1");
 			var result = new LongDouble(this.ToString());
 			if (value1 > 0)
-				for (int i = 1; i < value1; i++)
-					result *= this;
+				result = Pow(this, value1);
 			else
 			{
 				value1 *= -1;
@@ -384,6 +383,22 @@ namespace NumberConverter
 				result = new LongDouble("1")/result;
 			}
 			return result;
+		}
+
+		private LongDouble Pow(LongDouble value1, int value)
+		{
+			if (value == 1)
+				return value1;
+
+			LongDouble temp;
+			temp = Pow(value1, value/2);
+			temp *= temp;
+			if (value%2 != 0)
+			{
+				temp *= value1;
+			}
+
+			return temp;
 		}
 
 		public static LongDouble XOR(LongDouble value1, LongDouble value2)
