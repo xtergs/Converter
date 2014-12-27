@@ -8,7 +8,7 @@
     x:Class="NumberConverter.BlankPage1"
     mc:Ignorable="d" SizeChanged="CalculatorPage_SizeChanged" Loaded="CalculatorPage_Loaded" ManipulationMode="TranslateX" ManipulationCompleted="Swipe">
     <Page.Resources>
-        <ResourceDictionary>
+        <ResourceDictionary Source="Resource/Template/Template.xaml">
             
 
 

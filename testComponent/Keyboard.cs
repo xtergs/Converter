@@ -1,7 +1,9 @@
 ﻿using System;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 
 namespace NumberConverter

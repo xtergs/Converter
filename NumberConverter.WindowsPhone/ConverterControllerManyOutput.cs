@@ -45,12 +45,14 @@ namespace NumberConverter
 				if (value == inputeBaseIndex) return;
 				inputeBaseIndex = value;
 				OnPropertyChanged();
+				InputBase = 0;
 			}
 		}
 
 		public int InputBase
 		{
 			get { return Bases[InputeBaseIndex]; }
+			set { OnPropertyChanged(); }
 		}
 
 		public ObservableCollection<int> Bases
@@ -109,8 +111,17 @@ namespace NumberConverter
 		{
 			if (String.IsNullOrEmpty(Input.Input))
 				return;
-			for (int i = 0; i < Outputs.Count; i++)
-				Outputs[i].Input = global::Converter.Converter.ConvertTo((uint)Input.InputBase, Input.Input, (uint)Outputs[i].InputBase);
+			try
+			{
+				for (int i = 0; i < Outputs.Count; i++)
+					Outputs[i].Input = global::Converter.Converter.ConvertTo((uint)Input.InputBase, Input.Input, (uint)Outputs[i].InputBase);
+
+			}
+			catch (Exception e)
+			{
+
+				Outputs[0].Input = e.Message;
+			}
 		}
 	}
 
@@ -141,7 +152,16 @@ namespace NumberConverter
 		{
 			if (String.IsNullOrEmpty(Input.Input))
 				return;
-			Outputs.Input = global::Converter.Converter.ConvertTo((uint)Input.InputBase, Input.Input, (uint)Outputs.InputBase);
+			try
+			{
+				Outputs.Input = global::Converter.Converter.ConvertTo((uint)Input.InputBase, Input.Input, (uint)Outputs.InputBase);
+
+			}
+			catch (Exception e)
+			{
+
+				Outputs.Input = e.Message;
+			}
 		}
 	}
 }

@@ -26,7 +26,7 @@ namespace NumberConverter
 	/// </summary>
 	public sealed partial class MainPage : Page
 	{
-		Keyboard keyboard;
+		//Keyboard keyboard;
 		ComboBox parentFlyout;
 
 		private ConverterController converterControllerManyOutput;
@@ -62,23 +62,23 @@ namespace NumberConverter
 			this.InitializeComponent();
 			converterControllerManyOutput = new ConverterController();
 			DataContext = converterControllerManyOutput;
-			CreateKeyboard(Buttons);
+			//CreateKeyboard(Buttons);
 			ToBase = 0;
 			FromBase = 0;
 			//fromBase = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
 			//toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
 			
-			keyboard.SetVisibleButton(FromBase);
+			//keyboard.SetVisibleButton(FromBase);
 			
 		}
 
 		public void CreateKeyboard(Panel panel)
 		{
-			keyboard = new Keyboard(panel, (Application.Current.Resources["ButtonStyle1"]) as Style);
-			keyboard.OnButtonClick += Button_Click_1;
-			keyboard.OnDotClick += Button_Click_Dot; // "."
-			keyboard.OnBackspaceClick += Backspace_Click; // backspace
-			keyboard.OnCleanClick += Button_Click_Clean; //Clean
+			//keyboard = new Keyboard(panel, (Application.Current.Resources["ButtonStyle1"]) as Style);
+			//keyboard.OnButtonClick += Button_Click_1;
+			//keyboard.OnDotClick += Button_Click_Dot; // "."
+			//keyboard.OnBackspaceClick += Backspace_Click; // backspace
+			//keyboard.OnCleanClick += Button_Click_Clean; //Clean
 		}
 
 		private void Button_Click_Dot(object sender, ButtonClickArgs e)
@@ -90,8 +90,8 @@ namespace NumberConverter
 
 		private void Button_Click_Clean(object sender, ButtonClickArgs e)
 		{
-			converterControllerManyOutput.ConvertCommand.Execute();
 			InputText.Text = String.Empty;
+			converterControllerManyOutput.ConvertCommand.Execute();
 		}
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -111,15 +111,15 @@ namespace NumberConverter
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			converterControllerManyOutput.ConvertCommand.Execute();
 			InputText.Text = String.Empty;
+			converterControllerManyOutput.ConvertCommand.Execute();
 		}
 
 		private void Button_Click_1(object sender, ButtonClickArgs e)
 		{
-			converterControllerManyOutput.ConvertCommand.Execute();
 			SharePages.AddTextTextBox(e.Button.Content.ToString(), InputText);
 			InputText.Select(InputText.Text.Length, 0);
+			converterControllerManyOutput.ConvertCommand.Execute();
 		}
 		
 		private void From_Holding(object sender, HoldingRoutedEventArgs e)
@@ -136,8 +136,8 @@ namespace NumberConverter
 				{
 					fromBase = int.Parse((((ComboBoxItem)((ComboBox)sender).SelectedItem)).Content.ToString());
 					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,	InputText.Text, (uint)toBase);
-					keyboard.SetVisibleButton(fromBase);
-					keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
+					//keyboard.SetVisibleButton(fromBase);
+					//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
 				}
 			}
 			catch (Exception ee)
@@ -386,6 +386,7 @@ namespace NumberConverter
 		{
 			SharePages.Backspace(InputText);
 			InputText.Select(InputText.Text.Length, 0);
+			converterControllerManyOutput.ConvertCommand.Execute();
 		}
 
 		
@@ -421,7 +422,7 @@ namespace NumberConverter
 				
 				ToBase = suspendPage.indexTo;
 				InputText.Text = suspendPage.InputText;
-				keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
+				//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
 				if (From.Items != null  && To.Items != null)
 				{
 					From.SelectedItem = From.Items[FromBase];
@@ -435,10 +436,10 @@ namespace NumberConverter
 
 		private void Page_Unloaded(object sender, RoutedEventArgs e)
 		{
-			keyboard.OnButtonClick -= Button_Click_1;
-			keyboard.OnDotClick -= Button_Click_Dot; // "."
-			keyboard.OnBackspaceClick -= Backspace_Click; // backspace
-			keyboard.OnCleanClick -= Button_Click_Clean; //Clean
+			//keyboard.OnButtonClick -= Button_Click_1;
+			//keyboard.OnDotClick -= Button_Click_Dot; // "."
+			//keyboard.OnBackspaceClick -= Backspace_Click; // backspace
+			//keyboard.OnCleanClick -= Button_Click_Clean; //Clean
 		}
 
 
@@ -477,6 +478,7 @@ namespace NumberConverter
 
 		private void From_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
 		{
+			sizeKeyboard.VisibleButtonCount = converterControllerManyOutput.Input.InputBase;
 			converterControllerManyOutput.ConvertCommand.Execute();
 		}
 

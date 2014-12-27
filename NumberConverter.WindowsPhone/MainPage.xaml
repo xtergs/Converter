@@ -51,7 +51,7 @@
 
 
             <TextBox x:Uid="Result" x:Name="Result" Text="{Binding  Outputs.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-            <ComboBox x:Name="To" ItemsSource="{Binding Outputs.Bases}" SelectedIndex="{Binding Outputs.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}" Holding="From_Holding">
+            <ComboBox x:Name="To" ItemsSource="{Binding Outputs.Bases}" SelectedIndex="{Binding Outputs.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}" Holding="From_Holding" SelectionChanged="From_SelectionChanged_1">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
@@ -65,9 +65,7 @@
                 </FlyoutBase.AttachedFlyout>
             </ComboBox>
 
-            <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="5" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="0" Grid.Column="3" Grid.RowSpan="4">
-                <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0" VerticalAlignment="Bottom"/>
-            </Border>
+            <local:Keyboard x:Name="sizeKeyboard" VisibleButtonCount="{Binding Input.InputBase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" Grid.ColumnSpan="5" StyleButton="{StaticResource ButtonStyle1}" OnButtonClick="Button_Click_1" OnBackspaceClick="Backspace_Click" OnCleanClick="Button_Click_Clean" OnDotClick="Button_Click_Dot" Grid.Column="3" Grid.RowSpan="4" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />
 
             <ComboBox ItemsSource="{Binding Input.Bases}" SelectedIndex="{Binding Input.InputeBaseIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="From" Holding="From_Holding" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" Margin="5,50" Grid.Row="1" RightTapped="From_RightTapped" CacheMode="BitmapCache" Style="{ThemeResource  ComboBoxStyle1}" SelectionChanged="From_SelectionChanged_1">
                 <ComboBoxItem Content="2"/>

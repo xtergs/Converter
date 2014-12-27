@@ -9,7 +9,7 @@
     x:Class="NumberConverter.MainPage"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" GotFocus="Page_GotFocus">
     <Page.Resources>
-        <!--<ResourceDictionary Source="Resource/DarkBlue.xaml"></ResourceDictionary>-->
+        <ResourceDictionary Source="Resource/Template/Template.xaml"></ResourceDictionary>
         
     </Page.Resources>
 
