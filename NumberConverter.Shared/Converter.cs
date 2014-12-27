@@ -14,6 +14,17 @@ namespace Converter
 
 		static int countLoop = 10; //accuracy
 
+		public int Accurancy
+		{
+			get { return countLoop; }
+			set
+			{
+				if (value < 0)
+					return;
+				countLoop = value;
+			}
+		}
+
 		static Converter()
 		{
 			string let = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";

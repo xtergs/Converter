@@ -9,6 +9,7 @@
     <Import_RootNamespace>NumberConverter</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ActionCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ButtonBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Keyboard.cs" />

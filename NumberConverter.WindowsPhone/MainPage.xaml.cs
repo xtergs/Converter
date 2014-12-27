@@ -29,6 +29,8 @@ namespace NumberConverter
 		Keyboard keyboard;
 		ComboBox parentFlyout;
 
+		private ConverterController converterControllerManyOutput;
+
 		private double scaleFontTextBox = 0.35;
 
 		int fromBase;
@@ -38,34 +40,35 @@ namespace NumberConverter
 		//string BAse;
 		public int FromBase
 		{
-			get { return fromBaseIndex; }
+			get { return converterControllerManyOutput.Input.InputBase; }
 			set
 			{
-				fromBaseIndex = value;
-				fromBase = int.Parse(((ComboBoxItem)From.Items[value]).Content.ToString());
+				//fromBaseIndex = value;
+				//fromBase = int.Parse(((ComboBoxItem)From.Items[value]).Content.ToString());
 			}
 		}
 
 		public int ToBase
 		{
-			get { return toBaseIndex; }
+			get { return converterControllerManyOutput.Outputs.InputBase; }
 			set
 			{
-				toBaseIndex = value;
-				toBase = int.Parse(((ComboBoxItem)To.Items[value]).Content.ToString());
+				//toBaseIndex = value;
+				//toBase = int.Parse(((ComboBoxItem)To.Items[value]).Content.ToString());
 			}
 		}
 		public MainPage()
 		{
 			this.InitializeComponent();
-			DataContext = this;
+			converterControllerManyOutput = new ConverterController();
+			DataContext = converterControllerManyOutput;
 			CreateKeyboard(Buttons);
 			ToBase = 0;
 			FromBase = 0;
 			//fromBase = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
 			//toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
 			
-			keyboard.SetVisibleButton(fromBase);
+			keyboard.SetVisibleButton(FromBase);
 			
 		}
 
@@ -87,30 +90,34 @@ namespace NumberConverter
 
 		private void Button_Click_Clean(object sender, ButtonClickArgs e)
 		{
+			converterControllerManyOutput.ConvertCommand.Execute();
 			InputText.Text = String.Empty;
 		}
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			try
-			{
-				if (InputText.Text != "")
-					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,
-					InputText.Text, (uint)toBase);
-			}
-			catch (Exception ee)
-			{
-				Result.Text = ee.Message;
-			}
+			
+			//try
+			//{
+			//	if (InputText.Text != "")
+			//		Result.Text = Converter.Converter.ConvertTo((uint)fromBase,
+			//		InputText.Text, (uint)toBase);
+			//}
+			//catch (Exception ee)
+			//{
+			//	Result.Text = ee.Message;
+			//}
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
+			converterControllerManyOutput.ConvertCommand.Execute();
 			InputText.Text = String.Empty;
 		}
 
 		private void Button_Click_1(object sender, ButtonClickArgs e)
 		{
+			converterControllerManyOutput.ConvertCommand.Execute();
 			SharePages.AddTextTextBox(e.Button.Content.ToString(), InputText);
 			InputText.Select(InputText.Text.Length, 0);
 		}
@@ -332,7 +339,7 @@ namespace NumberConverter
 
 		private void sizeKeyboard_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 3);
+			//keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 3);
 		}
 		
 		private void Button_Click_5(object sender, RoutedEventArgs e)
@@ -466,6 +473,11 @@ namespace NumberConverter
 			double x = e.Velocities.Linear.X;
 			if (x < -1)
 				GoToCalculator();
+		}
+
+		private void From_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+		{
+			converterControllerManyOutput.ConvertCommand.Execute();
 		}
 
 		

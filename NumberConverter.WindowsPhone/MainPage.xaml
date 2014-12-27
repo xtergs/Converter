@@ -5,9 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
+    xmlns:ConverterController="using:Converter"
     xmlns:Controls="using:NumberConverter.WinRTXamlToolkit.Controls"
     x:Class="NumberConverter.MainPage"
-    mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" ManipulationCompleted="Swipe" ManipulationMode="TranslateX">
+    mc:Ignorable="d" 
+    d:DataContext="{d:DesignInstance local:ConverterController}"
+    SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" ManipulationCompleted="Swipe" ManipulationMode="TranslateX">
+    
     <Page.Resources>
         <!--<ResourceDictionary Source="Resource/DarkBlue.xaml"></ResourceDictionary>-->
         <ResourceDictionary Source="Resource/Template/Template.xaml"></ResourceDictionary>
@@ -46,13 +50,13 @@
 
 
 
-            <TextBox x:Uid="Result" x:Name="Result"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-            <ComboBox x:Name="To" SelectedIndex="{Binding Path=ToBase, Mode=TwoWay, FallbackValue=0}" SelectionChanged="To_SelectionChanged" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}" Holding="From_Holding">
+            <TextBox x:Uid="Result" x:Name="Result" Text="{Binding  Outputs.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <ComboBox x:Name="To" ItemsSource="{Binding Outputs.Bases}" SelectedIndex="{Binding Outputs.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}" Holding="From_Holding">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
                 <ComboBoxItem Content="16"/>
-                <ComboBoxItem Content="25"/>
+                
                 <ComboBoxItem Content="36"/>
                 <FlyoutBase.AttachedFlyout>
                     <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{StaticResource FlyoutStyle1}">
@@ -65,7 +69,7 @@
                 <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="4" Grid.ColumnSpan="5" Margin="0" VerticalAlignment="Bottom"/>
             </Border>
 
-            <ComboBox x:Name="From" SelectedIndex="{Binding Path=FromBase, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" Margin="5,50" Grid.Row="1" RightTapped="From_RightTapped" CacheMode="BitmapCache" Style="{ThemeResource  ComboBoxStyle1}">
+            <ComboBox ItemsSource="{Binding Input.Bases}" SelectedIndex="{Binding Input.InputeBaseIndex, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="From" Holding="From_Holding" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0.5,0.5" Margin="5,50" Grid.Row="1" RightTapped="From_RightTapped" CacheMode="BitmapCache" Style="{ThemeResource  ComboBoxStyle1}" SelectionChanged="From_SelectionChanged_1">
                 <ComboBoxItem Content="2"/>
                 <ComboBoxItem Content="8"/>
                 <ComboBoxItem Content="10"/>
@@ -84,7 +88,7 @@
                     </Flyout>
                 </FlyoutBase.AttachedFlyout>
             </ComboBox>
-            <TextBox x:Uid="InputText" x:Name="InputText" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="2" Margin="5,10,5,60" Header="" Grid.Row="1" GotFocus="InputText_GotFocus" KeyUp="InputText_KeyUp" PreventKeyboardDisplayOnProgrammaticFocus="True" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" Style="{StaticResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" />
+            <TextBox x:Uid="InputText" x:Name="InputText" Text="{Binding  Input.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber" SizeChanged="Result_SizeChanged" MinWidth="21" Padding="7,4,8,4" HorizontalContentAlignment="Left" Grid.ColumnSpan="2" Margin="5,10,5,60" Header="" Grid.Row="1" GotFocus="InputText_GotFocus" KeyUp="InputText_KeyUp" PreventKeyboardDisplayOnProgrammaticFocus="True" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" Style="{StaticResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" />
             <Button x:Uid="Calculator" Content="Calculator" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Click="Button_Click_5" IsTabStop="False" Grid.Column="2" Padding="12,4" MinWidth="0" MinHeight="0" Visibility="Collapsed">
                 <ToolTipService.ToolTip>
                     <TextBlock Text="Calculator" />

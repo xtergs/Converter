@@ -8,7 +8,7 @@ using NumberConverter;
 namespace UnitTestLibrary1
 {
     [TestClass]
-    public class UnitTest1
+    public class LongDoubleUnitTest1
     {
         [TestMethod]
         public void IntegerPartAnd()
@@ -93,6 +93,45 @@ namespace UnitTestLibrary1
 			//Assert
 			Assert.IsTrue(result.ToString() == "16");
 		}
+
+	    [TestMethod]
+	    public void LongDoubleMult()
+	    {
+		    //Arrange
+		    LongDouble value1 = new LongDouble("10.2");
+		    LongDouble value2 = new LongDouble("22.45");
+			LongDouble result = new LongDouble("228", "99");
+
+		    //Act
+		    value1 = value1*value2;
+
+		    //Assert
+			Assert.IsTrue(value1.ToString() == "228.99");
+
+			//Arrange
+			value1 = new LongDouble("00000.00000002");
+			value2 = new LongDouble("22.45");
+
+			//Act
+			value1 = value1 * value2;
+
+			//Assert
+			Assert.IsTrue(value1.ToString() == "0.000000449");
+	    }
+
+		[TestMethod]
+	    public void LongDoubleRShift()
+	    {
+			//Arrange
+			LongDouble value1 = new LongDouble("10");
+		    int value2 = 22;
+
+			//Act
+		    value1 = value1 >> value2;
+
+			//Assert
+			Assert.IsTrue(value1.ToString() == "0");
+	    }
 
     }
 }

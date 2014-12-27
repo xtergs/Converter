@@ -24,7 +24,7 @@ namespace NumberConverter
 				else
 					IsMinus = false;
 				value = new string(value.SkipWhile((char a) => { return a == '0'; }).ToArray<char>());
-				if (value == "")
+				if (String.IsNullOrWhiteSpace(value))
 				{
 					integer = "0";
 					return;
@@ -425,7 +425,7 @@ namespace NumberConverter
 			StringBuilder builder = new StringBuilder();
 			if ((integer != "0" || fraction != "0")&& IsMinus)
 				builder.Append("-");
-			if (fraction != "0" && fraction != "")
+			if (fraction != "0" && !String.IsNullOrWhiteSpace(fraction))
 				builder.Append( integer.ToString().ToUpper() + splitter + fraction.ToString().ToUpper());
 			else
 				builder.Append( integer.ToString().ToUpper());
@@ -440,7 +440,7 @@ namespace NumberConverter
 				if (value.IndexOf(splitter) >=0)
 					value = value.Substring(value.IndexOf(splitter)+1);
 				value = new string(value.Reverse().SkipWhile((char a) => { return a == '0'; }).Reverse().ToArray<char>()); ;
-				if (value == "")
+				if (String.IsNullOrWhiteSpace(value))
 					fraction = "0";
 				else
 					fraction = value;

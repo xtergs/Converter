@@ -93,12 +93,15 @@
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="ConverterControllerManyOutput.cs" />
+    <Compile Include="ConverterControllerBase.cs" />
     <Compile Include="FlyoutListbox.xaml.cs">
       <DependentUpon>FlyoutListbox.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Themes.xaml.cs">
       <DependentUpon>Themes.xaml</DependentUpon>
