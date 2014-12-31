@@ -108,9 +108,7 @@
                     </FlyoutBase.AttachedFlyout>
                 </ComboBox>
             </Grid>
-            <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="3" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="20,10,20,40" Grid.Column="3" Grid.RowSpan="6">
-                <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="5" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1" Background="#003B2574" VerticalAlignment="Bottom"/>
-            </Border>
+            <local:Keyboard x:Name="sizeKeyboard" StyleButton="{StaticResource ButtonStyle1}" Grid.Column="3" Grid.RowSpan="10" OnButtonClick="KeyboardOnOnButtonClick" OnBackspaceClick="Backspace_Click" OnCleanClick="Button_Click_Clean" OnDotClick="Button_Click_Dot"></local:Keyboard>
             <TextBox x:Uid="Result" x:Name="Result" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" Grid.Row="4" IsReadOnly="True" GotFocus="Result_GotFocus" PlaceholderText="Result!!" Style="{StaticResource TextBoxStyle1}"/>
             <Grid x:Name="Buttons_operation" Grid.Column="1" Grid.Row="2" Margin="20,10" SizeChanged="Buttons_operation_SizeChanged">
                 <Grid.ColumnDefinitions>
