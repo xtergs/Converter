@@ -7,7 +7,7 @@ using Windows.ApplicationModel.Resources;
 
 namespace NumberConverter
 {
-	class CalculatorController : ConverterController
+	public class CalculatorController : ConverterController
 	{
 		private InputField input2;
 		private int operation;
@@ -36,6 +36,7 @@ namespace NumberConverter
 				if (value == operation) return;
 				operation = value;
 				OnPropertyChanged();
+				CalculateCommand.Execute();
 			}
 		}
 

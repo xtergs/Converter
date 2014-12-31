@@ -73,6 +73,28 @@ namespace NumberConverter
 			}
 		}
 
+		public ActionCommand AddNewBase
+		{
+			get
+			{
+				return new ActionCommand(x =>
+				{
+					if (!(x is int))
+						return;
+					int bas = (int) x;
+					if (!Bases.Contains(bas))
+					{
+						Bases.Add(bas);
+						InputeBaseIndex = Bases.Count - 1;
+					}
+					else
+					{
+						InputeBaseIndex = Bases.IndexOf(bas);
+					}
+				});
+			}
+		}
+
 
 		public event PropertyChangedEventHandler PropertyChanged;
 

@@ -218,12 +218,13 @@ namespace NumberConverter
 
 		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			if (e.AddedItems.Count == 0)
+				return;
 			var listbox = ((ListBox)sender);
 			var str = ((ListBoxItem)listbox.SelectedItem).Content;
 			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
-			var comboItem = new ComboBoxItem();
-			comboItem.Content = str;
-			SharePages.AddComboBoxItem(comboItem, parentFlyout, true);
+			int newBase = int.Parse(str.ToString());
+			converterControllerManyOutput.Input.AddNewBase.Execute(newBase);
 			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
 			//fly.Hide();
 			openedFlyout.Hide();
@@ -334,6 +335,23 @@ namespace NumberConverter
 		{
 			sizeKeyboard.VisibleButtonCount = converterControllerManyOutput.Input.InputBase;
 			converterControllerManyOutput.ConvertCommand.Execute();
+		}
+
+		private void ListBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (e.AddedItems.Count == 0)
+				return;
+			var listbox = ((ListBox)sender);
+			var str = ((ListBoxItem)listbox.SelectedItem).Content;
+
+			int newBase = int.Parse(str.ToString());
+			converterControllerManyOutput.Outputs.AddNewBase.Execute(newBase);
+
+			openedFlyout.Hide();
+
+			listbox.SelectionChanged -= ListBox_SelectionChanged;
+			listbox.SelectedIndex = -1;
+			listbox.SelectionChanged += ListBox_SelectionChanged;
 		}
 
 		
