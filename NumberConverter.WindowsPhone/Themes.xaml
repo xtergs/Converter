@@ -6,7 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ManipulationMode="TranslateX" ManipulationCompleted="Swipe">
+    d:DataContext="{d:DesignInstance local:SettingsModelView}"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" ManipulationMode="TranslateX, System" ManipulationCompleted="Swipe">
+    <Page.Resources>
+        <ResourceDictionary Source="Resource/Template/Template.xaml"></ResourceDictionary>
+    </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
 
@@ -17,7 +21,7 @@
         </Grid.ChildrenTransitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -39,14 +43,27 @@
         </StackPanel>
 
         <!--TODO: Content should be placed within the following grid-->
-        <StackPanel Grid.Row="2" x:Name="ContentRoot" Margin="19,9.5,19,0">
-            <HyperlinkButton Content="Dark Blue" Click="HyperlinkButton_Click"/>
+        <ListView Grid.Row="2" x:Name="ContentRoot" Margin="19,9.5,19,0" ItemsSource="{Binding  Themes.Keys}" ItemClick="ContentRoot_ItemClick" SelectedIndex="{Binding SelectedThemeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ContentRoot_SelectionChanged" >
+            
+            <!--<HyperlinkButton Content="Dark Blue" Click="HyperlinkButton_Click"/>
             <HyperlinkButton Content="Dark Green" Click="HyperlinkButton_Click_1"/>
             <HyperlinkButton Content="Dark Orange" Click="HyperlinkButton_Click_2"/>
-            <HyperlinkButton Content="Dark Red" Click="HyperlinkButton_Click_3"/>
-        </StackPanel>
-        <TextBlock Text="ButtonSizeSS" Grid.Row="3" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"></TextBlock>
-        <Slider x:Name="slider" HorizontalAlignment="Left" Margin="110,52.5,0,-52" Grid.Row="4" VerticalAlignment="Top" Width="100" LargeChange="1" Maximum="300" Minimum="20" Value="20" TickPlacement="Inline"/>
-        <Button Content="1" HorizontalAlignment="Left" Margin="84,156.5,0,-97.667" Grid.Row="4" VerticalAlignment="Top" Width="{Binding Value, ElementName=slider}" Height="{Binding Value, ElementName=slider}" MinHeight="10" MinWidth="10"/>
+            <HyperlinkButton Content="Dark Red" Click="HyperlinkButton_Click_3"/>-->
+        </ListView>
+        <TextBlock Text="ButtonSizeSS" Grid.Row="3" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" Margin="19,0,0,0"></TextBlock>
+        <ListView Grid.Row="4" SelectionMode="None" Margin="19,0,0,0" HorizontalContentAlignment="Stretch" ShowsScrollingPlaceholders="True" CanDragItems="True" CanReorderItems="True">
+            <CheckBox IsChecked="{Binding AllButtonsSame, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="AllButtonsSame!!!"></CheckBox>
+             <Slider x:Name="slider" Header="MaxSizeButton!!"  Grid.Row="4" Width="100" LargeChange="1" Maximum="300" Minimum="20" Value="{Binding MaxSizeButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TickPlacement="Inline" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <Border>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Sample!!"></TextBlock>
+                <Button Grid.Row="1"  Style="{StaticResource ButtonStyle1}"  Content="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="{Binding Value, ElementName=slider}" Height="{Binding Value, ElementName=slider}" MinHeight="10" MinWidth="10"/>
+                </Grid>
+            </Border>
+        </ListView>
     </Grid>
 </Page>

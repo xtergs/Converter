@@ -327,6 +327,7 @@ namespace NumberConverter
 		private void Swipe(object sender, ManipulationCompletedRoutedEventArgs e)
 		{
 			double x = e.Velocities.Linear.X;
+			e.Handled = true;
 			if (x < -1)
 				GoToCalculator();
 		}

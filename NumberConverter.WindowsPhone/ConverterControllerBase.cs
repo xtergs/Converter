@@ -13,6 +13,11 @@ namespace NumberConverter
 	{
 		private InputField input;
 
+		public SettingsModelView Settings
+		{
+			get { return SettingsModelView.Settings; }
+		}
+
 		public InputField Input
 		{
 			get

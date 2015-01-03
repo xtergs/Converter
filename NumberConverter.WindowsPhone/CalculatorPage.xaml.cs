@@ -167,7 +167,7 @@ namespace NumberConverter
 		private void Button_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var x = ((ButtonBase) sender);
-			x.FontSize = (x.ActualHeight - 15)*0.5;
+			x.FontSize = (x.ActualHeight) * 0.7;
 		}
 
 
@@ -521,9 +521,9 @@ namespace NumberConverter
 		{
 			int correction = 0;
 #if WINDOWS_PHONE_APP
-			correction = 15;
+			//correction = 15;
 #endif
-			var grd = (Grid) sender;
+			var grd = (Grid)sender;
 			for (int i = 0; i < operationList.Count; i++)
 				operationList[i].Height = e.NewSize.Height / grd.RowDefinitions.Count + correction;
 		}

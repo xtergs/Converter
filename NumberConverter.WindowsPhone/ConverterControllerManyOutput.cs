@@ -135,6 +135,7 @@ namespace NumberConverter
 				return;
 			try
 			{
+				global::Converter.Converter.Accurancy = Settings.Precise;
 				for (int i = 0; i < Outputs.Count; i++)
 					Outputs[i].Input = global::Converter.Converter.ConvertTo((uint)Input.InputBase, Input.Input, (uint)Outputs[i].InputBase);
 
@@ -176,6 +177,7 @@ namespace NumberConverter
 				return;
 			try
 			{
+				global::Converter.Converter.Accurancy = Settings.Precise;
 				Outputs.Input = global::Converter.Converter.ConvertTo((uint)Input.InputBase, Input.Input, (uint)Outputs.InputBase);
 
 			}

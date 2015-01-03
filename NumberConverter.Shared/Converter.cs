@@ -14,7 +14,7 @@ namespace Converter
 
 		static int countLoop = 10; //accuracy
 
-		public int Accurancy
+		public static int Accurancy
 		{
 			get { return countLoop; }
 			set

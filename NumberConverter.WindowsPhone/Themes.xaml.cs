@@ -28,6 +28,7 @@ namespace NumberConverter
 	{
 		private NavigationHelper navigationHelper;
 		private ObservableDictionary defaultViewModel = new ObservableDictionary();
+		private SettingsModelView settigns = SettingsModelView.Settings;
 
 		public Themes()
 		{
@@ -36,6 +37,8 @@ namespace NumberConverter
 			this.navigationHelper = new NavigationHelper(this);
 			this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 			this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+
+			DataContext = settigns;
 		}
 
 		/// <summary>
@@ -117,12 +120,6 @@ namespace NumberConverter
 
 		void ChangeTheme(Uri uri)
 		{
-			if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("Theme"))
-				ApplicationData.Current.LocalSettings.Values.Add("Theme", uri.ToString());
-			else
-			{
-				ApplicationData.Current.LocalSettings.Values["Theme"] = uri.ToString();
-			}
 			ResourceDictionary newDictionary = new ResourceDictionary();
 			newDictionary.Source = uri;
 			Application.Current.Resources = newDictionary;
@@ -133,7 +130,7 @@ namespace NumberConverter
 			//var s = Window.Current.GetType();
 			//bool bb = Window.Current.Content is MainPage;
 			//bool dd = Window.Current.Content is 
-			if (Frame.CanGoBack)
+			if (Frame != null && Frame.CanGoBack)
 				Frame.GoBack();
 			//(Window.Current.Content as Frame).Navigate(typeof(MainPage));
 			//(Window.Current.Content as Frame).Navigate(typeof(MainPage));
@@ -160,7 +157,7 @@ namespace NumberConverter
 
 		private void Swipe(object sender, ManipulationCompletedRoutedEventArgs e)
 		{
-			if (e.Velocities.Linear.X > 0)
+			if (e.Velocities.Linear.X > 1)
 				GoToCalculator();
 		}
 
@@ -187,6 +184,16 @@ namespace NumberConverter
 		void GoToConverter()
 		{
 			Frame.Navigate(typeof(MainPage));
+		}
+
+		private void ContentRoot_ItemClick(object sender, ItemClickEventArgs e)
+		{
+			//settigns.Theme = settigns.Themes[]
+		}
+
+		private void ContentRoot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			ChangeTheme(settigns.Theme);
 		}
 	}
 }
