@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ButtonBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ArgumentDoubleException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Keyboard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LongDouble.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OrientedSize.cs" />
@@ -61,7 +62,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="$(MSBuildThisFileDirectory)Languages\en-US\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Languages\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="$(MSBuildThisFileDirectory)Languages\ru-Ru\Resources.resw" />
   </ItemGroup>
 </Project>

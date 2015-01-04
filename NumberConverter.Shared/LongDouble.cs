@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Numerics;
+using NumberConverter.Exceptions;
 
 namespace NumberConverter
 {
@@ -21,8 +22,6 @@ namespace NumberConverter
 					value = value.Substring(1);
 					IsMinus = true;
 				}
-				else
-					IsMinus = false;
 				value = new string(value.SkipWhile((char a) => { return a == '0'; }).ToArray<char>());
 				if (value == "")
 				{
@@ -69,6 +68,15 @@ namespace NumberConverter
 				Integer = str;
 			
 		}
+
+		public LongDouble(int integ, int fract)
+			:this(integ.ToString(), fract.ToString())
+		{
+			
+		}
+		public LongDouble(double val)
+			:this(val.ToString())
+		{ }
 		public LongDouble(string integ, string fract)
 		{
 			Integer = integ;
@@ -80,34 +88,68 @@ namespace NumberConverter
 			LongDouble result = new LongDouble();
 			var firstFraction = first.FractionDec;
 			var seconFraction = second.FractionDec;
+			if (first.IsMinus)
+				firstFraction *= -1;
+			if (second.IsMinus)
+				seconFraction *= -1;
+
+			//calculate fraction part
 			firstFraction += seconFraction;
+
 			int buffer = (int)firstFraction;
+			//buffer *= -1;
 			firstFraction -= buffer;
-			result.Fraction = firstFraction.ToString().Substring(2);
+
 			var firstInteg = first.IntegerBig;
 			var secondInteg = second.IntegerBig;
+			if (first.IsMinus)
+				firstInteg *= -1;
+			if (second.IsMinus)
+				secondInteg *= -1;
+
+			if (firstFraction < 0)
+			{
+				result.IsMinus = true;
+				if (firstInteg > secondInteg)
+				{
+					firstInteg--;
+					firstFraction = 1 + firstFraction;
+				}
+			}
+			//if (!first.IsMinus && second.IsMinus)
+			//{
+			//	firstInteg++;
+			//	firstFraction = 1 - firstFraction;
+			//}
+
+
 			firstInteg += secondInteg + buffer;
+
 			result.Integer = firstInteg.ToString();
+			result.Fraction = firstFraction.ToString().Substring(2);
+			if (firstInteg < 0)
+				result.IsMinus = true;
+
 			return result;
 		}
 
 		public static LongDouble operator -(LongDouble first, LongDouble second)
 		{
-			LongDouble result = new LongDouble();
-			var firstFraction = first.FractionDec;
-			var seconFraction = second.FractionDec;
-			firstFraction -= seconFraction;
-			//int buffer = 0;
-			if (firstFraction < 0)
-				result.IsMinus = true;
-			//firstFraction -= buffer;
-			var tempStr = firstFraction.ToString();
-			result.Fraction = tempStr.Substring(tempStr.IndexOf(Splitter)+1);
-			var firstInteg = first.IntegerBig;
-			var secondInteg = second.IntegerBig;
-			firstInteg -= secondInteg;
-			result.Integer = firstInteg.ToString();
-			return result;
+			//LongDouble result = new LongDouble();
+			//var firstFraction = first.FractionDec;
+			//var seconFraction = second.FractionDec;
+			//firstFraction -= seconFraction;
+			////int buffer = 0;
+			//if (firstFraction < 0)
+			//	result.IsMinus = true;
+			////firstFraction -= buffer;
+			//var tempStr = firstFraction.ToString();
+			//result.Fraction = tempStr.Substring(tempStr.IndexOf(Splitter)+1);
+			//var firstInteg = first.IntegerBig;
+			//var secondInteg = second.IntegerBig;
+			//firstInteg -= secondInteg;
+			//result.Integer = firstInteg.ToString();
+			return first + (second*new LongDouble(-1));
 		}
 
 		public static LongDouble operator /(LongDouble first, LongDouble second)
@@ -134,13 +176,13 @@ namespace NumberConverter
 				{
 					subb = first.Fraction.Length - second.Fraction.Length;
 					if (subb > 0)
-					while (subb > 0)
-					{
-						strs += "0";
-						subb--;
-					}
+						while (subb > 0)
+						{
+							strs += "0";
+							subb--;
+						}
 					if (subb < 0)
-						while (subb<0)
+						while (subb < 0)
 						{
 							strf += "0";
 							subb++;
@@ -157,14 +199,7 @@ namespace NumberConverter
 				}
 			}
 
-			//while (strf.Length < strs.Length)
-			//{
-			//	strf += "0";
-			//}
-			//while (strs.Length < strf.Length)
-			//{
-			//	strs += "0";
-			//}
+		
 			var firstInteg = BigInteger.Parse(strf);
 			var secondInteg = BigInteger.Parse(strs);
 
@@ -181,14 +216,13 @@ namespace NumberConverter
 				fract.Append(buf);
 				loop--;
 			}
-			//secondInteg = BigInteger.DivRem(remainder, secondInteg, out remainder);
-			////Result = 0
-			//if (firstInteg == 0)
-			//	return result;
+			
+			string strFraction = "0";
+			string strInteger = "0";
 
-			strf = firstInteg.ToString();
+			strInteger = firstInteg.ToString();
 			if (fract.Length > 0)
-				strs = fract.ToString();
+				strFraction = fract.ToString();
 
 			// Count digits in fraction
 			// 2.0 is not double
@@ -199,22 +233,10 @@ namespace NumberConverter
 			if (second.IsDouble)
 				countDigFraction += second.Fraction.Length;
 
-			//Count of digits in the fraction > length of the result
-			//while (countDigFraction > strf.Length)
-			//{
-			//	strf = "0" + strf;
-			//}
-
-			// 02 and countDigFraction = 2 is 0.02
-			//if (countDigFraction == strf.Length)
-			//{
-			//	result.Integer = "0";
-			//	result.Fraction = strf;
-			//	return result;
-			//}
-
-			result.Fraction = strs;
-			result.Integer = strf;
+			result.Fraction = strFraction;
+			result.Integer = strInteger;
+			if ((first.IsMinus && !second.IsMinus) || (!first.IsMinus && second.IsMinus))
+				result.IsMinus = true;
 			return result;
 		}
 
@@ -229,10 +251,13 @@ namespace NumberConverter
 			var secondInteg = BigInteger.Parse(second.Integer + second.Fraction);
 			//decimal firstFraction = first.FractionDec;
 			//decimal seconFraction = second.FractionDec;
+
+			//calculate integer part
 			firstInteg *= secondInteg;
 			if (firstInteg == 0)
 				return new LongDouble();
 			string str = firstInteg.ToString();
+
 			int countDigFraction = (first.Fraction.Length + second.Fraction.Length);
 			//count of digits in the fraction > length of the result
 			while (countDigFraction > str.Length)
@@ -248,6 +273,8 @@ namespace NumberConverter
 
 			result.Fraction = str.Substring(str.Length - (first.Fraction.Length + second.Fraction.Length));
 			result.Integer = str.Substring(0, str.Length - (first.Fraction.Length + second.Fraction.Length));
+			if ((first.IsMinus && !second.IsMinus) || (!first.IsMinus && second.IsMinus))
+				result.IsMinus = true;
 			//int buffer = (int)firstFraction;
 			//firstFraction -= buffer;
 			//result.Fraction = firstFraction.ToString().Substring(2);
@@ -257,6 +284,8 @@ namespace NumberConverter
 			//result.Integer = firstInteg.ToString();
 			return result;
 		}
+
+
 
 		public static bool operator <(LongDouble value1, LongDouble value2)
 		{
@@ -306,7 +335,7 @@ namespace NumberConverter
 			if (value2 == null)
 				throw new ArgumentNullException("value2");
 			if (value2.IsDouble || value1.IsDouble)
-				throw new Exception("can operate only on integer");
+				throw new ArgumentDoubleException("can operate only on integer");
 
 			var result = new LongDouble();
 			result.Integer = (value1.IntegerBig & value2.IntegerBig).ToString();
@@ -321,7 +350,7 @@ namespace NumberConverter
 			if (value2 == null)
 				throw new ArgumentNullException("value2");
 			if (value2.IsDouble || value1.IsDouble)
-				throw new Exception("can operate only on integer");
+				throw new ArgumentDoubleException("can operate only on integer");
 
 			var result = new LongDouble();
 			result.Integer = (value1.IntegerBig | value2.IntegerBig).ToString();
@@ -334,7 +363,7 @@ namespace NumberConverter
 			if (value1 == null)
 				throw new ArgumentNullException("value1");
 			if (value1.IsDouble)
-				throw new Exception("can operate only on integer");
+				throw new ArgumentDoubleException("can operate only on integer");
 
 			var result = new LongDouble();
 			result.Integer = (value1.IntegerBig << value2).ToString();
@@ -347,7 +376,7 @@ namespace NumberConverter
 			if (value1 == null)
 				throw new ArgumentNullException("value1");
 			if (value1.IsDouble)
-				throw new Exception("can operate only on integer");
+				throw new ArgumentDoubleException("can operate only on integer");
 
 			var result = new LongDouble();
 			result.Integer = (value1.IntegerBig >> value2).ToString();
@@ -360,7 +389,7 @@ namespace NumberConverter
 			if (value1 == null)
 				throw new ArgumentNullException("value1");
 			if (value1.IsDouble)
-				throw new Exception("can operate only on integer");
+				throw new ArgumentDoubleException("can operate only on integer");
 
 			var result = new LongDouble();
 			result.Integer = (~value1.IntegerBig).ToString();
@@ -429,6 +458,22 @@ namespace NumberConverter
 				builder.Append( integer.ToString().ToUpper() + splitter + fraction.ToString().ToUpper());
 			else
 				builder.Append( integer.ToString().ToUpper());
+			return builder.ToString();
+		}
+
+		public string ToString(int precise)
+		{
+			StringBuilder builder = new StringBuilder();
+			if ((integer != "0" || fraction != "0") && IsMinus)
+				builder.Append("-");
+			if (fraction != "0" && fraction != "")
+			{
+				var fractStr = fraction.ToString().ToUpper();
+				builder.Append(integer.ToString().ToUpper() + splitter +
+					String.Format("{0}", precise >=fractStr.Length? fractStr : fractStr.Substring(0, precise)));
+			}
+			else
+				builder.Append(integer.ToString().ToUpper());
 			return builder.ToString();
 		}
 
