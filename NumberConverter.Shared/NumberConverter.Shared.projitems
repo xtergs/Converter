@@ -9,10 +9,14 @@
     <Import_RootNamespace>NumberConverter</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ActionCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ButtonBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ArgumentDoubleException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Keyboard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Keyboard.xaml.cs">
+      <DependentUpon>Keyboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)LongDouble.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OrientedSize.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharePages.cs" />
@@ -20,6 +24,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)WrapPanel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Keyboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Resource\Brushes\DarkBlue.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

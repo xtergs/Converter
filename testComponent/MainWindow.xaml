@@ -1,0 +1,12 @@
+﻿<Window xmlns:NumberConverter="clr-namespace:NumberConverter"  x:Class="testComponent.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Button Content="Inc" Click="ButtonBase_OnClick"></Button>
+            <Button Content="Dec" Click="Button_Dec"></Button>
+        </DockPanel>
+        <NumberConverter:Keyboard x:Name="Keyboard" />
+    </DockPanel>
+</Window>

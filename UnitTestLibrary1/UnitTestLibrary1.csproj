@@ -113,7 +113,12 @@
     <SDKReference Include="TestPlatform, Version=11.0" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="LongDoubleTests.cs" />
+=======
+    <Compile Include="ConverterUnitTest.cs" />
+    <Compile Include="LongDoubleUnitTest1.cs" />
+>>>>>>> Optimization
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
