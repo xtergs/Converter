@@ -4,7 +4,8 @@
     xmlns:local="using:NumberConverter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Controls="using:NumberConverter.WinRTXamlToolkit.Controls"
+    xmlns:Controls="using:NumberConverter"
+    xmlns:controls="using:NumberConverter.WinRTXamlToolkit.Controls"
     x:Class="NumberConverter.BlankPage1"
     mc:Ignorable="d" SizeChanged="CalculatorPage_SizeChanged" Loaded="CalculatorPage_Loaded">
     <Page.Resources>
@@ -245,7 +246,7 @@
                 </ComboBox>
             </Grid>
             <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="3" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="20,10,20,40" Grid.Column="3" Grid.RowSpan="6">
-                <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="5" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1" Background="#003B2574" VerticalAlignment="Bottom"/>
+                <controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="5" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1" Background="#003B2574" VerticalAlignment="Bottom"/>
             </Border>
             <TextBox x:Uid="Result" x:Name="Result" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" Grid.Row="4" IsReadOnly="True" GotFocus="Result_GotFocus" PlaceholderText="Result" Style="{StaticResource TextBoxStyle1}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
             <Grid x:Name="Buttons_operation" Grid.Column="1" Grid.Row="2" Margin="20,10" SizeChanged="Buttons_operation_SizeChanged">

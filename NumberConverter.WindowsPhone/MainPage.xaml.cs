@@ -26,7 +26,7 @@ namespace NumberConverter
 	/// </summary>
 	public sealed partial class MainPage : Page
 	{
-		//Keyboard keyboard;
+		Keyboard keyboard;
 		ComboBox parentFlyout;
 
 		private ConverterController converterControllerManyOutput;

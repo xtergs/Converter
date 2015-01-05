@@ -92,7 +92,7 @@ namespace NumberConverter
 				return;
 			var x = input.SelectionStart; //временное запоминание
 			SharePages.AddTextTextBox(args.Button.Content.ToString(), input);
-			if (CalculatorController.CalculateCommand.CanExecute(null))
+			 
 				CalculatorController.CalculateCommand.Execute();
 		}
 
@@ -104,7 +104,7 @@ namespace NumberConverter
 			if (input == Result)
 				return;
 			input.Text = "";
-			if (calculatorController.CalculateCommand.CanExecute(null))
+			 
 				CalculatorController.CalculateCommand.Execute();
 		}
 
@@ -118,7 +118,7 @@ namespace NumberConverter
 				return;
 			SharePages.Backspace(input);
 			input.Select(input.Text.Length, 0);
-			if (calculatorController.CalculateCommand.CanExecute(null))
+			 
 				CalculatorController.CalculateCommand.Execute();
 		}
 
@@ -148,7 +148,7 @@ namespace NumberConverter
 		{
 			if (sizeKeyboard != null) 
 				sizeKeyboard.VisibleButtonCount = CalculatorController.Input.InputBase;
-			if (calculatorController.CalculateCommand.CanExecute(null))
+			
 				CalculatorController.CalculateCommand.Execute();
 		}
 
@@ -185,7 +185,7 @@ namespace NumberConverter
 				if (operationList[i] != null)
 					operationList[i].IsChecked = false;
 			}
-			if (calculatorController.CalculateCommand.CanExecute(null))
+			 
 				CalculatorController.CalculateCommand.Execute();
 		}
 
@@ -220,7 +220,7 @@ namespace NumberConverter
 
 		private void To_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (calculatorController.CalculateCommand.CanExecute(null))
+			 
 				CalculatorController.CalculateCommand.Execute();
 			
 		}

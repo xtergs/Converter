@@ -74,10 +74,10 @@ namespace NumberConverter
 						var resourceLoader = new ResourceLoader();
 						return resourceLoader.GetString("PowInteger");
 					}
-					if (slag2.IntegerBig > int.MaxValue/2)
+					if (slag2.IntegerBig > int.MaxValue)
 					{
 						var resourceLoader = new ResourceLoader();
-						return resourceLoader.GetString("IntegerMax") + " " + int.MaxValue/2;
+						return resourceLoader.GetString("IntegerMax") + " " + int.MaxValue;
 					}
 					slag = slag.Pow(int.Parse(slag2.Integer));
 					break;
@@ -156,30 +156,12 @@ namespace NumberConverter
 		private void Calculate()
 		{
 			if (!String.IsNullOrWhiteSpace(Input.Input) && !String.IsNullOrWhiteSpace(Input2.Input))
-			{
-				Converter.Converter.Accurancy = SettingsModelView.Settings.Precise;
-				var resourceLoader = new ResourceLoader();
-				if (!Converter.Converter.Validate((uint) Input.InputBase, Input.Input))
-				{
-					Outputs.Input = resourceLoader.GetString("LargeDigit");
-					return;
-				}
-				if (!Converter.Converter.Validate((uint)Input2.InputBase, Input2.Input))
-				{
-					Outputs.Input = resourceLoader.GetString("LargeDigit");
-					return;
-				}
 				Outputs.Input = Operations(Input.Input, Input2.Input);
-			}
 		}
 
 		public ActionCommand CalculateCommand
 		{
-			get
-			{
-				
-				return new ActionCommand(x => Calculate());
-			}
+			get { return new ActionCommand(x => Calculate()); }
 		}
 	}
 }

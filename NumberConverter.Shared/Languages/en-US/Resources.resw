@@ -177,4 +177,7 @@
   <data name="PowInteger" xml:space="preserve">
     <value>Power should be an integer</value>
   </data>
+  <data name="LargeDigit" xml:space="preserve">
+    <value>Digit in number &gt;= base</value>
+  </data>
 </root>

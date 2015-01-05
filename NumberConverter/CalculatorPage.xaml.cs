@@ -269,34 +269,7 @@ namespace NumberConverter
 
 
 
-		private void Buttons_SizeChanged_1(object sender, SizeChangedEventArgs e)
-		{
 
-			//	double a = (e.NewSize.Height - 50) * (e.NewSize.Width - 50);
-			//	int bases = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
-			//	a = Math.Sqrt(a / (bases + 2));
-
-
-			//	var statView = ApplicationView.GetForCurrentView();
-			//	if (statView.IsFullScreen && statView.Orientation == ApplicationViewOrientation.Portrait)
-			//	{
-			//		for (int i = 0; i < Buttons.Children.Count; i++)
-			//		{
-			//			((Button)Buttons.Children[i]).Height = InputText.ActualHeight * 0.5;
-			//			((Button)Buttons.Children[i]).Width = InputText.ActualHeight * 0.5;
-			//			((Button)Buttons.Children[i]).FontSize = InputText.ActualHeight * 0.5 * 0.7;
-			//		}
-			//	}
-			//	else
-			//	{
-			//		for (int i = 0; i < Buttons.Children.Count; i++)
-			//		{
-			//			((Button)Buttons.Children[i]).Height = InputText.ActualHeight;
-			//			((Button)Buttons.Children[i]).Width = InputText.ActualHeight;
-			//			((Button)Buttons.Children[i]).FontSize = InputText.ActualHeight * 0.7;
-			//		}
-			//	}
-		}
 
 
 

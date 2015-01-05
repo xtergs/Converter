@@ -149,6 +149,16 @@ namespace Converter
 			return true;
 		}
 
+		public static bool Validate(uint baseIn, string value)
+		{
+			if (value.Any((a) =>
+			{
+				return  a != LongDouble.Splitter[0] && letters[a] >= baseIn;
+			}))
+				return false;
+			return true;
+		}
+
 		private static Exception BaseException(string p)
 		{
 			throw new Exception(p);

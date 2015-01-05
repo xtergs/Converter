@@ -6,14 +6,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Converter;
-
 using NumberConverter.Annotations;
+using Converter;
 using Converter = Converter.Converter;
 
 namespace NumberConverter
 {
-	public class InputField : INotifyPropertyChanged
+	public class InputField :INotifyPropertyChanged
 	{
 		private string input;
 		private int inputeBaseIndex;
@@ -186,24 +185,6 @@ namespace NumberConverter
 			{
 
 				Outputs.Input = e.Message;
-			}
-		}
-
-		public override ActionCommand ConvertCommand
-		{
-			get
-			{
-				return new ActionCommand((x)=> { Convert(); }, o =>
-				{
-					if (String.IsNullOrWhiteSpace(Input.Input))
-						return false;
-					if (!global::Converter.Converter.Validate((uint) Input.InputBase, new LongDouble(Input.Input)))
-					{
-						Outputs.Input = "Digit in number >= base";
-						return false;
-					}
-					return true;
-				});
 			}
 		}
 	}

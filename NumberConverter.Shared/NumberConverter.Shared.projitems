@@ -17,13 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Controller\CalculatorController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controller\ConverterControllerBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controller\ConverterControllerManyOutput.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controll\ButtonBuilder.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controll\Keyboard.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controll\Keyboard.xaml.cs">
-      <DependentUpon>Keyboard.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controll\OrientedSize.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Controll\WrapPanel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\ArgumentDoubleException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Exceptions\LargDigit.cs" />
@@ -32,12 +25,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)SettingsModelView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharePages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuspendPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Controll\Keyboard.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Resource\Brushes\DarkBlue.xaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -84,5 +74,8 @@
       <SubType>Designer</SubType>
     </PRIResource>
     <PRIResource Include="$(MSBuildThisFileDirectory)Languages\ru-Ru\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Controll\" />
   </ItemGroup>
 </Project>
