@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using NumberConverter.Exceptions;
 
 namespace Converter
 {
@@ -40,13 +41,15 @@ namespace Converter
 		{
 			if (baseIn == baseOut)
 			{
-				Validate(baseIn, valueIn);
+				if (!Validate(baseIn, valueIn))
+					throw new LargDigit("Digit in number >= base");
 				return valueIn;
 			}
 			LongDouble result;
 			if (baseIn == 10)
 			{
-				Validate(baseIn, valueIn);
+				if (!Validate(baseIn, valueIn))
+					throw new LargDigit("Digit in number >= base");
 				result = valueIn;
 			}
 			else
@@ -65,7 +68,7 @@ namespace Converter
 			for (int i = valueIn.Integer.Length-1, j = 0; i >= 0; i--, j++)
 			{
 				if (letters[valueIn.Integer[i]] >= baseIn)
-					throw BaseException("Digit in number >= base");
+					throw new LargDigit("Digit in number >= base");
 				if (valueIn.IsLong)
 					throw new NotImplementedException();
 				else
@@ -77,7 +80,7 @@ namespace Converter
 			for (int i = 0, j = -1; i < valueIn.Fraction.Length; i++, j--)
 			{
 				if (letters[valueIn.Fraction[i]] >= baseIn)
-					throw BaseException("Digit in number >= base");
+					throw new LargDigit("Digit in number >= base");
 				if (valueIn.IsLong)
 					throw new NotImplementedException();
 				else
@@ -138,10 +141,12 @@ namespace Converter
 			return ConvertTo(baseIn, new LongDouble(strIn), baseOut).ToString();
 		}
 
-		static void Validate(uint baseIn, LongDouble value)
+		public static bool Validate(uint baseIn, LongDouble value)
 		{
-			if (value.Integer.Any((char a) => { return letters[a] >= baseIn; }) || value.Fraction.Any((char a) => letters[a] >= baseIn))
-				throw BaseException("Digit in number >= base");
+			if (value.Integer.Any((char a) => { return letters[a] >= baseIn; }) ||
+			    value.Fraction.Any((char a) => letters[a] >= baseIn))
+				return false;
+			return true;
 		}
 
 		private static Exception BaseException(string p)
