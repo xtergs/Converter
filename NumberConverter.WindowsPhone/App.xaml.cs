@@ -55,6 +55,8 @@ namespace NumberConverter
 
             Frame rootFrame = Window.Current.Content as Frame;
 
+
+
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (rootFrame == null)
@@ -97,16 +99,14 @@ namespace NumberConverter
                     throw new Exception("Failed to create initial page");
                 }
             }
-
-			if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Theme"))
-			{
-				{
-					var uri = new Uri(ApplicationData.Current.LocalSettings.Values["Theme"].ToString(), UriKind.Absolute);
+			
+			
+					
 					ResourceDictionary newDictionary = new ResourceDictionary();
-					newDictionary.Source = uri;
+					newDictionary.Source = SettingsModelView.Settings.Theme;
 					Application.Current.Resources = newDictionary;
 					newDictionary = new ResourceDictionary();
-					newDictionary.Source = uri;
+					newDictionary.Source = SettingsModelView.Settings.Theme;
 					Application.Current.Resources = newDictionary;
 					//Application.Current.Resources = newDictionary;
 					//var s = Window.Current.GetType();
@@ -114,10 +114,7 @@ namespace NumberConverter
 					//bool dd = Window.Current.Content is 
 					(Window.Current.Content as Frame).Navigate(typeof(MainPage));
 					//(Window.Current.Content as Frame).Navigate(typeof(MainPage));
-				}
-
-			}
-
+			
             // Ensure the current window is active
             Window.Current.Activate();
         }

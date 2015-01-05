@@ -38,8 +38,8 @@ namespace NumberConverter
 			set
 			{
 				styleButton = value;
-				for (int i = 0; i < panel.Children.Count; i++)
-					((Button) panel.Children[i]).Style = styleButton;
+				for (int i = 0; i < buttonsList.Count; i++)
+					buttonsList[i].Style = styleButton;
 			}
 		}
 

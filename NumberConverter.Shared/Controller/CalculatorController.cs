@@ -156,12 +156,19 @@ namespace NumberConverter
 		private void Calculate()
 		{
 			if (!String.IsNullOrWhiteSpace(Input.Input) && !String.IsNullOrWhiteSpace(Input2.Input))
+			{
+				Converter.Converter.Accurancy = SettingsModelView.Settings.Precise;
 				Outputs.Input = Operations(Input.Input, Input2.Input);
+			}
 		}
 
 		public ActionCommand CalculateCommand
 		{
-			get { return new ActionCommand(x => Calculate()); }
+			get
+			{
+				
+				return new ActionCommand(x => Calculate());
+			}
 		}
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,11 +12,41 @@ namespace NumberConverter
 		#region variable and const
 
 		private static Color col = new Color();
+		private List<Button> buttonsList = new List<Button>(); 
 		private Panel panel;
 		private int visibleCount;
 
-		public int MaxButtonHeight { get; set; }
-		public int MaxButtonWidth { get; set; }
+		public int MaxButtonHeight
+		{
+			get { return maxButtonHeight; }
+			set
+			{
+				maxButtonHeight = value;
+				for (int i = 0; i < buttonsList.Count; i++)
+					buttonsList[i].MaxHeight = value;
+			}
+		}
+
+		public int MaxButtonWidth
+		{
+			get { return maxButtonWidth; }
+			set
+			{
+				maxButtonWidth = value;
+				for (int i = 0; i < buttonsList.Count; i++)
+					buttonsList[i].MaxWidth = value;
+			}
+		}
+
+		public bool ButtonsAreSame
+		{
+			get { return buttonsAreSame; }
+			set
+			{
+				buttonsAreSame = value;
+				ResizeButton();
+			}
+		}
 
 		//public int VisibleButtonCount {
 		//	get { return visibleCount; }
@@ -34,7 +65,7 @@ namespace NumberConverter
 			get { return (int)GetValue(VisibleButtonCountProperty); }
 			set
 			{
-				if (value < 0 || value > panel.Children.Count - 3)
+				if (value < 0 || value > buttonsList.Count - 3)
 					return;
 				SetValue(VisibleButtonCountProperty, value);
 				SetVisibleButton(value , true);
@@ -47,6 +78,9 @@ namespace NumberConverter
 
 		private int marg_bot = 0;
 		private int marg_top = 0;
+		private int maxButtonHeight;
+		private int maxButtonWidth;
+		private bool buttonsAreSame;
 
 		public const string letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -99,21 +133,25 @@ namespace NumberConverter
 				temp.Style = style;
 				temp.Click += TempOnClick;
 				panel.Children.Add(temp);
+				buttonsList.Add(temp);
 			}
 			temp = newButton(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator,style);
 			temp.Style = style;
 			temp.Click += Button_Click_Dot;
 			panel.Children.Add(temp);
+			buttonsList.Add(temp);
 
 			temp = newButton("<-",style);
 			temp.Style = style;
 			temp.Click += BackspaceOnClick;
 			panel.Children.Add(temp);
+			buttonsList.Add(temp);
 
 			temp = newButton("CE",style);
 			temp.Style = style;
 			temp.Click += CleanOnClick;
 			panel.Children.Add(temp);
+			buttonsList.Add(temp);
 			visibleCount = panel.Children.Count - 3;
 		}
 
@@ -152,6 +190,8 @@ namespace NumberConverter
 		{
 			if (ActualHeight == 0 || ActualWidth == 0)
 				return;
+			if (ButtonsAreSame)
+				countKeys = panel.Children.Count;
 			ResizeButton(ActualHeight, ActualWidth, countKeys);
 		}
 

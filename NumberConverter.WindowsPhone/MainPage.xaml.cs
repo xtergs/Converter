@@ -40,6 +40,10 @@ namespace NumberConverter
 			this.InitializeComponent();
 			converterControllerManyOutput = new ConverterController();
 			DataContext = converterControllerManyOutput;
+
+			sizeKeyboard.MaxButtonHeight = SettingsModelView.Settings.MaxSizeButton;
+			sizeKeyboard.MaxButtonWidth = SettingsModelView.Settings.MaxSizeButton;
+			sizeKeyboard.ButtonsAreSame = SettingsModelView.Settings.AllButtonsSame;
 		}
 
 		private void Button_Click_Dot(object sender, ButtonClickArgs e)
@@ -269,13 +273,7 @@ namespace NumberConverter
 
 		private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
 		{
-			ResourceDictionary newDictionary = new ResourceDictionary();
-			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkOrange.xaml", UriKind.Absolute);
-			Application.Current.Resources = newDictionary;
-			Frame.Navigate(typeof(MainPage));
-			Frame.BackStack.RemoveAt(0);
-			//VisualStateManager.GoToState(this, "SnappedLandscape", false);
-			//ApplicationViewStates.SetValue(); = SnappedLandscape;
+			GoToConverter();
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -314,14 +312,28 @@ namespace NumberConverter
 
 		void GoToThemes()
 		{
-			SaveState();
-			this.Frame.Navigate(typeof(Themes));
+			Pivot.SelectedItem = SettignsItem;
+			ConverterHyperLink.IsEnabled = true;
+			CalculatorHyperLink.IsEnabled = true;
+			SettingsHyperLink.IsEnabled = false;
+		}
+
+		void GoToConverter()
+		{
+			Pivot.SelectedItem = ConverterItem;
+			ConverterHyperLink.IsEnabled = false;
+			CalculatorHyperLink.IsEnabled = true;
+			SettingsHyperLink.IsEnabled = true;
 		}
 
 		void GoToCalculator()
 		{
-			SaveState();
-			this.Frame.Navigate(typeof(BlankPage1));
+			Pivot.SelectedItem = CalculatorItem;
+			ConverterHyperLink.IsEnabled = true;
+			CalculatorHyperLink.IsEnabled = false;
+			SettingsHyperLink.IsEnabled = true;
+			//SaveState();
+			//this.Frame.Navigate(typeof(BlankPage1));
 		}
 
 		private void Swipe(object sender, ManipulationCompletedRoutedEventArgs e)
@@ -335,7 +347,9 @@ namespace NumberConverter
 		private void From_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
 		{
 			sizeKeyboard.VisibleButtonCount = converterControllerManyOutput.Input.InputBase;
-			converterControllerManyOutput.ConvertCommand.Execute();
+
+			if (converterControllerManyOutput.ConvertCommand.CanExecute(null))
+				converterControllerManyOutput.ConvertCommand.Execute();
 		}
 
 		private void ListBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -353,6 +367,27 @@ namespace NumberConverter
 			listbox.SelectionChanged -= ListBox_SelectionChanged;
 			listbox.SelectedIndex = -1;
 			listbox.SelectionChanged += ListBox_SelectionChanged;
+		}
+
+		private void ConverterItem_GotFocus(object sender, RoutedEventArgs e)
+		{
+			ConverterHyperLink.IsEnabled = false;
+			CalculatorHyperLink.IsEnabled = true;
+			SettingsHyperLink.IsEnabled = true;
+		}
+
+		private void CalculatorItem_GotFocus(object sender, RoutedEventArgs e)
+		{
+			ConverterHyperLink.IsEnabled = true;
+			CalculatorHyperLink.IsEnabled = false;
+			SettingsHyperLink.IsEnabled = true;
+		}
+
+		private void SettignsItem_GotFocus(object sender, RoutedEventArgs e)
+		{
+			ConverterHyperLink.IsEnabled = true;
+			CalculatorHyperLink.IsEnabled = true;
+			SettingsHyperLink.IsEnabled = false;
 		}
 
 		

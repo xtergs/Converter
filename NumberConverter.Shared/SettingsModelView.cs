@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using NumberConverter.Annotations;
 
+
 namespace NumberConverter
 {
 	public class SettingsModelView : INotifyPropertyChanged

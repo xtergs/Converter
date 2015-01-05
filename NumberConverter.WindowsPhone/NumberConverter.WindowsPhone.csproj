@@ -86,28 +86,19 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CalculatorController.cs" />
-    <Compile Include="CalculatorPage.xaml.cs">
-      <DependentUpon>CalculatorPage.xaml</DependentUpon>
+    <Compile Include="CalculatorViewControll.xaml.cs">
+      <DependentUpon>CalculatorViewControll.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\NavigationHelper.cs" />
-    <Compile Include="Common\ObservableDictionary.cs" />
-    <Compile Include="Common\RelayCommand.cs" />
-    <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="ConverterControllerManyOutput.cs" />
-    <Compile Include="ConverterControllerBase.cs" />
     <Compile Include="FlyoutListbox.xaml.cs">
       <DependentUpon>FlyoutListbox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainModelView.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsModelView.cs" />
-    <Compile Include="Themes.xaml.cs">
-      <DependentUpon>Themes.xaml</DependentUpon>
+    <Compile Include="SettingsViewControll.xaml.cs">
+      <DependentUpon>SettingsViewControll.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +135,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="CalculatorPage.xaml">
+    <Page Include="CalculatorViewControll.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -161,10 +152,16 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Themes.xaml">
+    <Page Include="SettingsViewControll.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyClassLibrary\MyClassLibrary.csproj">
+      <Project>{017c3e60-eef4-402b-869c-bbecf63d865b}</Project>
+      <Name>MyClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
