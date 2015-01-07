@@ -57,24 +57,34 @@
                     </Grid.RowDefinitions>
 
 
-<ListView Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewItemStyle2}">
-    
-                    <TextBox x:Uid="Result" x:Name="Result" Text="{Binding  Outputs.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-                    <ComboBox x:Name="To" ItemsSource="{Binding Outputs.Bases}" SelectedIndex="{Binding Outputs.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}" Holding="From_Holding" SelectionChanged="From_SelectionChanged_1">
-                        <ComboBoxItem Content="2"/>
-                        <ComboBoxItem Content="8"/>
-                        <ComboBoxItem Content="10"/>
-                        <ComboBoxItem Content="16"/>
-
-                        <ComboBoxItem Content="36"/>
-                        <FlyoutBase.AttachedFlyout>
-                            <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{StaticResource FlyoutStyle1}">
-                                <local:FlyoutListbox SelectionChanged="ListBox2_SelectionChanged"></local:FlyoutListbox>
-                            </Flyout>
-                        </FlyoutBase.AttachedFlyout>
-                    </ComboBox>
-                        <TextBox x:Uid="Result" x:Name="Re0sult" Text="{Binding  Outputs.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}" Grid.Column="1" Grid.RowSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-                        <ComboBox x:Name="T0o" ItemsSource="{Binding Outputs.Bases}" SelectedIndex="{Binding Outputs.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}" Holding="From_Holding" SelectionChanged="From_SelectionChanged_1">
+<ListView Header="" x:Name="ListView" ItemsSource="{Binding Outputs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="5" SelectionMode="None" ItemContainerStyle="{StaticResource ListViewItemStyle2}" VerticalContentAlignment="Stretch" SelectedIndex="0" IsSwipeEnabled="False" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" IsZoomedInView="False" IncrementalLoadingTrigger="None" DataFetchSize="10">
+    <ListView.ItemTemplate>
+        <DataTemplate>
+                                <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.4*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="1"  x:Uid="Result" x:Name="Result" Text="{Binding  Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Stretch" Margin="{Binding Margin, ElementName=InputText}" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}"  ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                                <ComboBox Grid.Column="0" x:Name="To" ItemsSource="{Binding Bases, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}" Holding="From_Holding" SelectionChanged="From_SelectionChanged_1">
+                                   
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{StaticResource FlyoutStyle1}">
+                                            <local:FlyoutListbox SelectionChanged="ListBox2_SelectionChanged"></local:FlyoutListbox>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                </ComboBox>
+                            </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="1"  x:Uid="Result" x:Name="Re0sult" Text="{Binding  Outputs.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.ColumnSpan="2" Margin="5,10,5,60" FontSize="100" CharacterSpacing="3" SizeChanged="Result_SizeChanged" IsReadOnly="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsTextPredictionEnabled="False" PlaceholderText="Result" Style="{ThemeResource TextBoxStyle1}"  ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                        <ComboBox Grid.Column="0" x:Name="T0o" ItemsSource="{Binding Outputs.Bases}" SelectedIndex="{Binding Outputs.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5,50" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="3" RightTapped="From_RightTapped" Style="{StaticResource ComboBoxStyle1}" Holding="From_Holding" SelectionChanged="From_SelectionChanged">
                             <ComboBoxItem Content="2"/>
                             <ComboBoxItem Content="8"/>
                             <ComboBoxItem Content="10"/>
@@ -87,6 +97,7 @@
                                 </Flyout>
                             </FlyoutBase.AttachedFlyout>
                         </ComboBox>
+                            </Grid>
                     </ListView>
                     <local:Keyboard x:Name="sizeKeyboard" VisibleButtonCount="{Binding Input.InputBase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" Grid.ColumnSpan="5" StyleButton="{StaticResource ButtonStyle1}" OnButtonClick="Button_Click_1" OnBackspaceClick="Backspace_Click" OnCleanClick="Button_Click_Clean" OnDotClick="Button_Click_Dot" Grid.Column="3" Grid.RowSpan="4" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />
 

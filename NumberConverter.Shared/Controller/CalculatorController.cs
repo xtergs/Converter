@@ -11,6 +11,20 @@ namespace NumberConverter
 	{
 		private InputField input2;
 		private int operation;
+		Dictionary<string, int> operationStr = new Dictionary<string, int>()
+		{
+			{"+", 0},
+			{"-", 1},
+			{"*", 2},
+			{"/", 3},
+			{"^", 4},
+			{"~", 5},
+			{"<<", 6},
+			{">>", 7},
+			{"|", 8},
+			{"&", 9},
+			{"xor", 10},
+		}; 
 
 		public InputField Input2
 		{
@@ -28,6 +42,11 @@ namespace NumberConverter
 			}
 		}
 
+		public string OpStr
+		{
+			set { Operation = operationStr[value]; }
+		}
+
 		public int Operation
 		{
 			get { return operation; }
@@ -40,6 +59,8 @@ namespace NumberConverter
 			}
 		}
 
+		
+
 		private string Operations(string In, string Out)
 		{
 			var slag = Converter.Converter.ConvertTo(Input.InputBase, new LongDouble(In), 10);
@@ -48,15 +69,19 @@ namespace NumberConverter
 			//double secondslagD = double.Parse(slag);
 			switch (Operation)
 			{
+					//+
 				case 0:
 					slag = (slag + slag2);
 					break;
+					//-
 				case 1:
 					slag = (slag - slag2);
 					break;
+					//*
 				case 2:
 					slag = (slag * slag2);
 					break;
+					// /
 				case 3:
 					{
 						if (slag2.Integer == "0" && slag2.Fraction == "0")
@@ -85,10 +110,10 @@ namespace NumberConverter
 					;
 					break;
 				case 6: //<<
-					if (slag2.IsDouble)
+					if (slag2.IsDouble || slag.IsDouble)
 					{
 						var resourceLoader = new ResourceLoader();
-						return resourceLoader.GetString("ShiftInteger");
+						return resourceLoader.GetString("OperateOnlyInteger");
 					}
 					if (slag2.IntegerBig > int.MaxValue)
 					{
@@ -98,10 +123,10 @@ namespace NumberConverter
 					slag = slag << int.Parse(slag2.Integer);
 					break;
 				case 7: //>>
-					if (slag2.IsDouble)
+					if (slag2.IsDouble || slag.IsDouble)
 					{
 						var resourceLoader = new ResourceLoader();
-						return resourceLoader.GetString("ShiftInteger");
+						return resourceLoader.GetString("OperateOnlyInteger");
 					}
 					if (slag2.IntegerBig > int.MaxValue)
 					{
@@ -170,6 +195,34 @@ namespace NumberConverter
 					return;
 				}
 				Outputs.Input = Operations(Input.Input, Input2.Input);
+			}
+		}
+
+		public ActionCommand Plus
+		{
+			get
+			{
+				return new ActionCommand(x =>
+				{
+					OpStr = "+";
+					Calculate();
+				});
+			}
+		}
+
+		public ActionCommand Divide
+		{
+			get
+			{
+				return new ActionCommand(x =>
+				{
+					OpStr = "/";
+					Calculate();
+				}, p =>
+				{
+					
+					return true;
+				});
 			}
 		}
 

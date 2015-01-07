@@ -92,7 +92,7 @@
                     <ComboBoxItem Content="36"/>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
-                            <local:FlyoutListbox SelectionChanged="ListBox2_SelectionChanged"></local:FlyoutListbox>
+                            <local:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"></local:FlyoutListbox>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </ComboBox>
@@ -137,7 +137,7 @@
                     <ComboBoxItem Content="36"/>
                     <FlyoutBase.AttachedFlyout>
                         <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
-                            <local:FlyoutListbox SelectionChanged="ListBox3_SelectionChanged"></local:FlyoutListbox>
+                            <local:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"></local:FlyoutListbox>
                         </Flyout>
                     </FlyoutBase.AttachedFlyout>
                 </ComboBox>

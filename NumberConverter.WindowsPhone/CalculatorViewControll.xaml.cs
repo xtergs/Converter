@@ -186,7 +186,7 @@ namespace NumberConverter
 					operationList[i].IsChecked = false;
 			}
 			 
-				CalculatorController.CalculateCommand.Execute();
+			CalculatorController.CalculateCommand.Execute();
 		}
 
 		
@@ -235,10 +235,25 @@ namespace NumberConverter
 			if (e.AddedItems.Count == 0)
 				return;
 			var listbox = ((ListBox)sender);
-			var str = ((ListBoxItem)listbox.SelectedItem).Content;
+			if (listbox == null)
+				return;
+			var listBoxItem = (ListBoxItem)listbox.SelectedItem;
+			if (listBoxItem != null)
+			{
+				var str = listBoxItem.Content;
 
-			int newBase = int.Parse(str.ToString());
-			CalculatorController.Input.AddNewBase.Execute(newBase);
+				byte newBase = byte.Parse(str.ToString());
+				if (this.parentFlyout == From)
+				{
+					CalculatorController.Input.AddNewBase.Execute(newBase);	
+				}
+				else if (this.parentFlyout == From2)
+				{
+					CalculatorController.Input2.AddNewBase.Execute(newBase);	
+				}
+				else
+					CalculatorController.Outputs.AddNewBase.Execute(newBase);
+			}
 
 			openedFlyout.Hide();
 
@@ -563,7 +578,7 @@ namespace NumberConverter
 			var listbox = ((ListBox)sender);
 			var str = ((ListBoxItem)listbox.SelectedItem).Content;
 
-			int newBase = int.Parse(str.ToString());
+			byte newBase = byte.Parse(str.ToString());
 			CalculatorController.Input2.AddNewBase.Execute(newBase);
 
 			openedFlyout.Hide();

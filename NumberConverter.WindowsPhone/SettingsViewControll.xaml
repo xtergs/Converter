@@ -22,7 +22,7 @@
         </Grid.ChildrenTransitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -34,9 +34,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <HyperlinkButton x:Uid="Calculator" Content="Calculator!!" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="1" BorderBrush="Transparent"  Style="{StaticResource HyperlinkButtonStyle1}"  Click="HyperlinkButton_Click_5" SizeChanged="HyperlinkButton_SizeChanged"/>
+            <!--<HyperlinkButton x:Uid="Calculator" Content="Calculator!!" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsTabStop="False" Margin="0,0,0.333,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="1" BorderBrush="Transparent"  Style="{StaticResource HyperlinkButtonStyle1}"  Click="HyperlinkButton_Click_5" SizeChanged="HyperlinkButton_SizeChanged"/>
             <HyperlinkButton x:Uid="Converter" Content="Converter!!" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  IsTabStop="False" Margin="0,0,5,0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="0" BorderBrush="Transparent"   Style="{StaticResource HyperlinkButtonStyle1}" IsEnabled="True"  Click="HyperlinkButton_Click_4" SizeChanged="HyperlinkButton_SizeChanged"/>
-            <HyperlinkButton x:Uid="SettingsLB" Content="Converter" HorizontalAlignment="Right" VerticalAlignment="Stretch"  IsTabStop="False" Margin="0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="2" BorderBrush="Transparent"    Style="{StaticResource HyperlinkButtonStyle1}" IsEnabled="False" SizeChanged="HyperlinkButton_SizeChanged" Visibility="Collapsed"/>
+            HyperlinkButton x:Uid="SettingsLB" Content="Converter" HorizontalAlignment="Right" VerticalAlignment="Stretch"  IsTabStop="False" Margin="0" RenderTransformOrigin="0.5,0.5" MinHeight="0" MinWidth="0" Padding="3,0" Grid.Column="2" BorderBrush="Transparent"    Style="{StaticResource HyperlinkButtonStyle1}" IsEnabled="False" SizeChanged="HyperlinkButton_SizeChanged" Visibility="Collapsed"/>-->
         </Grid>
         <!-- Title Panel -->
 
@@ -51,7 +51,7 @@
             <HyperlinkButton Content="Dark Red" Click="HyperlinkButton_Click_3"/>-->
         </ListView>
         <TextBlock Text="ButtonSizeSS" Grid.Row="3" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" Margin="19,0,0,0"></TextBlock>
-        <ListView Grid.Row="4" SelectionMode="Single" Margin="19,0,0,0" HorizontalContentAlignment="Stretch" ShowsScrollingPlaceholders="True">
+        <ListView ItemContainerStyle="{ThemeResource ListViewItemStyle2}" Grid.Row="4" SelectionMode="None" Margin="19,0,0,0" HorizontalContentAlignment="Stretch" ShowsScrollingPlaceholders="True" DataFetchSize="10" IsZoomedInView="False" VerticalContentAlignment="Stretch">
             <CheckBox IsChecked="{Binding AllButtonsSame, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="AllButtonsSame!!!"></CheckBox>
             <Slider x:Name="slider" Header="MaxSizeButton!!"  Grid.Row="4" Width="100" LargeChange="1" Maximum="300" Minimum="20" Value="{Binding MaxSizeButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TickPlacement="Inline" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <Border>

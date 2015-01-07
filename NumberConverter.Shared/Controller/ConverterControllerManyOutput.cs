@@ -23,13 +23,18 @@ namespace NumberConverter
 		{
 			Input = "";
 			InputeBaseIndex = 0;
+			bases = new ObservableCollection<int> { 2, 8, 10, 16, 25, 36 };
 
-			
 		}
 
 		public string Input
 		{
-			get { return input; }
+			get
+			{
+				if (input == null)
+					input = "";
+				return input;
+			}
 			set
 			{
 				if (value == input) return;
@@ -40,10 +45,17 @@ namespace NumberConverter
 
 		public int InputeBaseIndex
 		{
-			get { return inputeBaseIndex; }
+			get
+			{
+				if (inputeBaseIndex < 0)
+					inputeBaseIndex = 0;
+				return inputeBaseIndex;
+			}
 			set
 			{
 				if (value == inputeBaseIndex) return;
+				if (value <0 || value >= Bases.Count)
+				return;
 				inputeBaseIndex = value;
 				OnPropertyChanged();
 				InputBase = 0;
@@ -80,7 +92,7 @@ namespace NumberConverter
 			{
 				return new ActionCommand(x =>
 				{
-					if (!(x is int))
+					if (!(x is byte))
 						return;
 					byte bas = (byte) x;
 					if (!Bases.Contains(bas))
@@ -118,7 +130,6 @@ namespace NumberConverter
 				if (outputs == null)
 				{
 					outputs = new ObservableCollection<InputField>();
-					outputs.Add(new InputField());
 				}
 				return outputs;
 			}

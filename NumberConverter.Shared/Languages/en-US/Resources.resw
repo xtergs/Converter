@@ -180,4 +180,7 @@
   <data name="LargeDigit" xml:space="preserve">
     <value>Digit in number &gt;= base</value>
   </data>
+  <data name="OperateOnlyInteger" xml:space="preserve">
+    <value>Can operate only on integer</value>
+  </data>
 </root>

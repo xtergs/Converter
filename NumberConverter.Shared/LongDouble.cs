@@ -367,7 +367,6 @@ namespace NumberConverter
 
 			var result = new LongDouble();
 			result.Integer = (value1.IntegerBig << value2).ToString();
-
 			return result;
 		}
 

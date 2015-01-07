@@ -29,7 +29,12 @@ namespace NumberConverter
 		Keyboard keyboard;
 		ComboBox parentFlyout;
 
-		private ConverterController converterControllerManyOutput;
+		private ConverterControllerManyOutput converterControllerManyOutput
+		{
+			get { return converterControllerManyOutputSet; }
+		}
+
+		private ConverterControllerManyOutput converterControllerManyOutputSet;
 
 		private double scaleFontTextBox = 0.35;
 
@@ -38,7 +43,16 @@ namespace NumberConverter
 		public MainPage()
 		{
 			this.InitializeComponent();
-			converterControllerManyOutput = new ConverterController();
+			ListView.Items.Clear();
+			converterControllerManyOutputSet = new ConverterControllerManyOutput();
+			converterControllerManyOutput.Outputs.Add(new InputField(){Input = "sss"});
+			converterControllerManyOutput.Outputs.Add(new InputField());
+			converterControllerManyOutput.Outputs.Add(new InputField());
+			converterControllerManyOutput.Outputs.Add(new InputField());
+			converterControllerManyOutput.Outputs.Add(new InputField());
+			converterControllerManyOutput.Outputs.Add(new InputField());
+			converterControllerManyOutput.Outputs.Add(new InputField());
+			converterControllerManyOutput.Outputs.Add(new InputField(){Input = "ddd"});
 			DataContext = converterControllerManyOutput;
 
 			sizeKeyboard.MaxButtonHeight = SettingsModelView.Settings.MaxSizeButton;
@@ -94,12 +108,14 @@ namespace NumberConverter
 					Grid.SetRowSpan(InputText, 2);
 					Grid.SetColumnSpan(InputText, 2);
 
-					Grid.SetRow(Result, 3);
-					Grid.SetRowSpan(Result, 2);
-					Grid.SetColumnSpan(Result, 2);
+					//Grid.SetRow(ListView.Items = Result, 3);
+					//Grid.SetRowSpan(Result, 2);
+					//Grid.SetColumnSpan(Result, 2);
 
-					Grid.SetRow(To, 3);
-					Grid.SetRowSpan(To, 1);
+					//Grid.SetRow(To, 3);
+					//Grid.SetRowSpan(To, 1);
+
+					Grid.SetRow(ListView,3);
 
 					Grid.SetRow(sizeKeyboard, 1);
 					Grid.SetRowSpan(sizeKeyboard, 10);
@@ -110,8 +126,8 @@ namespace NumberConverter
 
 					InputText.Margin = new Thickness(5, 5, 5, 0);
 					From.Margin = new Thickness(5, 10, 5, 0);
-					Result.Margin = new Thickness(5, 5, 5, 5);
-					To.Margin = new Thickness(5, 10, 5, 0);
+					//Result.Margin = new Thickness(5, 5, 5, 5);
+					//To.Margin = new Thickness(5, 10, 5, 0);
 					sizeKeyboard.Margin = new Thickness(0, 0,0,0);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					scaleFontTextBox = 0.25;
@@ -121,12 +137,14 @@ namespace NumberConverter
 					Grid.SetRowSpan(InputText, 1);
 					Grid.SetColumnSpan(InputText, 4);
 
-					Grid.SetRow(To, 2);
-					Grid.SetRowSpan(To, 1);
+					//Grid.SetRow(To, 2);
+					//Grid.SetRowSpan(To, 1);
 
-					Grid.SetRow(Result, 2);
-					Grid.SetRowSpan(Result, 1);
-					Grid.SetColumnSpan(Result, 4);
+					Grid.SetRow(ListView, 2);
+
+					//Grid.SetRow(Result, 2);
+					//Grid.SetRowSpan(Result, 1);
+					//Grid.SetColumnSpan(Result, 4);
 
 					Grid.SetRow(sizeKeyboard, 3);
 					Grid.SetColumn(sizeKeyboard, 0);
@@ -136,8 +154,8 @@ namespace NumberConverter
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
 					From.Margin = new Thickness(5, 10, 5, 0);
-					Result.Margin = new Thickness(5, 5, 5, 5);
-					To.Margin = new Thickness(5, 10, 5, 0);
+					//Result.Margin = new Thickness(5, 5, 5, 5);
+					//To.Margin = new Thickness(5, 10, 5, 0);
 					sizeKeyboard.Margin = new Thickness(0, 0, 0, 0);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					scaleFontTextBox = 0.35;
@@ -149,12 +167,14 @@ namespace NumberConverter
 					Grid.SetRowSpan(InputText, 1);
 					Grid.SetColumnSpan(InputText, 4);
 
-					Grid.SetRow(To, 2);
-					Grid.SetRowSpan(To, 1);
+					//Grid.SetRow(To, 2);
+					//Grid.SetRowSpan(To, 1);
 
-					Grid.SetRow(Result, 2);
-					Grid.SetRowSpan(Result, 1);
-					Grid.SetColumnSpan(Result, 4);
+					//Grid.SetRow(Result, 2);
+					//Grid.SetRowSpan(Result, 1);
+					//Grid.SetColumnSpan(Result, 4);
+
+					Grid.SetRow(ListView, 2);
 
 					Grid.SetRow(sizeKeyboard, 3);
 					Grid.SetColumn(sizeKeyboard, 0);
@@ -164,8 +184,8 @@ namespace NumberConverter
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
 					From.Margin = new Thickness(5, 40, 5, 60);
-					Result.Margin = new Thickness(5, 5, 5, 5);
-					To.Margin = new Thickness(5, 40, 5, 60);
+					//Result.Margin = new Thickness(5, 5, 5, 5);
+					//To.Margin = new Thickness(5, 40, 5, 60);
 					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
 					scaleFontTextBox = 0.35;
@@ -175,12 +195,14 @@ namespace NumberConverter
 					Grid.SetRowSpan(InputText, 2);
 					Grid.SetColumnSpan(InputText, 2);
 
-					Grid.SetRow(Result, 3);
-					Grid.SetRowSpan(Result, 2);
-					Grid.SetColumnSpan(Result, 2);
+					//Grid.SetRow(Result, 3);
+					//Grid.SetRowSpan(Result, 2);
+					//Grid.SetColumnSpan(Result, 2);
 
-					Grid.SetRow(To, 3);
-					Grid.SetRowSpan(To, 1);
+					//Grid.SetRow(To, 3);
+					//Grid.SetRowSpan(To, 1);
+
+					Grid.SetRow(ListView, 3);
 
 					Grid.SetRow(sizeKeyboard, 1);
 					Grid.SetRowSpan(sizeKeyboard, 5);
@@ -191,8 +213,8 @@ namespace NumberConverter
 
 					InputText.Margin = new Thickness(5, 5, 5, 5);
 					From.Margin = new Thickness(5, 40, 5, 60);
-					Result.Margin = new Thickness(5, 5, 5, 5);
-					To.Margin = new Thickness(5, 40, 5, 60);
+					//Result.Margin = new Thickness(5, 5, 5, 5);
+					//To.Margin = new Thickness(5, 40, 5, 60);
 					sizeKeyboard.Margin = new Thickness(5, 5, 5, 5);
 					MainGrid.ColumnDefinitions[0].Width = GridLength.Auto;
 					scaleFontTextBox = 0.25;
@@ -230,7 +252,7 @@ namespace NumberConverter
 			var listbox = ((ListBox)sender);
 			var str = ((ListBoxItem)listbox.SelectedItem).Content;
 			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
-			int newBase = int.Parse(str.ToString());
+			byte newBase = byte.Parse(str.ToString());
 			converterControllerManyOutput.Input.AddNewBase.Execute(newBase);
 			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
 			//fly.Hide();
@@ -354,6 +376,7 @@ namespace NumberConverter
 
 			if (converterControllerManyOutput.ConvertCommand.CanExecute(null))
 				converterControllerManyOutput.ConvertCommand.Execute();
+
 		}
 
 		private void ListBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -364,7 +387,7 @@ namespace NumberConverter
 			var str = ((ListBoxItem)listbox.SelectedItem).Content;
 
 			int newBase = int.Parse(str.ToString());
-			converterControllerManyOutput.Outputs.AddNewBase.Execute(newBase);
+			converterControllerManyOutput.Outputs[0].AddNewBase.Execute(newBase);
 
 			openedFlyout.Hide();
 
@@ -396,12 +419,18 @@ namespace NumberConverter
 
 		private void Page_Unloaded(object sender, RoutedEventArgs e)
 		{
-			keyboard = null;
-			this.converterControllerManyOutput = null;
-			this.parentFlyout = null;
-			this.openedFlyout = null;
-			this.focusedTextBox = null;
-			DataContext = null;
+			//keyboard = null;
+			//this.converterControllerManyOutputSet = null;
+			//this.parentFlyout = null;
+			//this.openedFlyout = null;
+			//this.focusedTextBox = null;
+			//DataContext = null;
+		}
+
+		private void From_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (converterControllerManyOutput.ConvertCommand.CanExecute(null))
+				converterControllerManyOutput.ConvertCommand.Execute();
 		}
 
 		
