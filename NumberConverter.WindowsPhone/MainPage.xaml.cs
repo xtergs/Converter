@@ -45,19 +45,20 @@ namespace NumberConverter
 			this.InitializeComponent();
 			ListView.Items.Clear();
 			converterControllerManyOutputSet = new ConverterControllerManyOutput();
-			converterControllerManyOutput.Outputs.Add(new InputField(){Input = "sss"});
 			converterControllerManyOutput.Outputs.Add(new InputField());
 			converterControllerManyOutput.Outputs.Add(new InputField());
 			converterControllerManyOutput.Outputs.Add(new InputField());
 			converterControllerManyOutput.Outputs.Add(new InputField());
 			converterControllerManyOutput.Outputs.Add(new InputField());
 			converterControllerManyOutput.Outputs.Add(new InputField());
-			converterControllerManyOutput.Outputs.Add(new InputField(){Input = "ddd"});
+			converterControllerManyOutput.Outputs.Add(new InputField());
+			converterControllerManyOutput.Outputs.Add(new InputField());
 			DataContext = converterControllerManyOutput;
 
 			sizeKeyboard.MaxButtonHeight = SettingsModelView.Settings.MaxSizeButton;
 			sizeKeyboard.MaxButtonWidth = SettingsModelView.Settings.MaxSizeButton;
 			sizeKeyboard.ButtonsAreSame = SettingsModelView.Settings.AllButtonsSame;
+			sizeKeyboard.ResizeButton();
 		}
 
 		private void Button_Click_Dot(object sender, ButtonClickArgs e)
@@ -116,6 +117,8 @@ namespace NumberConverter
 					//Grid.SetRowSpan(To, 1);
 
 					Grid.SetRow(ListView,3);
+					Grid.SetRowSpan(ListView, 2);
+					Grid.SetColumnSpan(ListView, 3);
 
 					Grid.SetRow(sizeKeyboard, 1);
 					Grid.SetRowSpan(sizeKeyboard, 10);
@@ -140,11 +143,14 @@ namespace NumberConverter
 					//Grid.SetRow(To, 2);
 					//Grid.SetRowSpan(To, 1);
 
-					Grid.SetRow(ListView, 2);
 
 					//Grid.SetRow(Result, 2);
 					//Grid.SetRowSpan(Result, 1);
+					
 					//Grid.SetColumnSpan(Result, 4);
+					Grid.SetRow(ListView, 2);
+					Grid.SetRowSpan(ListView, 1);
+					Grid.SetColumnSpan(ListView, 5);
 
 					Grid.SetRow(sizeKeyboard, 3);
 					Grid.SetColumn(sizeKeyboard, 0);
@@ -175,6 +181,8 @@ namespace NumberConverter
 					//Grid.SetColumnSpan(Result, 4);
 
 					Grid.SetRow(ListView, 2);
+					Grid.SetRowSpan(ListView, 1);
+					Grid.SetColumnSpan(ListView, 4);
 
 					Grid.SetRow(sizeKeyboard, 3);
 					Grid.SetColumn(sizeKeyboard, 0);
@@ -203,6 +211,8 @@ namespace NumberConverter
 					//Grid.SetRowSpan(To, 1);
 
 					Grid.SetRow(ListView, 3);
+					Grid.SetRowSpan(ListView, 2);
+					Grid.SetColumnSpan(ListView, 3);
 
 					Grid.SetRow(sizeKeyboard, 1);
 					Grid.SetRowSpan(sizeKeyboard, 5);
@@ -431,6 +441,24 @@ namespace NumberConverter
 		{
 			if (converterControllerManyOutput.ConvertCommand.CanExecute(null))
 				converterControllerManyOutput.ConvertCommand.Execute();
+		}
+
+		private void ListBox2_SelectionChanged1(object sender, SelectionChangedEventArgs e)
+		{
+			if (e.AddedItems.Count == 0)
+				return;
+			var listbox = ((ListBox)sender);
+			var str = ((ListBoxItem)listbox.SelectedItem).Content;
+			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
+			byte newBase = byte.Parse(str.ToString());
+			//converterControllerManyOutput.Input.AddNewBase.Execute(newBase);
+			//parentFlyout.Items.Add(newBase);
+			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
+			//fly.Hide();
+			openedFlyout.Hide();
+			listbox.SelectionChanged -= ListBox_SelectionChanged;
+			listbox.SelectedIndex = -1;
+			listbox.SelectionChanged += ListBox_SelectionChanged;
 		}
 
 		

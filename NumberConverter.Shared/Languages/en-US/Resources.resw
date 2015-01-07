@@ -183,4 +183,16 @@
   <data name="OperateOnlyInteger" xml:space="preserve">
     <value>Can operate only on integer</value>
   </data>
+  <data name="SameSizeCheckBox.Content" xml:space="preserve">
+    <value>All buttons are same size</value>
+  </data>
+  <data name="Slider.Header" xml:space="preserve">
+    <value>Max size of buttons</value>
+  </data>
+  <data name="SmapleTextBlock.Text" xml:space="preserve">
+    <value>Sameple</value>
+  </data>
+  <data name="TextBlockButtonSize.Text" xml:space="preserve">
+    <value>Buttons size settings</value>
+  </data>
 </root>

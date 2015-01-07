@@ -616,5 +616,7 @@ namespace NumberConverter
 			suspendPage = null;
 			calculatorController = null;
 		}
+
+
 	}
 }

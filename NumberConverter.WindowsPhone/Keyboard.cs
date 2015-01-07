@@ -24,6 +24,7 @@ namespace NumberConverter
 				maxButtonHeight = value;
 				for (int i = 0; i < buttonsList.Count; i++)
 					buttonsList[i].MaxHeight = value;
+
 			}
 		}
 
@@ -237,6 +238,9 @@ namespace NumberConverter
 			maxHeight += row*2;
 #endif
 			h = (maxHeight)/row;
+
+			if (MaxButtonHeight < h)
+				h = MaxButtonHeight;
 			//while ((h) * row <= maxHeight + marg_top*row)
 			//	h += 5;
 				int correction = 0;
@@ -247,10 +251,11 @@ namespace NumberConverter
 #endif
 			for (int i = 0; i < panel.Children.Count; i++)
 			{
-				((Button) panel.Children[i]).Height = h + correction;
-				((Button) panel.Children[i]).Width = w + correctionX;
+				var button = ((Button)panel.Children[i]);
+				button.Height = h + correction;
+				button.Width = w + correctionX;
 				//((Button)panel.Children[i]).UpdateLayout();
-				((Button) panel.Children[i]).FontSize = h*0.5;
+				button.FontSize = h*0.5;
 			}
 			//	((WrapPanel)panel).ItemHeight = h;
 			//	((WrapPanel)panel).ItemWidth = w;

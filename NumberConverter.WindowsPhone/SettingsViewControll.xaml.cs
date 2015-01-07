@@ -27,8 +27,10 @@ namespace NumberConverter
 			//this.navigationHelper = new NavigationHelper(this);
 			//this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
 			//this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
+			//ContentRoot.SelectionChanged += null;
 			settigns = SettingsModelView.Settings;
 			DataContext = settigns;
+			//ContentRoot.SelectionChanged += ContentRoot_SelectionChanged;
 		}
 
 		private NavigationHelper navigationHelper;
@@ -171,6 +173,11 @@ namespace NumberConverter
 		{
 			this.navigationHelper = null;
 			this.defaultViewModel = null;
+		}
+
+		private void UserControl_Loaded(object sender, RoutedEventArgs e)
+		{
+			ContentRoot.SelectionChanged += ContentRoot_SelectionChanged;
 		}
 	}
 }
