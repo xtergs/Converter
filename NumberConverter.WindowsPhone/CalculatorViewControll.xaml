@@ -9,7 +9,7 @@
    
       d:DataContext="{d:DesignInstance local:CalculatorController}"
     d:DesignHeight="300"
-    d:DesignWidth="400" SizeChanged="CalculatorPage_SizeChanged" Loaded="CalculatorPage_Loaded">
+    d:DesignWidth="400" SizeChanged="CalculatorPage_SizeChanged" Loaded="CalculatorPage_Loaded" Unloaded="UserControl_Unloaded">
     <UserControl.Resources>
         <ResourceDictionary Source="Resource/Template/Template.xaml">
 

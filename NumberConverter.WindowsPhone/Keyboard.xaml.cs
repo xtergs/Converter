@@ -47,5 +47,17 @@ namespace NumberConverter
 		{
 			SetVisibleButton(VisibleButtonCount,true);
 		}
+
+		private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+		{
+			foreach (var button in buttonsList)
+			{
+				button.Click += null;
+			}
+			buttonsList = null;
+			this.styleButton = null;
+			this.panel.Children.Clear();
+			this.panel = null;
+		}
 	}
 }

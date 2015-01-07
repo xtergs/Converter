@@ -57,6 +57,7 @@ namespace NumberConverter
 		{
 			InputText.Text = String.Empty;
 			converterControllerManyOutput.ConvertCommand.Execute();
+			
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
@@ -76,6 +77,7 @@ namespace NumberConverter
 		{
 			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
 			parentFlyout = (ComboBox)sender;
+			e.Handled = true;
 		}
 
 		private void Result_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -218,6 +220,7 @@ namespace NumberConverter
 		{
 			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
 			parentFlyout = (ComboBox)sender;
+			e.Handled = true;
 		}
 
 		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -264,6 +267,7 @@ namespace NumberConverter
 			
 			//if (e.Key)
 			SharePages.InputText_KeyUp(sender, e, converterControllerManyOutput.Input.InputBase);
+			e.Handled = true;
 		}
 
 		private void HyperlinkButton_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -388,6 +392,16 @@ namespace NumberConverter
 			ConverterHyperLink.IsEnabled = true;
 			CalculatorHyperLink.IsEnabled = true;
 			SettingsHyperLink.IsEnabled = false;
+		}
+
+		private void Page_Unloaded(object sender, RoutedEventArgs e)
+		{
+			keyboard = null;
+			this.converterControllerManyOutput = null;
+			this.parentFlyout = null;
+			this.openedFlyout = null;
+			this.focusedTextBox = null;
+			DataContext = null;
 		}
 
 		

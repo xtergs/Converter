@@ -10,7 +10,7 @@ namespace Converter
 {
 	public class Converter
 	{
-		static Dictionary<char,int> letters = new Dictionary<char, int>();
+		static Dictionary<char, int> letters = new Dictionary<char, int>();
 		static Dictionary<int, char> revletters = new Dictionary<int, char>();
 
 		static int countLoop = 10; //accuracy
@@ -29,7 +29,7 @@ namespace Converter
 		static Converter()
 		{
 			string let = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-			for (int i = 0; i < let.Length; i++)
+			for (byte i = 0; i < let.Length; i++)
 			{
 				letters.Add(Char.ToUpper(let[i]),i);
 				revletters.Add(i, let[i]);
@@ -37,7 +37,7 @@ namespace Converter
 			
 		}
 
-		public static LongDouble ConvertTo(uint baseIn, LongDouble valueIn, uint baseOut)
+		public static LongDouble ConvertTo(byte baseIn, LongDouble valueIn, byte baseOut)
 		{
 			if (baseIn == baseOut)
 			{
@@ -60,7 +60,7 @@ namespace Converter
 			return result;
 		}
 
-		public static LongDouble ConvertToDecictimal(uint baseIn, LongDouble valueIn)
+		public static LongDouble ConvertToDecictimal(byte baseIn, LongDouble valueIn)
 		{
 			BigInteger outValue = new BigInteger();
 
@@ -93,7 +93,7 @@ namespace Converter
 			return new LongDouble(outValue.ToString(), xx);
 		}
 
-		private static LongDouble ConvertFromDecictimal(LongDouble valueIn, uint baseOut)
+		private static LongDouble ConvertFromDecictimal(LongDouble valueIn, byte baseOut)
 		{
 			StringBuilder returnStr = new StringBuilder();
 			var returnValue = new LongDouble();
@@ -136,12 +136,12 @@ namespace Converter
 		}
 
 
-		public static string ConvertTo(uint baseIn, string strIn, uint baseOut)
+		public static string ConvertTo(byte baseIn, string strIn, byte baseOut)
 		{
 			return ConvertTo(baseIn, new LongDouble(strIn), baseOut).ToString();
 		}
 
-		public static bool Validate(uint baseIn, LongDouble value)
+		public static bool Validate(byte baseIn, LongDouble value)
 		{
 			if (value.Integer.Any((char a) => { return letters[a] >= baseIn; }) ||
 			    value.Fraction.Any((char a) => letters[a] >= baseIn))

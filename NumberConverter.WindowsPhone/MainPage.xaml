@@ -9,7 +9,7 @@
     x:Class="NumberConverter.MainPage"
     mc:Ignorable="d" 
     d:DataContext="{d:DesignInstance local:ConverterController}"
-    SizeChanged="Page_SizeChanged" Loaded="Page_Loaded">
+    SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" Unloaded="Page_Unloaded">
     
     <Page.Resources>
         <!--<ResourceDictionary Source="Resource/DarkBlue.xaml"></ResourceDictionary>-->

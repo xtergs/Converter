@@ -329,7 +329,7 @@ namespace NumberConverter
 		#endregion
 	}
 
-	public class ButtonClickArgs
+	public class ButtonClickArgs : EventArgs
 	{
 		public Button Button { get; set; }
 	}

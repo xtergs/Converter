@@ -13,14 +13,19 @@ namespace UnitTestLibrary1
     [TestClass]
 	public class ConverterTests
 	{
+		public byte baseIn { get; set; }
+		public byte baseOut { get; set; }
+		public string value { get; set; }
+		public string resultO { get; set; }
+
 		[TestMethod]
 	    public void Convert2To10Test()
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 2;
-			uint baseOut = 10;
-			string value = "1101.0011001111";
+			baseIn = 2;
+			baseOut = 10;
+			value = "1101.0011001111";
 
 			//Act
 			var result = Converter.Converter.ConvertTo(baseIn, value, baseOut);
@@ -33,10 +38,10 @@ namespace UnitTestLibrary1
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 2;
-			uint baseOut = 25;
-			string value = "1101.0011001111";
-			string resultO = "d.518e5kll".ToUpper();
+			baseIn = 2;
+			baseOut = 25;
+			value = "1101.0011001111";
+			resultO = "d.518e5kll".ToUpper();
 
 			//Act
 			var result = Converter.Converter.ConvertTo(baseIn, value, baseOut);
@@ -50,10 +55,10 @@ namespace UnitTestLibrary1
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 2;
-			uint baseOut = 25;
-			string value = null;
-			string resultO = "d.518e5kll".ToUpper();
+			 baseIn = 2;
+			 baseOut = 25;
+			 value = null;
+			 resultO = "d.518e5kll".ToUpper();
 
 			try
 			{
@@ -74,10 +79,10 @@ namespace UnitTestLibrary1
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 2;
-			uint baseOut = 25;
-			string value = "";
-			string resultO = "0".ToUpper();
+			 baseIn = 2;
+			 baseOut = 25;
+			 value = "";
+			 resultO = "0".ToUpper();
 			
 			//Act
 			var result = Converter.Converter.ConvertTo(baseIn, value, baseOut);
@@ -91,10 +96,10 @@ namespace UnitTestLibrary1
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 2;
-			uint baseOut = 25;
-			string value = "0";
-			string resultO = "0".ToUpper();
+			 baseIn = 2;
+			 baseOut = 25;
+			 value = "0";
+			 resultO = "0".ToUpper();
 
 			//Act
 			var result = Converter.Converter.ConvertTo(baseIn, value, baseOut);
@@ -108,10 +113,10 @@ namespace UnitTestLibrary1
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 2;
-			uint baseOut = 25;
-			string value = "354.123";
-			string resultO = "234".ToUpper();
+			 baseIn = 2;
+			 baseOut = 25;
+			 value = "354.123";
+			 resultO = "234".ToUpper();
 
 			try
 			{
@@ -134,10 +139,10 @@ namespace UnitTestLibrary1
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 10;
-			uint baseOut = 27;
-			string value = "20.354";
-			string resultO = "k.9f1l322n".ToUpper();
+			 baseIn = 10;
+			 baseOut = 27;
+			 value = "20.354";
+			 resultO = "k.9f1l322n".ToUpper();
 
 			//Act
 			var result = Converter.Converter.ConvertTo(baseIn, value, baseOut);
@@ -151,10 +156,10 @@ namespace UnitTestLibrary1
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 10;
-			uint baseOut = 10;
-			string value = "20.354";
-			string resultO = "20.354".ToUpper();
+			 baseIn = 10;
+			 baseOut = 10;
+			 value = "20.354";
+			 resultO = "20.354".ToUpper();
 
 			//Act
 			var result = Converter.Converter.ConvertTo(baseIn, value, baseOut);
@@ -168,10 +173,10 @@ namespace UnitTestLibrary1
 		{
 			//Arrange
 			Converter.Converter.Accurancy = 8;
-			uint baseIn = 10;
-			uint baseOut = 10;
-			string value = "20.354";
-			string resultO = "20.354".ToUpper();
+			 baseIn = 10;
+			 baseOut = 10;
+			 value = "20.354";
+			 resultO = "20.354".ToUpper();
 
 			//Act
 			var result = Converter.Converter.ConvertTo(baseIn, value, baseOut);

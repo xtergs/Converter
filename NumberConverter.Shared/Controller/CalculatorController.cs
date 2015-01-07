@@ -42,9 +42,9 @@ namespace NumberConverter
 
 		private string Operations(string In, string Out)
 		{
-			var slag = Converter.Converter.ConvertTo((uint)Input.InputBase, new LongDouble(In), 10);
+			var slag = Converter.Converter.ConvertTo(Input.InputBase, new LongDouble(In), 10);
 			//double firstslagD = double.Parse(slag);
-			var slag2 = Converter.Converter.ConvertTo((uint)Input2.InputBase, new LongDouble(Out), 10);
+			var slag2 = Converter.Converter.ConvertTo(Input2.InputBase, new LongDouble(Out), 10);
 			//double secondslagD = double.Parse(slag);
 			switch (Operation)
 			{
@@ -150,7 +150,7 @@ namespace NumberConverter
 					slag = LongDouble.XOR(slag, slag2);
 					break;
 			}
-			return Converter.Converter.ConvertTo(10, slag, (uint)Outputs.InputBase).ToString();
+			return Converter.Converter.ConvertTo(10, slag, Outputs.InputBase).ToString();
 		}
 
 		private void Calculate()

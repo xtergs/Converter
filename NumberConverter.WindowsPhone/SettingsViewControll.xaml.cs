@@ -166,5 +166,11 @@ namespace NumberConverter
 		{
 			ChangeTheme(settigns.Theme);
 		}
+
+		private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+		{
+			this.navigationHelper = null;
+			this.defaultViewModel = null;
+		}
 	}
 }

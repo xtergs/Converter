@@ -589,5 +589,17 @@ namespace NumberConverter
 			listbox.SelectedIndex = -1;
 			listbox.SelectionChanged += ListBox_SelectionChanged;
 		}
+
+		private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+		{
+			this.parentFlyout = null;
+			this.operationList.Clear();
+			this.operationList = null;
+			this.lastTextBox = null;
+			sizeKeyboard = null;
+			DataContext = null;
+			suspendPage = null;
+			calculatorController = null;
+		}
 	}
 }

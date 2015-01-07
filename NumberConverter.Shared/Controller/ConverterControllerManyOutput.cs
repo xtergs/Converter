@@ -50,9 +50,9 @@ namespace NumberConverter
 			}
 		}
 
-		public int InputBase
+		public byte InputBase
 		{
-			get { return Bases[InputeBaseIndex]; }
+			get { return (byte)Bases[InputeBaseIndex]; }
 			set { OnPropertyChanged(); }
 		}
 
@@ -82,7 +82,7 @@ namespace NumberConverter
 				{
 					if (!(x is int))
 						return;
-					int bas = (int) x;
+					byte bas = (byte) x;
 					if (!Bases.Contains(bas))
 					{
 						Bases.Add(bas);
@@ -138,7 +138,7 @@ namespace NumberConverter
 			{
 				global::Converter.Converter.Accurancy = Settings.Precise;
 				for (int i = 0; i < Outputs.Count; i++)
-					Outputs[i].Input = global::Converter.Converter.ConvertTo((uint)Input.InputBase, Input.Input, (uint)Outputs[i].InputBase);
+					Outputs[i].Input = global::Converter.Converter.ConvertTo(Input.InputBase, Input.Input, Outputs[i].InputBase);
 
 			}
 			catch (Exception e)
@@ -179,7 +179,7 @@ namespace NumberConverter
 			try
 			{
 				global::Converter.Converter.Accurancy = Settings.Precise;
-				Outputs.Input = global::Converter.Converter.ConvertTo((uint)Input.InputBase, Input.Input, (uint)Outputs.InputBase);
+				Outputs.Input = global::Converter.Converter.ConvertTo(Input.InputBase, Input.Input, Outputs.InputBase);
 
 			}
 			catch (Exception e)
@@ -197,7 +197,7 @@ namespace NumberConverter
 				{
 					if (String.IsNullOrWhiteSpace(Input.Input))
 						return false;
-					if (!global::Converter.Converter.Validate((uint) Input.InputBase, new LongDouble(Input.Input)))
+					if (!global::Converter.Converter.Validate(Input.InputBase, new LongDouble(Input.Input)))
 					{
 						Outputs.Input = "Digit in number >= base";
 						return false;
