@@ -18,6 +18,12 @@ namespace NumberConverter
 		private string input;
 		private int inputeBaseIndex;
 		private ObservableCollection<int> bases;
+		private bool current = false;
+
+		public bool Current
+		{
+			get { return current; }
+		}
 
 		public InputField()
 		{
@@ -55,7 +61,13 @@ namespace NumberConverter
 			{
 				if (value == inputeBaseIndex) return;
 				if (value <0 || value >= Bases.Count)
-				return;
+					if (value == -1)
+					{
+						current = !current;
+						return;
+					}
+					else
+					return;
 				inputeBaseIndex = value;
 				OnPropertyChanged();
 				InputBase = 0;

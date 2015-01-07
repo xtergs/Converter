@@ -45,11 +45,11 @@ namespace NumberConverter
 			this.InitializeComponent();
 			ListView.Items.Clear();
 			converterControllerManyOutputSet = new ConverterControllerManyOutput();
-			converterControllerManyOutput.Outputs.Add(new InputField());
-			converterControllerManyOutput.Outputs.Add(new InputField());
-			converterControllerManyOutput.Outputs.Add(new InputField());
-			converterControllerManyOutput.Outputs.Add(new InputField());
-			converterControllerManyOutput.Outputs.Add(new InputField());
+			converterControllerManyOutput.Outputs.Add(new InputField(){InputeBaseIndex = 0});
+			converterControllerManyOutput.Outputs.Add(new InputField() { InputeBaseIndex = 1 });
+			converterControllerManyOutput.Outputs.Add(new InputField() { InputeBaseIndex = 2 });
+			converterControllerManyOutput.Outputs.Add(new InputField() { InputeBaseIndex = 3 });
+			converterControllerManyOutput.Outputs.Add(new InputField() { InputeBaseIndex = 4 });
 			converterControllerManyOutput.Outputs.Add(new InputField());
 			converterControllerManyOutput.Outputs.Add(new InputField());
 			converterControllerManyOutput.Outputs.Add(new InputField());
@@ -92,6 +92,8 @@ namespace NumberConverter
 		{
 			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
 			parentFlyout = (ComboBox)sender;
+			//((ComboBox) sender).SelectedIndex = -1;
+			//((ListView)((FrameworkElement)((ComboBox) sender).Parent).Parent).Items
 			e.Handled = true;
 		}
 
@@ -108,6 +110,9 @@ namespace NumberConverter
 				{
 					Grid.SetRowSpan(InputText, 2);
 					Grid.SetColumnSpan(InputText, 2);
+
+					Grid.SetRowSpan(InputGrid, 3);
+					Grid.SetColumnSpan(InputGrid, 3);
 
 					//Grid.SetRow(ListView.Items = Result, 3);
 					//Grid.SetRowSpan(Result, 2);
@@ -139,6 +144,9 @@ namespace NumberConverter
 				{
 					Grid.SetRowSpan(InputText, 1);
 					Grid.SetColumnSpan(InputText, 4);
+
+					Grid.SetRowSpan(InputGrid, 2);
+					Grid.SetColumnSpan(InputGrid, 5);
 
 					//Grid.SetRow(To, 2);
 					//Grid.SetRowSpan(To, 1);
@@ -248,12 +256,12 @@ namespace NumberConverter
 			GoToCalculator();
 		}
 
-		private void From_RightTapped(object sender, RightTappedRoutedEventArgs e)
-		{
-			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-			parentFlyout = (ComboBox)sender;
-			e.Handled = true;
-		}
+		//private void From_RightTapped(object sender, RightTappedRoutedEventArgs e)
+		//{
+		//	FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+		//	parentFlyout = (ComboBox)sender;
+		//	e.Handled = true;
+		//}
 
 		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -400,6 +408,7 @@ namespace NumberConverter
 			converterControllerManyOutput.Outputs[0].AddNewBase.Execute(newBase);
 
 			openedFlyout.Hide();
+			openedFlyout = null;
 
 			listbox.SelectionChanged -= ListBox_SelectionChanged;
 			listbox.SelectedIndex = -1;
@@ -451,11 +460,32 @@ namespace NumberConverter
 			var str = ((ListBoxItem)listbox.SelectedItem).Content;
 			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
 			byte newBase = byte.Parse(str.ToString());
+
+			//var x = ((System.Collections.ObjectModel.ObservableCollection<int>) parentFlyout.ItemsSource);
+			//if (x.Contains(newBase))
+			//	parentFlyout.SelectedIndex = x.IndexOf(newBase);
+			//else
+			//{
+			//	x.Add(newBase);
+			//	parentFlyout.SelectedIndex = x.Count - 1;
+			//}
+
+			((InputField)parentFlyout.DataContext).AddNewBase.Execute(newBase);
+
+			//for (int i = 0; i < converterControllerManyOutput.Outputs.Count; i++)
+			//{
+			//	if (((Grid)((ListBoxItem) ListView.Items[i]).Content).Children.Contains(parentFlyout))
+			//	{
+			//		converterControllerManyOutput.Outputs[i].InputeBaseIndex = -1;
+			//		converterControllerManyOutput.Outputs[i].AddNewBase.Execute(newBase);
+			//	}
+			//}
 			//converterControllerManyOutput.Input.AddNewBase.Execute(newBase);
 			//parentFlyout.Items.Add(newBase);
 			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
 			//fly.Hide();
 			openedFlyout.Hide();
+			openedFlyout = null;
 			listbox.SelectionChanged -= ListBox_SelectionChanged;
 			listbox.SelectedIndex = -1;
 			listbox.SelectionChanged += ListBox_SelectionChanged;
