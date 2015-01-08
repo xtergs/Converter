@@ -26,7 +26,7 @@ namespace NumberConverter
 	/// </summary>
 	public sealed partial class MainPage : Page
 	{
-		Keyboard keyboard;
+		
 		ComboBox parentFlyout;
 
 		private ConverterControllerManyOutput converterControllerManyOutput
@@ -75,12 +75,6 @@ namespace NumberConverter
 			
 		}
 
-		private void Button_Click(object sender, RoutedEventArgs e)
-		{
-			InputText.Text = String.Empty;
-			converterControllerManyOutput.ConvertCommand.Execute();
-		}
-
 		private void Button_Click_1(object sender, ButtonClickArgs e)
 		{
 			SharePages.AddTextTextBox(e.Button.Content.ToString(), InputText);
@@ -92,8 +86,6 @@ namespace NumberConverter
 		{
 			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
 			parentFlyout = (ComboBox)sender;
-			//((ComboBox) sender).SelectedIndex = -1;
-			//((ListView)((FrameworkElement)((ComboBox) sender).Parent).Parent).Items
 			e.Handled = true;
 		}
 
@@ -108,8 +100,8 @@ namespace NumberConverter
 			if (statView.IsFullScreen)
 				if (statView.Orientation == ApplicationViewOrientation.Landscape)  //FullScreen and Landscape
 				{
-					Grid.SetRowSpan(InputText, 2);
-					Grid.SetColumnSpan(InputText, 2);
+					//Grid.SetRowSpan(InputText, 2);
+					//Grid.SetColumnSpan(InputText, 2);
 
 					Grid.SetRowSpan(InputGrid, 3);
 					Grid.SetColumnSpan(InputGrid, 3);
@@ -142,8 +134,8 @@ namespace NumberConverter
 				}
 				else     //FullScreen and Portrate
 				{
-					Grid.SetRowSpan(InputText, 1);
-					Grid.SetColumnSpan(InputText, 4);
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 4);
 
 					Grid.SetRowSpan(InputGrid, 2);
 					Grid.SetColumnSpan(InputGrid, 5);
@@ -178,8 +170,8 @@ namespace NumberConverter
 			{
 				if (this.ActualWidth <= 510 && ActualWidth >= 490)
 				{
-					Grid.SetRowSpan(InputText, 1);
-					Grid.SetColumnSpan(InputText, 4);
+					//Grid.SetRowSpan(InputText, 1);
+					//Grid.SetColumnSpan(InputText, 4);
 
 					//Grid.SetRow(To, 2);
 					//Grid.SetRowSpan(To, 1);
@@ -251,30 +243,29 @@ namespace NumberConverter
 			
 		}
 
-		private void Button_Click_5(object sender, RoutedEventArgs e)
+		private void From_RightTapped(object sender, RightTappedRoutedEventArgs e)
 		{
-			GoToCalculator();
+			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+			parentFlyout = (ComboBox)sender;
+			e.Handled = true;
 		}
-
-		//private void From_RightTapped(object sender, RightTappedRoutedEventArgs e)
-		//{
-		//	FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-		//	parentFlyout = (ComboBox)sender;
-		//	e.Handled = true;
-		//}
 
 		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			if (e.AddedItems.Count == 0)
 				return;
 			var listbox = ((ListBox)sender);
-			var str = ((ListBoxItem)listbox.SelectedItem).Content;
-			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
-			byte newBase = byte.Parse(str.ToString());
-			converterControllerManyOutput.Input.AddNewBase.Execute(newBase);
-			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
-			//fly.Hide();
+			var listBoxItem = (ListBoxItem)listbox.SelectedItem;
+			if (listBoxItem != null)
+			{
+				var str = listBoxItem.Content;
+
+				byte newBase = byte.Parse(str.ToString());
+				((InputField)parentFlyout.DataContext).AddNewBase.Execute(newBase);
+			}
+
 			openedFlyout.Hide();
+			openedFlyout = null;
 			listbox.SelectionChanged -= ListBox_SelectionChanged;
 			listbox.SelectedIndex = -1;
 			listbox.SelectionChanged += ListBox_SelectionChanged;
@@ -320,35 +311,6 @@ namespace NumberConverter
 			GoToConverter();
 		}
 
-		private void Page_Loaded(object sender, RoutedEventArgs e)
-		{
-			//if (suspendPage != null)
-			//{
-			//	FromBase = suspendPage.indexFrom;
-				
-			//	ToBase = suspendPage.indexTo;
-			//	InputText.Text = suspendPage.InputText;
-			//	//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
-			//	if (From.Items != null  && To.Items != null)
-			//	{
-			//		From.SelectedItem = From.Items[FromBase];
-				
-			//		To.SelectedItem = To.Items[ToBase];
-			//	}
-			//	InputText.Focus(FocusState.Programmatic);
-			//	suspendPage = null;
-			//}
-		}
-
-		void SaveState()
-		{
-			suspendPage = new SuspendPage();
-			//suspendPage.indexFrom = FromBase;
-			//suspendPage.indexFrom2 = FromBase2;
-			//suspendPage.indexTo = ToBase;
-			suspendPage.InputText = InputText.Text;
-		}
-
 		private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
 		{
 			GoToThemes();
@@ -380,14 +342,6 @@ namespace NumberConverter
 			//this.Frame.Navigate(typeof(BlankPage1));
 		}
 
-		private void Swipe(object sender, ManipulationCompletedRoutedEventArgs e)
-		{
-			double x = e.Velocities.Linear.X;
-			e.Handled = true;
-			if (x < -1)
-				GoToCalculator();
-		}
-
 		private void From_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
 		{
 			sizeKeyboard.VisibleButtonCount = converterControllerManyOutput.Input.InputBase;
@@ -396,25 +350,7 @@ namespace NumberConverter
 				converterControllerManyOutput.ConvertCommand.Execute();
 
 		}
-
-		private void ListBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (e.AddedItems.Count == 0)
-				return;
-			var listbox = ((ListBox)sender);
-			var str = ((ListBoxItem)listbox.SelectedItem).Content;
-
-			int newBase = int.Parse(str.ToString());
-			converterControllerManyOutput.Outputs[0].AddNewBase.Execute(newBase);
-
-			openedFlyout.Hide();
-			openedFlyout = null;
-
-			listbox.SelectionChanged -= ListBox_SelectionChanged;
-			listbox.SelectedIndex = -1;
-			listbox.SelectionChanged += ListBox_SelectionChanged;
-		}
-
+		
 		private void ConverterItem_GotFocus(object sender, RoutedEventArgs e)
 		{
 			ConverterHyperLink.IsEnabled = false;
@@ -438,60 +374,11 @@ namespace NumberConverter
 
 		private void Page_Unloaded(object sender, RoutedEventArgs e)
 		{
-			//keyboard = null;
-			//this.converterControllerManyOutputSet = null;
-			//this.parentFlyout = null;
-			//this.openedFlyout = null;
-			//this.focusedTextBox = null;
-			//DataContext = null;
+			DataContext = null;
+			this.converterControllerManyOutputSet = null;
+			this.parentFlyout = null;
+			this.openedFlyout = null;
+			this.focusedTextBox = null;
 		}
-
-		private void From_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			if (converterControllerManyOutput.ConvertCommand.CanExecute(null))
-				converterControllerManyOutput.ConvertCommand.Execute();
-		}
-
-		private void ListBox2_SelectionChanged1(object sender, SelectionChangedEventArgs e)
-		{
-			if (e.AddedItems.Count == 0)
-				return;
-			var listbox = ((ListBox)sender);
-			var str = ((ListBoxItem)listbox.SelectedItem).Content;
-			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
-			byte newBase = byte.Parse(str.ToString());
-
-			//var x = ((System.Collections.ObjectModel.ObservableCollection<int>) parentFlyout.ItemsSource);
-			//if (x.Contains(newBase))
-			//	parentFlyout.SelectedIndex = x.IndexOf(newBase);
-			//else
-			//{
-			//	x.Add(newBase);
-			//	parentFlyout.SelectedIndex = x.Count - 1;
-			//}
-
-			((InputField)parentFlyout.DataContext).AddNewBase.Execute(newBase);
-
-			//for (int i = 0; i < converterControllerManyOutput.Outputs.Count; i++)
-			//{
-			//	if (((Grid)((ListBoxItem) ListView.Items[i]).Content).Children.Contains(parentFlyout))
-			//	{
-			//		converterControllerManyOutput.Outputs[i].InputeBaseIndex = -1;
-			//		converterControllerManyOutput.Outputs[i].AddNewBase.Execute(newBase);
-			//	}
-			//}
-			//converterControllerManyOutput.Input.AddNewBase.Execute(newBase);
-			//parentFlyout.Items.Add(newBase);
-			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
-			//fly.Hide();
-			openedFlyout.Hide();
-			openedFlyout = null;
-			listbox.SelectionChanged -= ListBox_SelectionChanged;
-			listbox.SelectedIndex = -1;
-			listbox.SelectionChanged += ListBox_SelectionChanged;
-		}
-
-		
-		
 	}
 }

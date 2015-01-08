@@ -144,8 +144,23 @@
   <data name="InputText.PlaceholderText" xml:space="preserve">
     <value>Введите число</value>
   </data>
+  <data name="IntegerMax" xml:space="preserve">
+    <value>Целое число должно быть меньше чем</value>
+  </data>
+  <data name="LargeDigit" xml:space="preserve">
+    <value>Цифра в числе &gt;= основанию</value>
+  </data>
+  <data name="OperateOnlyInteger" xml:space="preserve">
+    <value>Действие можно выполнять только над целыми</value>
+  </data>
+  <data name="PowInteger" xml:space="preserve">
+    <value>Степень должна быть целым числом</value>
+  </data>
   <data name="Result.PlaceholderText" xml:space="preserve">
     <value>Результат</value>
+  </data>
+  <data name="SameSizeCheckBox.Content" xml:space="preserve">
+    <value>Все кнопки одного размера</value>
   </data>
   <data name="SelectBase.Text" xml:space="preserve">
     <value>Выберите систему счисления</value>
@@ -156,8 +171,20 @@
   <data name="SettingsLB.Content" xml:space="preserve">
     <value>Настройки</value>
   </data>
+  <data name="ShiftInteger" xml:space="preserve">
+    <value>Сдвиг должен быть целым числом</value>
+  </data>
+  <data name="Slider.Header" xml:space="preserve">
+    <value>Максимальный размер кнопок</value>
+  </data>
+  <data name="SmapleTextBlock.Text" xml:space="preserve">
+    <value>Образец</value>
+  </data>
   <data name="SupportT.Text" xml:space="preserve">
     <value>Вопросы и предложения можно высылать по электронной почте Xtergs@gmail.com</value>
+  </data>
+  <data name="TextBlockButtonSize.Text" xml:space="preserve">
+    <value>Настройки размера кнопок</value>
   </data>
   <data name="Themes" xml:space="preserve">
     <value>Темы</value>
