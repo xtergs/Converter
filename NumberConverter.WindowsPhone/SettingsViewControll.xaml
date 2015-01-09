@@ -14,10 +14,10 @@
     </UserControl.Resources>
 
     <ListView ItemContainerStyle="{ThemeResource ListViewItemStyle2}" Grid.Row="4" SelectionMode="None" Margin="19,0" HorizontalContentAlignment="Stretch" ShowsScrollingPlaceholders="True" DataFetchSize="10" IsZoomedInView="False" VerticalContentAlignment="Stretch" x:Name="LayoutRoot">
-        <TextBlock  Grid.Row="1" x:Uid="ThemesT" Text="ThemesS"  Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+        <TextBlock  Grid.Row="1" x:Uid="ThemesT" Text="ThemesS"  Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" FontSize="36"/>
         <!--TODO: Content should be placed within the following grid-->
         <ListView Grid.Row="2" x:Name="ContentRoot" Margin="19,9.5,19,0" ItemsSource="{Binding  Themes.Keys}" ItemClick="ContentRoot_ItemClick" SelectedIndex="{Binding SelectedThemeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock x:Uid="TextBlockButtonSize" Text="ButtonSizeSS" Grid.Row="3" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" Margin="19,0,0,0"/>
+        <TextBlock x:Uid="TextBlockButtonSize" Text="ButtonSizeSS" Grid.Row="3" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" Margin="19,0,0,0" FontSize="36"/>
         <ListView ItemContainerStyle="{ThemeResource ListViewItemStyle2}" Grid.Row="4" SelectionMode="None" Margin="19,0,0,0" HorizontalContentAlignment="Stretch" ShowsScrollingPlaceholders="True" DataFetchSize="10" IsZoomedInView="False" VerticalContentAlignment="Stretch">
             <CheckBox x:Uid="SameSizeCheckBox" IsChecked="{Binding AllButtonsSame, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="AllButtonsSame!!!"/>
             <Slider x:Name="slider" x:Uid="Slider" Header="MaxSizeButton!!"  Grid.Row="4" LargeChange="1" Maximum="304" Minimum="20" Value="{Binding MaxSizeButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TickPlacement="Inline" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
