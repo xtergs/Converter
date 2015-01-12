@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using NumberConverter.Annotations;
+using ClassLibrary1.Annotations;
 
 
 namespace NumberConverter

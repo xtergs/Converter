@@ -7,7 +7,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
-using NumberConverter.Annotations;
+using ClassLibrary1.Annotations;
+
 
 
 namespace NumberConverter
@@ -138,6 +139,7 @@ namespace NumberConverter
 		}
 		#endregion
 
+		
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		[NotifyPropertyChangedInvocator]

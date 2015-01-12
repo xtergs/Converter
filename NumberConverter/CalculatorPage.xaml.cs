@@ -27,10 +27,14 @@ namespace NumberConverter
 	{
 		private int op = 0;
 
-		private Keyboard keyboard;
-		private int fromBase;
-		private int fromBase2;
-		private int toBase;
+		private List<ToggleButton> operationList;
+
+		private CalculatorController calculatorController;
+
+		//private Keyboard keyboard;
+		//private int fromBase;
+		//private int fromBase2;
+		//private int toBase;
 		private int fromBaseIndex, fromBase2Index, toBaseIndex;
 		private static SuspendPage suspendPage;
 		//string BAse;
@@ -40,8 +44,8 @@ namespace NumberConverter
 			set
 			{
 				fromBaseIndex = value;
-				if (From.Items != null) 
-					fromBase = int.Parse(((ComboBoxItem) From.Items[value]).Content.ToString());
+				//if (From.Items != null)
+				//	fromBase = int.Parse(((ComboBoxItem)From.Items[value]).Content.ToString());
 			}
 		}
 
@@ -51,7 +55,7 @@ namespace NumberConverter
 			set
 			{
 				fromBase2Index = value;
-				if (From2.Items != null) fromBase2 = int.Parse(((ComboBoxItem) From2.Items[value]).Content.ToString());
+				//if (From2.Items != null) fromBase2 = int.Parse(((ComboBoxItem)From2.Items[value]).Content.ToString());
 			}
 		}
 
@@ -61,7 +65,7 @@ namespace NumberConverter
 			set
 			{
 				toBaseIndex = value;
-				if (To.Items != null) toBase = int.Parse(((ComboBoxItem) To.Items[value]).Content.ToString());
+				//if (To.Items != null) toBase = int.Parse(((ComboBoxItem)To.Items[value]).Content.ToString());
 			}
 		}
 
@@ -72,19 +76,30 @@ namespace NumberConverter
 
 		public BlankPage1()
 		{
+			calculatorController = new CalculatorController();
 			this.InitializeComponent();
-			CreateKeyboard(Buttons);
-			FromBase = 0;
-			FromBase2 = 0;
-			ToBase = 0;
-			Buttons.UpdateLayout();
-			keyboard.SetVisibleButton(fromBase);
+			DataContext = calculatorController;
+			//CreateKeyboard(Buttons);
+			
+			//Buttons.UpdateLayout();
+			//keyboard.SetVisibleButton(fromBase);
 			TextBoxToComboBox = new Dictionary<FrameworkElement, FrameworkElement>();
 			TextBoxToComboBox.Add(InputText, From);
 			TextBoxToComboBox.Add(InputText2, From2);
 			TextBoxToComboBox.Add(Result, To);
-			DataContext = this;
 			LastFocusTextBox = InputText;
+
+			operationList = new List<ToggleButton>();
+			operationList.Add(Button_Plus);
+			operationList.Add(Button_Minus);
+			operationList.Add(Button_multipl);
+			operationList.Add(Button_divide);
+			operationList.Add(Button_Pow);
+			operationList.Add(Button_Xor);
+			operationList.Add(Button_LShift);
+			operationList.Add(Button_RShift);
+			operationList.Add(Button_Or);
+			operationList.Add(Button_AND);
 
 #if WINDOWS_PHONE_APP
 			int marg_up = -6;
@@ -97,19 +112,19 @@ namespace NumberConverter
 
 		}
 
-		public void CreateKeyboard(Panel panel)
-		{
-			keyboard = new Keyboard(panel, Application.Current.Resources["ButtonStyle1"] as Style);
-			keyboard.OnButtonClick += keyboard_OnButtonClick;
-			//for (int i = 0; i < panel.Children.Count - 3; i++)
-			//{
-			//	((Button) (panel.Children[i])).Click += Button_Click_1;
-			//}
-			((Button) (panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
-			((Button) (panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; // backspace
-			//((Button)(panel.Children[panel.Children.Count - 2])).SizeChanged += Buttons_SizeChanged_1;
-			((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
-		}
+		//public void CreateKeyboard(Panel panel)
+		//{
+		//	keyboard = new Keyboard(panel, Application.Current.Resources["ButtonStyle1"] as Style);
+		//	keyboard.OnButtonClick += keyboard_OnButtonClick;
+		//	//for (int i = 0; i < panel.Children.Count - 3; i++)
+		//	//{
+		//	//	((Button) (panel.Children[i])).Click += Button_Click_1;
+		//	//}
+		//	((Button) (panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
+		//	((Button) (panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; // backspace
+		//	//((Button)(panel.Children[panel.Children.Count - 2])).SizeChanged += Buttons_SizeChanged_1;
+		//	((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
+		//}
 
 		void keyboard_OnButtonClick(object sender, ButtonClickArgs args)
 		{
@@ -125,37 +140,39 @@ namespace NumberConverter
 			SharePages.AddTextTextBox(args.Button.Content.ToString(), input);
 		}
 
-		private void Button_Click_Clean(object sender, RoutedEventArgs e)
+		private void Button_Click_Clean(object sender, ButtonClickArgs e)
 		{
 			if (!(FocusManager.GetFocusedElement() is TextBox))
 				return;
 			var input = (TextBox)(FocusManager.GetFocusedElement());
 			if (input == Result)
 				return;
-			input.Text = "";
+			if (calculatorController.ClearCommand.CanExecute(input))
+				calculatorController.ClearCommand.Execute(input);
 		}
 
 
-		private void Backspace_Click(object sender, RoutedEventArgs e)
+		private void Backspace_Click(object sender, ButtonClickArgs e)
 		{
 			if (!(FocusManager.GetFocusedElement() is TextBox))
 				return;
 			var input = (TextBox) (FocusManager.GetFocusedElement());
 			if (input == Result)
 				return;
-			SharePages.Backspace(input);
+			if (calculatorController.BackSpaceCommand.CanExecute(input))
+				calculatorController.BackSpaceCommand.Execute(input);
 			input.Select(input.Text.Length, 0);
 		}
 
-		private void Button_Click_Dot(object sender, RoutedEventArgs e)
+		private void Button_Click_Dot(object sender, ButtonClickArgs e)
 		{
 			if (!(FocusManager.GetFocusedElement() is TextBox))
 				return;
 			var input = (TextBox) (FocusManager.GetFocusedElement());
 			if (input == Result)
 				return;
-			if (input.Text.IndexOf(((Button) sender).Content.ToString()) < 0) //точки нету
-				Button_Click_1(sender, e);
+			if (calculatorController.DotCommand.CanExecute(input))
+				calculatorController.DotCommand.Execute(input);
 		}
 
 		private void ResultText(string text)
@@ -163,50 +180,13 @@ namespace NumberConverter
 			Result.Text = text;
 		}
 
-		private string Operation(string In, string Out)
-		{
-			var slag = Converter.Converter.ConvertTo((uint) fromBase, new LongDouble(In), 10);
-			//double firstslagD = double.Parse(slag);
-			var slag2 = Converter.Converter.ConvertTo((uint) fromBase2, new LongDouble(Out), 10);
-			//double secondslagD = double.Parse(slag);
-			switch (op)
-			{
-				case 0:
-					slag = (slag + slag2);
-					break;
-				case 1:
-					slag = (slag - slag2);
-					break;
-				case 2:
-					slag = (slag*slag2);
-					break;
-				case 3:
-				{
-					if (slag2.Integer == "0" && slag2.Fraction == "0")
-					{
-						var resourceLoader = new ResourceLoader();
-						return resourceLoader.GetString("DivideByZero");
-						//return "You can not divide by zero";
-					}
-					slag = (slag/slag2);
-					break;
-				}
-			}
-			return Converter.Converter.ConvertTo(10, slag, (uint) toBase).ToString();
-		}
-
-		private void Calculate()
-		{
-			if (InputText.Text != "" && InputText2.Text != "")
-				Result.Text = Operation(InputText.Text, InputText2.Text);
-		}
+		
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			try
 			{
-				if (From != null || To != null)
-					Calculate();
+				calculatorController.CalculateCommand.Execute();
 			}
 			catch (Exception ee)
 			{
@@ -230,11 +210,9 @@ namespace NumberConverter
 		{
 			try
 			{
-				if (From != null || From2 != null)
-				{
-					keyboard.SetVisibleButton(int.Parse((((ComboBoxItem) ((ComboBox) sender).SelectedItem)).Content.ToString()), true);
-					Calculate();
-				}
+				if (sender != Result)
+					buttons.VisibleButtonCount = ((InputField) ((ComboBox) sender).DataContext).InputBase;
+				calculatorController.CalculateCommand.Execute();
 			}
 			catch (Exception ee)
 			{
@@ -267,12 +245,6 @@ namespace NumberConverter
 			x.FontSize = (x.ActualHeight - 15)*0.5;
 		}
 
-
-
-
-
-
-
 		private void ComboBox_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			((ComboBox) sender).FontSize = e.NewSize.Height*0.7;
@@ -283,70 +255,40 @@ namespace NumberConverter
 		{
 			//MainGrid.Visibility = Visibility.Collapsed;
 			//this.Frame.Navigate(typeof(MainPage));
-			if (Frame.CanGoBack)
-			{
-				suspendPage = new SuspendPage();
-				suspendPage.indexFrom = FromBase;
-				suspendPage.indexFrom2 = FromBase2;
-				suspendPage.indexTo = ToBase;
-				suspendPage.InputText = InputText.Text;
-				suspendPage.InputText2 = InputText2.Text;
-				this.Frame.GoBack();
-			}
+			//if (Frame.CanGoBack)
+			//{
+			//	suspendPage = new SuspendPage();
+			//	suspendPage.indexFrom = FromBase;
+			//	suspendPage.indexFrom2 = FromBase2;
+			//	suspendPage.indexTo = ToBase;
+			//	suspendPage.InputText = InputText.Text;
+			//	suspendPage.InputText2 = InputText2.Text;
+			//	this.Frame.GoBack();
+			//}
 		}
 
 
-		private void Button_Plus_Checked(object sender, RoutedEventArgs e)
+		private void ButtonOperationChecked(object sender, RoutedEventArgs e)
 		{
-			op = 0;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = true;
-			else
+			var button = (ToggleButton)sender;
+			calculatorController.OpStr = button.Content.ToString();
+			button.IsChecked = true;
+
+			if (operationList == null)
 				return;
-			if (Button_Minus != null)
-				Button_Minus.IsChecked = false;
-			if (Button_multipl != null)
-				Button_multipl.IsChecked = false;
-			if (Button_divide != null)
-				Button_divide.IsChecked = false;
-			Calculate();
+
+			foreach (ToggleButton t in operationList)
+			{
+				if (calculatorController.OperationStr[t.Content.ToString()] == calculatorController.Operation)
+					continue;
+				if (t != null)
+					t.IsChecked = false;
+			}
+
+			calculatorController.CalculateCommand.Execute();
 		}
 
-		private void Button_Minus_Checked(object sender, RoutedEventArgs e)
-		{
-			op = 1;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = false;
-			if (Button_multipl != null)
-				Button_multipl.IsChecked = false;
-			if (Button_divide != null)
-				Button_divide.IsChecked = false;
-			Calculate();
-		}
-
-		private void Button_multipl_Checked(object sender, RoutedEventArgs e)
-		{
-			op = 2;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = false;
-			if (Button_Minus != null)
-				Button_Minus.IsChecked = false;
-			if (Button_divide != null)
-				Button_divide.IsChecked = false;
-			Calculate();
-		}
-
-		private void Button_divide_Checked(object sender, RoutedEventArgs e)
-		{
-			op = 3;
-			if (Button_Plus != null)
-				Button_Plus.IsChecked = false;
-			if (Button_Minus != null)
-				Button_Minus.IsChecked = false;
-			if (Button_multipl != null)
-				Button_multipl.IsChecked = false;
-			Calculate();
-		}
+		
 
 
 
@@ -355,27 +297,13 @@ namespace NumberConverter
 			//Buttons.Visibility = Windows.UI.Xaml.Visibility.Visible;
 			//int count = int.Parse(((ComboBoxItem)From2.SelectedItem).Content.ToString());
 			LastFocusTextBox = (TextBox) sender;
-			var selectedItem = ((ComboBoxItem) ((ComboBox) TextBoxToComboBox.First(a => a.Key == sender).Value).SelectedItem);
-			int _base = int.Parse(selectedItem.Content.ToString());
-			keyboard.SetVisibleButton(_base, false);
-			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, _base + 3);
+			buttons.VisibleButtonCount = ((InputField) LastFocusTextBox.DataContext).InputBase;
+			//var selectedItem = ((ComboBoxItem) ((ComboBox) TextBoxToComboBox.First(a => a.Key == sender).Value).SelectedItem);
+			//int _base = int.Parse(selectedItem.Content.ToString());
+			//keyboard.SetVisibleButton(_base, false);
+			//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, _base + 3);
 		}
-
-		private void InputText2_GotFocus(object sender, RoutedEventArgs e)
-		{
-			//Buttons.Visibility = Windows.UI.Xaml.Visibility.Visible;
-			//int count = int.Parse(((ComboBoxItem)From2.SelectedItem).Content.ToString());
-			var selectedItem = ((ComboBoxItem) ((ComboBox) TextBoxToComboBox.First(a => a.Key == sender).Value).SelectedItem);
-			int _base = int.Parse(selectedItem.Content.ToString());
-			keyboard.SetVisibleButton(_base, false);
-			keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, _base + 3);
-		}
-
-		private void Result_GotFocus(object sender, RoutedEventArgs e)
-		{
-			//Buttons.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-		}
-
+		
 		private void From_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			if(e.NewSize.Height > 0)
@@ -390,27 +318,10 @@ namespace NumberConverter
 
 		private void sizeKeyboard_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, fromBase + 3);
+			//keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, fromBase + 3);
 		}
 
-		private void To_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			try
-			{
-				if (From != null || To != null)
-				{
-					//	toBase = int.Parse(((ComboBoxItem)To.Items[toBase]).Content.ToString());
-					//	Result.Text = Converter.Converter.ConvertTo((uint)fromBase,
-					//		InputText.Text, (uint)toBase);
-					Calculate();
-				}
-			}
-			catch (Exception ee)
-			{
-				Result.Text = ee.Message;
-			}
-		}
-
+		
 		private void Flyout_Opened(object sender, object e)
 		{
 			openedFlyout = sender as Flyout;
@@ -773,19 +684,19 @@ namespace NumberConverter
 
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
-			if (Frame.CanGoBack)
-			{
-				suspendPage = new SuspendPage();
-				suspendPage.indexFrom = FromBase;
-				suspendPage.indexFrom2 = FromBase2;
-				suspendPage.indexTo = ToBase;
-				suspendPage.InputText = InputText.Text;
-				suspendPage.InputText2 = InputText2.Text;
-				this.Frame.GoBack();
-			}
+			//if (Frame.CanGoBack)
+			//{
+			//	suspendPage = new SuspendPage();
+			//	suspendPage.indexFrom = FromBase;
+			//	suspendPage.indexFrom2 = FromBase2;
+			//	suspendPage.indexTo = ToBase;
+			//	suspendPage.InputText = InputText.Text;
+			//	suspendPage.InputText2 = InputText2.Text;
+			//	this.Frame.GoBack();
+			//}
 		}
 
-		private void From_Holding(object sender, HoldingRoutedEventArgs e)
+		private void From_Holding(object sender, EventArgs e)
 		{
 			FlyoutBase.ShowAttachedFlyout((FrameworkElement) sender);
 			parentFlyout = (ComboBox) sender;
@@ -802,43 +713,11 @@ namespace NumberConverter
 
 		private void InputText2_KeyUp(object sender, KeyRoutedEventArgs e)
 		{
-			var d = (ComboBox) TextBoxToComboBox.First((a) => a.Key == sender).Value;
-			var i = int.Parse(((ComboBoxItem) d.SelectedItem).Content.ToString());
-			SharePages.InputText_KeyUp(sender, e, i);
+			var data = ((InputField) LastFocusTextBox.DataContext);
+			SharePages.InputText_KeyUp(sender, e, data.InputBase);
 
 		}
-
-		private void Button_Plus_Unchecked(object sender, RoutedEventArgs e)
-		{
-			if (!Button_Minus.IsChecked.Value &&
-			    !Button_multipl.IsChecked.Value &&
-			    !Button_divide.IsChecked.Value)
-				Button_Plus.IsChecked = true;
-		}
-
-		private void Button_Minus_Unchecked(object sender, RoutedEventArgs e)
-		{
-			if (!Button_Plus.IsChecked.Value &&
-			    !Button_multipl.IsChecked.Value &&
-			    !Button_divide.IsChecked.Value)
-				Button_Minus.IsChecked = true;
-		}
-
-		private void Button_multipl_Unchecked(object sender, RoutedEventArgs e)
-		{
-			if (!Button_Plus.IsChecked.Value &&
-			    !Button_Minus.IsChecked.Value &&
-			    !Button_divide.IsChecked.Value)
-				Button_multipl.IsChecked = true;
-		}
-
-		private void Button_divide_Unchecked(object sender, RoutedEventArgs e)
-		{
-			if (!Button_Plus.IsChecked.Value &&
-			    !Button_Minus.IsChecked.Value &&
-			    !Button_multipl.IsChecked.Value)
-				Button_divide.IsChecked = true;
-		}
+		
 
 		private void Button_SizeChanged_1(object sender, SizeChangedEventArgs e)
 		{
@@ -848,25 +727,42 @@ namespace NumberConverter
 
 		private void CalculatorPage_Loaded(object sender, RoutedEventArgs e)
 		{
-			if (suspendPage != null)
-			{
-				FromBase = suspendPage.indexFrom;
-				FromBase2 = suspendPage.indexFrom2;
-				ToBase = suspendPage.indexTo;
-				if (From.Items != null && From2.Items != null && To.Items != null)
-				{
-					From.SelectedItem = From.Items[FromBase];
-					From2.SelectedItem = From2.Items[FromBase2];
-					To.SelectedItem = To.Items[ToBase];
-				}
+			//if (suspendPage != null)
+			//{
+			//	FromBase = suspendPage.indexFrom;
+			//	FromBase2 = suspendPage.indexFrom2;
+			//	ToBase = suspendPage.indexTo;
+			//	if (From.Items != null && From2.Items != null && To.Items != null)
+			//	{
+			//		From.SelectedItem = From.Items[FromBase];
+			//		From2.SelectedItem = From2.Items[FromBase2];
+			//		To.SelectedItem = To.Items[ToBase];
+			//	}
 				
-				InputText.Text = suspendPage.InputText;
-				InputText2.Text = suspendPage.InputText2;
-				Calculate();
-				//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
-				suspendPage = null;
-			}
+			//	InputText.Text = suspendPage.InputText;
+			//	InputText2.Text = suspendPage.InputText2;
+			//	Calculate();
+			//	//keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 2);
+			//	suspendPage = null;
+			//}
 			InputText.Focus(FocusState.Programmatic);
+		}
+
+		private void Buttons_SizeChanged_1(object sender, SizeChangedEventArgs e)
+		{
+
+		}
+
+		//private void From_Holding(object sender, RightTappedRoutedEventArgs e)
+		//{
+
+		//}
+
+		private void ButtonOperationUnchecked(object sender, RoutedEventArgs e)
+		{
+			var button = (ToggleButton)sender;
+			if (calculatorController.Operation == calculatorController.OperationStr[button.Content.ToString()])
+				button.IsChecked = true;
 		}
 	}
 }

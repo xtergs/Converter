@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Converter;
 
-using NumberConverter.Annotations;
+using ClassLibrary1.Annotations;
 using Converter = Converter.Converter;
 
 namespace NumberConverter

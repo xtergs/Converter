@@ -11,10 +11,12 @@ namespace NumberConverter
 	{
 		private InputField input2;
 		private int operation;
-		Dictionary<string, int> operationStr = new Dictionary<string, int>()
+
+		public readonly Dictionary<string, int> OperationStr = new Dictionary<string, int>()
 		{
 			{"+", 0},
 			{"-", 1},
+			{"x", 2},
 			{"*", 2},
 			{"/", 3},
 			{"^", 4},
@@ -44,7 +46,7 @@ namespace NumberConverter
 
 		public string OpStr
 		{
-			set { Operation = operationStr[value]; }
+			set { Operation = OperationStr[value]; }
 		}
 
 		public int Operation

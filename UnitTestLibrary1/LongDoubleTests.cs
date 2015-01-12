@@ -10,39 +10,39 @@ using NumberConverter.Exceptions;
 
 namespace UnitTestLibrary1
 {
-    [TestClass]
-    public class LongDoubleTests
+	[TestClass]
+	public class LongDoubleTests
 	{
 
 		#region AND
 
 		[TestMethod]
-        public void IntegerPartAnd()
-        {
+		public void IntegerPartAnd()
+		{
 			//Arrange
-	        LongDouble value1 = new LongDouble("10");
-	        LongDouble value2 = new LongDouble("8");
-
-			//Act
-	        var result = value1 & value2;
-
-	        //Assert
-			Assert.IsTrue(result.ToString() == "8");
-        }
-
-	    [TestMethod]
-	    public void IntegerDoubleAnd()
-	    {
-		    //Arrange
-		    LongDouble value1 = new LongDouble("10.0000");
-		    LongDouble value2 = new LongDouble("8.0000");
+			LongDouble value1 = new LongDouble("10");
+			LongDouble value2 = new LongDouble("8");
 
 			//Act
 			var result = value1 & value2;
 
 			//Assert
-		    Assert.IsTrue(result.ToString() == "8");
-	    }
+			Assert.IsTrue(result.ToString() == "8");
+		}
+
+		[TestMethod]
+		public void IntegerDoubleAnd()
+		{
+			//Arrange
+			LongDouble value1 = new LongDouble("10.0000");
+			LongDouble value2 = new LongDouble("8.0000");
+
+			//Act
+			var result = value1 & value2;
+
+			//Assert
+			Assert.IsTrue(result.ToString() == "8");
+		}
 
 		[TestMethod]
 		public void DoubleNullAnd()
@@ -239,29 +239,29 @@ namespace UnitTestLibrary1
 			Assert.IsTrue(result.ToString() == "5");
 		}
 
-	    [TestMethod]
-	    public void IntegerDoublePartNo()
-	    {
-		    //Arrange
-		    LongDouble value1 = new LongDouble("-4.324");
+		[TestMethod]
+		public void IntegerDoublePartNo()
+		{
+			//Arrange
+			LongDouble value1 = new LongDouble("-4.324");
 
-		    try
-		    {
-			    //Act
-			    var result = ~value1;
+			try
+			{
+				//Act
+				var result = ~value1;
 
-		    }
-		    catch (ArgumentDoubleException)
-		    {
-			    //Assert
-			    Assert.IsTrue(true);
-			    return;
-		    }
-		    //Assert
-		    Assert.Fail();
-	    }
+			}
+			catch (ArgumentDoubleException)
+			{
+				//Assert
+				Assert.IsTrue(true);
+				return;
+			}
+			//Assert
+			Assert.Fail();
+		}
 
-	    #endregion
+		#endregion
 
 		#region Pow
 		[TestMethod]

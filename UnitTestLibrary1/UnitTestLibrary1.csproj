@@ -139,6 +139,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
+      <Project>{f1304273-0988-4fba-874d-8c61b094c848}</Project>
+      <Name>ClassLibrary1</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NumberConverter\NumberConverter.csproj">
       <Project>{E7DEDB17-7926-40AB-A3C9-CBF0CE000354}</Project>
       <Name>NumberConverter</Name>

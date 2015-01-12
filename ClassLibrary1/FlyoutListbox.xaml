@@ -11,7 +11,7 @@
 
 
     <UserControl.Resources>
-        <ResourceDictionary Source="Resource/Template/Template.xaml"></ResourceDictionary>
+       
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

@@ -1,106 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Resources;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.System;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using NumberConverter;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace NumberConverter
 {
 	/// <summary>
-	/// An empty page that can be used on its own or navigated to within a Frame.
+	///     An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
 	public sealed partial class MainPage : Page
 	{
-		Keyboard keyboard;
-		ComboBox parentFlyout;
+		//Keyboard keyboard;
+
+		private static SuspendPage suspendPage;
+		private readonly ConverterController converterController;
+		private Flyout openedFlyout;
+		private ComboBox parentFlyout;
 
 		private double scaleFontTextBox = 0.35;
 
-		int fromBase;
-		int toBase;
-		int fromBaseIndex,  toBaseIndex;
-		static SuspendPage suspendPage;
-		//string BAse;
-		public int FromBase
-		{
-			get { return fromBaseIndex; }
-			set
-			{
-				fromBaseIndex = value;
-				fromBase = int.Parse(((ComboBoxItem)From.Items[value]).Content.ToString());
-			}
-		}
-
-		public int ToBase
-		{
-			get { return toBaseIndex; }
-			set
-			{
-				toBaseIndex = value;
-				toBase = int.Parse(((ComboBoxItem)To.Items[value]).Content.ToString());
-			}
-		}
 		public MainPage()
 		{
-			this.InitializeComponent();
-			DataContext = this;
-			CreateKeyboard(Buttons);
-			ToBase = 0;
-			FromBase = 0;
-			//fromBase = int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString());
-			//toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
-			
-			keyboard.SetVisibleButton(fromBase);
-			
+			InitializeComponent();
+			converterController = new ConverterController();
+			DataContext = converterController;
 		}
 
-		public void CreateKeyboard(Panel panel)
+		//int fromBase;
+		//int toBase;
+		//string BAse;
+		public int FromBase { get; set; }
+
+		public int ToBase { get; set; }
+
+		private void Button_Click_Dot(object sender, ButtonClickArgs e)
 		{
-			keyboard = new Keyboard(panel, (Application.Current.Resources["ButtonStyle1"]) as Style);
-			for (int i = 0; i < panel.Children.Count - 3; i++)
-			{
-				((Button)(panel.Children[i])).Click += Button_Click_1;
-			}
-			((Button)(panel.Children[panel.Children.Count - 3])).Click += Button_Click_Dot; // "."
-			((Button)(panel.Children[panel.Children.Count - 3])).SizeChanged += Buttons_SizeChanged;
-			((Button)(panel.Children[panel.Children.Count - 2])).Click += Backspace_Click; //backspace
-			((Button)(panel.Children[panel.Children.Count - 1])).Click += Button_Click_Clean; //Clean
+			InputText.Focus(FocusState.Pointer);
+			if (converterController.DotCommand.CanExecute(null)) //точки нету
+				converterController.DotCommand.Execute();
 		}
 
-		private void Button_Click_Dot(object sender, RoutedEventArgs e)
+		private void Button_Click_Clean(object sender, ButtonClickArgs e)
 		{
-			InputText.Focus(Windows.UI.Xaml.FocusState.Pointer);
-			if (InputText.Text.IndexOf(((Button)sender).Content.ToString()) < 0) //точки нету
-				Button_Click_1(sender, e);
-		}
-
-		private void Button_Click_Clean(object sender, RoutedEventArgs e)
-		{
-			InputText.Text = "";
+			InputText.Focus(FocusState.Pointer);
+			if (converterController.ClearCommand.CanExecute(null))
+				converterController.ClearCommand.Execute();
 		}
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			try
 			{
-				if (InputText.Text != "")
-					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,
-					InputText.Text, (uint)toBase);
+				if (converterController.ConvertCommand.CanExecute(null))
+					converterController.ConvertCommand.Execute();
 			}
 			catch (Exception ee)
 			{
@@ -113,12 +69,13 @@ namespace NumberConverter
 			InputText.Text = "";
 		}
 
-		private void Button_Click_1(object sender, RoutedEventArgs e)
+		private void Button_Click_1(object sender, ButtonClickArgs e)
 		{
-			SharePages.AddTextTextBox(((Button)sender).Content.ToString(), InputText);
-			InputText.Select(InputText.Text.Length, 0);
+			SharePages.AddTextTextBox(e.Button.Content.ToString(), InputText);
+			//InputText.Select(InputText.Text.Length, 0);
+			converterController.ConvertCommand.Execute();
 		}
-		
+
 		private void InputText_PointerPressed(object sender, PointerRoutedEventArgs e)
 		{
 			//if (e.Pointer.PointerDeviceType == Windows.Devices.Input.PointerDeviceType.Touch)
@@ -129,38 +86,24 @@ namespace NumberConverter
 
 		private void From_Holding(object sender, HoldingRoutedEventArgs e)
 		{
-			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-			parentFlyout = (ComboBox)sender;
+			FlyoutBase.ShowAttachedFlyout((FrameworkElement) sender);
+			parentFlyout = (ComboBox) sender;
 		}
 
-		private void From_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			try
-			{
-				if (sender != null && Result != null)
-				{
-					fromBase = int.Parse((((ComboBoxItem)((ComboBox)sender).SelectedItem)).Content.ToString());
-					keyboard.SetVisibleButton(fromBase);
-					keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
-					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,	InputText.Text, (uint)toBase);
-				}
-			}
-			catch (Exception ee)
-			{
-				Result.Text = ee.Message;
-			}
-		}
 
 		private void To_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			try
 			{
-				if (From != null || To != null)
-				{
-					toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
-					Result.Text = Converter.Converter.ConvertTo((uint)fromBase,
-						InputText.Text, (uint) toBase);
-				}
+				buttons.VisibleButtonCount = converterController.Input.InputBase;
+				if (converterController.ConvertCommand.CanExecute(null))
+					converterController.ConvertCommand.Execute();
+				//if (From != null || To != null)
+				//{
+				//	toBase = int.Parse(((ComboBoxItem)To.SelectedItem).Content.ToString());
+				//	Result.Text = Converter.Converter.ConvertTo((byte)fromBase,
+				//		InputText.Text, (byte)toBase);
+				//}
 			}
 			catch (Exception ee)
 			{
@@ -170,10 +113,9 @@ namespace NumberConverter
 
 		private void Result_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-
-			SharePages.ResizeFontTextBox((TextBox)sender, scaleFontTextBox);
+			SharePages.ResizeFontTextBox((TextBox) sender, scaleFontTextBox);
 		}
-				
+
 		private void Buttons_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			//var x = ((Button)sender);
@@ -184,20 +126,14 @@ namespace NumberConverter
 			//x.FontSize = x.Height - 50;
 		}
 
-		private void Buttons_SizeChanged_1(object sender, SizeChangedEventArgs e)
-		{
-
-		}
-
-		
 
 		private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			var statView = ApplicationView.GetForCurrentView();
+			ApplicationView statView = ApplicationView.GetForCurrentView();
 
 			MenuGrid.ColumnDefinitions[0].Width = new GridLength(MainGrid.ColumnDefinitions[0].ActualWidth);
 			if (statView.IsFullScreen)
-				if (statView.Orientation == ApplicationViewOrientation.Landscape)  //FullScreen and Landscape
+				if (statView.Orientation == ApplicationViewOrientation.Landscape) //FullScreen and Landscape
 				{
 					var marginComboBox = new Thickness(20, 40, 20, 60);
 
@@ -225,7 +161,7 @@ namespace NumberConverter
 					sizeKeyboard.Margin = new Thickness(10, 10, 10, 60);
 					MainGrid.ColumnDefinitions[0].Width = new GridLength(0.5, GridUnitType.Star);
 					scaleFontTextBox = 0.25;
-					
+
 					//		//MainGrid.Margin = new Thickness(10, 10, 10, 10);
 					//		Grid.SetColumnSpan(From, 1);
 					//		Grid.SetRow(InputText, 1);
@@ -244,9 +180,8 @@ namespace NumberConverter
 					//		Grid.SetRow((FrameworkElement)Buttons, 3);
 					//		Grid.SetRowSpan((FrameworkElement)Buttons, 4);
 				}
-				else     //FullScreen and Portrate
+				else //FullScreen and Portrate
 				{
-
 					var marginComboBox = new Thickness(5, 40, 5, 120);
 
 					Grid.SetRowSpan(InputText, 1);
@@ -275,9 +210,9 @@ namespace NumberConverter
 					//VisualStateManager.GoToState(this, "SnappedLandscape", true);
 					scaleFontTextBox = 0.35;
 				}
-			else  // not full screen
+			else // not full screen
 			{
-				if (this.ActualWidth <= 510 )
+				if (ActualWidth <= 510)
 				{
 					var marginComboBox = new Thickness(5, 40, 5, 60);
 
@@ -357,12 +292,11 @@ namespace NumberConverter
 				//	Grid.SetRowSpan((FrameworkElement)Buttons, 1);
 			}
 			////VisualStateManager.GoToState(this, "FullScreenLandscape", true);
-			
 		}
 
 		private void From_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			SharePages.ScaleText((ComboBox)sender, e.NewSize.Height);
+			SharePages.ScaleText((ComboBox) sender, e.NewSize.Height);
 			//double scale = e.PreviousSize.Height / e.NewSize.Height;
 			//((ComboBox)sender).FontSize = (e.NewSize.Height) * 0.7;
 			//combo.Height = e.NewSize.Height;
@@ -370,61 +304,62 @@ namespace NumberConverter
 			//combo.FontSize = e.NewSize.Height * 0.7;
 		}
 
-		void SaveState()
+		private void SaveState()
 		{
 			suspendPage = new SuspendPage();
-			suspendPage.indexFrom = FromBase;
+			//suspendPage.indexFrom = FromBase;
 			//suspendPage.indexFrom2 = FromBase2;
-			suspendPage.indexTo = ToBase;
+			//suspendPage.indexTo = ToBase;
 			suspendPage.InputText = InputText.Text;
 		}
 
 		private void Button_Click_3(object sender, RoutedEventArgs e)
 		{
 			SaveState();
-			this.Frame.Navigate(typeof(BlankPage1));
-			
+			Frame.Navigate(typeof (BlankPage1));
 		}
 
 		private void Button_GotFocus(object sender, RoutedEventArgs e)
 		{
-			
 		}
 
 		private void sizeKeyboard_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 3);
+			//keyboard.ResizeButton(e.NewSize.Height, e.NewSize.Width, int.Parse(((ComboBoxItem)From.SelectedItem).Content.ToString()) + 3);
 		}
-		
+
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
 			SaveState();
-			this.Frame.Navigate(typeof(BlankPage1));
+			Frame.Navigate(typeof (BlankPage1));
 		}
 
 		private void From_RightTapped(object sender, RightTappedRoutedEventArgs e)
 		{
-			FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-			parentFlyout = (ComboBox)sender;
+			FlyoutBase.ShowAttachedFlyout((FrameworkElement) sender);
+			parentFlyout = (ComboBox) sender;
 		}
 
 		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var listbox = ((ListBox)sender);
-			var str = ((ListBoxItem)listbox.SelectedItem).Content;
-			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
-			var comboItem = new ComboBoxItem();
-			comboItem.Content = str;
-			SharePages.AddComboBoxItem(comboItem, parentFlyout, true);
-			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
-			//fly.Hide();
+			var listbox = ((ListBox) sender);
+			var listBoxItem = (ListBoxItem) listbox.SelectedItem;
+			if (listBoxItem != null)
+			{
+				object str = listBoxItem.Content;
+
+				byte newBase = byte.Parse((string) str);
+
+				((InputField) parentFlyout.DataContext).AddNewBase.Execute(newBase);
+			}
+
+
 			openedFlyout.Hide();
 			listbox.SelectionChanged -= ListBox_SelectionChanged;
 			listbox.SelectedIndex = -1;
 			listbox.SelectionChanged += ListBox_SelectionChanged;
 		}
 
-		Flyout openedFlyout;
 		private void Flyout_Opened(object sender, object e)
 		{
 			openedFlyout = sender as Flyout;
@@ -440,43 +375,33 @@ namespace NumberConverter
 
 		private void InputText_GotFocus(object sender, RoutedEventArgs e)
 		{
-			
+			buttons.VisibleButtonCount = converterController.Input.InputBase;
 		}
 
 		private void InputText_SelectionChanged(object sender, RoutedEventArgs e)
 		{
-			
 		}
 
 		private void InputText_PointerReleased(object sender, PointerRoutedEventArgs e)
 		{
-
 		}
 
-		private void Backspace_Click(object sender, RoutedEventArgs e)
+		private void Backspace_Click(object sender, ButtonClickArgs e)
 		{
 			SharePages.Backspace(InputText);
 			InputText.Select(InputText.Text.Length, 0);
 		}
 
-		
+
 		private void InputText_KeyUp(object sender, KeyRoutedEventArgs e)
 		{
 			//if ("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(e.Key.ToString())) ;
-			
+
 			//if (e.Key)
-			SharePages.InputText_KeyUp(sender, e, fromBase);
+			SharePages.InputText_KeyUp(sender, e, converterController.Input.InputBase);
 		}
 
-		private void Button_Click_2(object sender, RoutedEventArgs e)
-		{
-			ResourceDictionary newDictionary = new ResourceDictionary();
-			System.UriBuilder a = new UriBuilder();
-			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkOrange.xaml", UriKind.Absolute);
-		///	newDictionary.Source = new Uri(@"Resource/DarkOrange.xaml", UriKind.RelativeOrAbsolute);
-			Application.Current.Resources = newDictionary;
-			this.UpdateLayout();
-		}
+		
 
 		private void HyperlinkButton_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
@@ -485,11 +410,11 @@ namespace NumberConverter
 
 		private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
 		{
-			ResourceDictionary newDictionary = new ResourceDictionary();
+			var newDictionary = new ResourceDictionary();
 			newDictionary.Source = new Uri("ms-resource:/Files/Resource/DarkOrange.xaml", UriKind.Absolute);
 			Application.Current.Resources = newDictionary;
 			SaveState();
-			Frame.Navigate(typeof(MainPage));
+			Frame.Navigate(typeof (MainPage));
 			Frame.BackStack.RemoveAt(0);
 			//VisualStateManager.GoToState(this, "SnappedLandscape", false);
 			//ApplicationViewStates.SetValue(); = SnappedLandscape;
@@ -497,7 +422,6 @@ namespace NumberConverter
 
 		private void Button_Click_4(object sender, RoutedEventArgs e)
 		{
-			
 			//App.Current.Resources
 		}
 
@@ -505,20 +429,20 @@ namespace NumberConverter
 		{
 			if (suspendPage != null)
 			{
-				FromBase = suspendPage.indexFrom;
-				
-				ToBase = suspendPage.indexTo;
-				InputText.Text = suspendPage.InputText;
-				keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
-				if (From.Items != null  && To.Items != null)
-				{
-					From.SelectedItem = From.Items[FromBase];
-				
-					To.SelectedItem = To.Items[ToBase];
-				}
-				InputText.Focus(FocusState.Programmatic);
+				//FromBase = suspendPage.indexFrom;
+
+				//ToBase = suspendPage.indexTo;
+				//InputText.Text = suspendPage.InputText;
+				////keyboard.ResizeButton(sizeKeyboard.ActualHeight, sizeKeyboard.ActualWidth, fromBase + 3);
+				//if (From.Items != null  && To.Items != null)
+				//{
+				//	From.SelectedItem = From.Items[FromBase];
+
+				//	To.SelectedItem = To.Items[ToBase];
+				//}
 				suspendPage = null;
 			}
+			InputText.Focus(FocusState.Programmatic);
 		}
 
 		private void Page_GotFocus(object sender, RoutedEventArgs e)
@@ -529,8 +453,6 @@ namespace NumberConverter
 
 		private void InputText_LostFocus(object sender, RoutedEventArgs e)
 		{
-			
 		}
-		
 	}
 }

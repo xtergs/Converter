@@ -172,18 +172,18 @@ namespace NumberConverter
 		private void ButtonOperationChecked(object sender, RoutedEventArgs e)
 		{
 			var button = (ToggleButton) sender;
-			op = StrToOp(button.Content.ToString());
+			CalculatorController.OpStr = button.Content.ToString();
 			button.IsChecked = true;
 
 			if (operationList == null)
 				return;
 
-			for (int i = 0; i < operationList.Count; i++)
+			foreach (ToggleButton t in operationList)
 			{
-				if (StrToOp(operationList[i].Content.ToString()) == op)
+				if (calculatorController.OperationStr[t.Content.ToString()] == calculatorController.Operation)
 					continue;
-				if (operationList[i] != null)
-					operationList[i].IsChecked = false;
+				if (t != null)
+					t.IsChecked = false;
 			}
 			 
 			CalculatorController.CalculateCommand.Execute();
@@ -494,53 +494,10 @@ namespace NumberConverter
 		private void ButtonOperationUnchecked(object sender, RoutedEventArgs e)
 		{
 			var button = (ToggleButton) sender;
-			if (op == StrToOp(button.Content.ToString()))
+			if (calculatorController.Operation == calculatorController.OperationStr[button.Content.ToString()])
 				button.IsChecked = true;
 		}
-
-		int StrToOp(string str)
-		{
-			int operation = 0;
-			switch (str.ToLower())
-			{
-				case "+":
-					operation = 0;
-					break;
-				case "-":
-					operation = 1;
-					break;
-				case "*":
-				case "x":
-					operation = 2;
-					break;
-				case "/":
-					operation = 3;
-					break;
-				case "^":
-					operation = 4;
-					break;
-				case "~":
-					operation = 5;
-					break;
-				case "<<":
-					operation = 6;
-					break;
-				case ">>":
-					operation = 7;
-					break;
-				case "|":
-					operation = 8;
-					break;
-				case "&":
-					operation = 9;
-					break;
-				case "xor":
-					operation = 10;
-					break;
-			}
-			return operation;
-		}
-
+		
 		private void CalculatorPage_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (suspendPage != null)
