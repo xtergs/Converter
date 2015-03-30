@@ -40,15 +40,15 @@ namespace NumberConverter
 		private void Button_Click_Dot(object sender, ButtonClickArgs e)
 		{
 			InputText.Focus(FocusState.Pointer);
-			if (converterController.DotCommand.CanExecute(null)) //точки нету
-				converterController.DotCommand.Execute();
+			if (converterController.DotCommand.CanExecute(InputText.Text)) //точки нету
+				converterController.DotCommand.Execute(InputText.Text);
 		}
 
 		private void Button_Click_Clean(object sender, ButtonClickArgs e)
 		{
 			InputText.Focus(FocusState.Pointer);
-			if (converterController.ClearCommand.CanExecute(null))
-				converterController.ClearCommand.Execute();
+			if (converterController.ClearCommand.CanExecute(InputText.Text))
+				converterController.ClearCommand.Execute(InputText.Text);
 		}
 
 		private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -73,7 +73,7 @@ namespace NumberConverter
 		{
 			SharePages.AddTextTextBox(e.Button.Content.ToString(), InputText);
 			//InputText.Select(InputText.Text.Length, 0);
-			converterController.ConvertCommand.Execute();
+			converterController.ConvertCommand.Execute(InputText.Text);
 		}
 
 		private void InputText_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -388,7 +388,8 @@ namespace NumberConverter
 
 		private void Backspace_Click(object sender, ButtonClickArgs e)
 		{
-			SharePages.Backspace(InputText);
+			if (converterController.BackSpaceCommand.CanExecute(InputText.Text))
+				converterController.BackSpaceCommand.Execute(InputText.Text);
 			InputText.Select(InputText.Text.Length, 0);
 		}
 

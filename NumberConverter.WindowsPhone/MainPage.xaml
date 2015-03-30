@@ -97,7 +97,7 @@
                             <ComboBox Grid.Column="0"  Margin="5,50" IsTabStop="False" Header="" MinWidth="109" Style="{StaticResource ComboBoxStyle1}"/>
                         </Grid>
                     </ListView>
-                    <local:Keyboard x:Name="sizeKeyboard" VisibleButtonCount="{Binding Input.InputBase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" Grid.ColumnSpan="5" StyleButton="{StaticResource ButtonStyle1}" OnButtonClick="Button_Click_1" OnBackspaceClick="Backspace_Click" OnCleanClick="Button_Click_Clean" OnDotClick="Button_Click_Dot" Grid.Column="3" Grid.RowSpan="4" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" />
+                    <local:Keyboard x:Name="sizeKeyboard" VisibleButtonCount="{Binding Input.InputBase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="1" Grid.ColumnSpan="5" StyleButton="{StaticResource ButtonStyle1}" OnButtonClick="Button_Click_1" OnBackspaceClick="Backspace_Click" OnCleanClick="Button_Click_Clean" OnDotClick="Button_Click_Dot" Grid.Column="3" Grid.RowSpan="4" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Background="#FFFF0707" />
                     <Grid x:Name="InputGrid" Grid.ColumnSpan="5" Grid.RowSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.3*"/>

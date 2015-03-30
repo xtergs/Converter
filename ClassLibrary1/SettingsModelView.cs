@@ -81,7 +81,25 @@ namespace NumberConverter
 				OnPropertyChanged();
 			}
 		}
-
+		public bool HideKeyboard
+		{
+			get
+			{
+				if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("HideKeyboard"))
+					HideKeyboard = false;
+				return (bool)ApplicationData.Current.LocalSettings.Values["HideKeyboard"];
+			}
+			set
+			{
+				if (!ApplicationData.Current.LocalSettings.Values.ContainsKey("HideKeyboard"))
+					ApplicationData.Current.LocalSettings.Values.Add("HideKeyboard", value);
+				else
+				{
+					ApplicationData.Current.LocalSettings.Values["HideKeyboard"] = value;
+				}
+				OnPropertyChanged();
+			}
+		}
 		public int MaxSizeButton
 		{
 			get

@@ -348,14 +348,18 @@ namespace NumberConverter
 
 		private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			var listbox = ((ListBox) sender);
-			var str = ((ListBoxItem) listbox.SelectedItem).Content;
-			//var fly = ((Flyout)((FlyoutPresenter)((Grid)((ListBox)sender).Parent).Parent).Parent);
-			var comboItem = new ComboBoxItem();
-			comboItem.Content = str;
-			SharePages.AddComboBoxItem(comboItem, parentFlyout, true);
-			//parentFlyout.SelectedIndex = parentFlyout.Items.Count - 1;
-			//fly.Hide();
+			var listbox = ((ListBox)sender);
+			var listBoxItem = (ListBoxItem)listbox.SelectedItem;
+			if (listBoxItem != null)
+			{
+				object str = listBoxItem.Content;
+
+				byte newBase = byte.Parse((string)str);
+
+				((InputField)parentFlyout.DataContext).AddNewBase.Execute(newBase);
+			}
+
+
 			openedFlyout.Hide();
 			listbox.SelectionChanged -= ListBox_SelectionChanged;
 			listbox.SelectedIndex = -1;
@@ -676,14 +680,16 @@ namespace NumberConverter
 #if WINDOWS_PHONE_APP
 			correction = 15;
 #endif
-			Button_divide.Height = e.NewSize.Height + correction;
-			Button_Minus.Height = e.NewSize.Height + correction;
-			Button_Plus.Height = e.NewSize.Height + correction;
-			Button_multipl.Height = e.NewSize.Height + correction;
+			//Button_divide.Height = e.NewSize.Height + correction;
+			//Button_Minus.Height = e.NewSize.Height + correction;
+			//Button_Plus.Height = e.NewSize.Height + correction;
+			//Button_multipl.Height = e.NewSize.Height + correction;
 		}
 
 		private void Button_Click_5(object sender, RoutedEventArgs e)
 		{
+			//SaveState();
+			Frame.Navigate(typeof(MainPage));
 			//if (Frame.CanGoBack)
 			//{
 			//	suspendPage = new SuspendPage();

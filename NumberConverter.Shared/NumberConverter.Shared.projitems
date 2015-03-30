@@ -9,6 +9,8 @@
     <Import_RootNamespace>NumberConverter</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainModelView.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SharePages.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SuspendPage.cs" />
