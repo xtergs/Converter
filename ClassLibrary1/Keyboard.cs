@@ -153,7 +153,18 @@ namespace NumberConverter
 			temp.Click += CleanOnClick;
 			panel.Children.Add(temp);
 			buttonsList.Add(temp);
-			visibleCount = panel.Children.Count - 3;
+			
+			temp = newButton("+-", style);
+			temp.Style = style;
+			temp.Click += MinusOnClick;
+			panel.Children.Add(temp);
+			buttonsList.Add(temp);
+			visibleCount = panel.Children.Count - 4;
+		}
+
+		private void MinusOnClick(object sender, RoutedEventArgs e)
+		{
+			OnOnMinusClick(new ButtonClickArgs(){Button = (Button)sender});
 		}
 
 		private void BackspaceOnClick(object sender, RoutedEventArgs e)
@@ -322,17 +333,33 @@ namespace NumberConverter
 			if (handler != null) handler(this, args);
 		}
 
+		private void OnOnMinusClick(ButtonClickArgs args)
+		{
+			MinusClick handler = OnMinusClick;
+			if (handler != null) handler(this, args);
+		}
+
 		public delegate void ButtonClick(object sender, ButtonClickArgs args);
 		public delegate void BackspaceClick(object sender, ButtonClickArgs args);
 		public delegate void CleanClick(object sender, ButtonClickArgs args);
 		public delegate void DotClick(object sender, ButtonClickArgs args);
+		public delegate void MinusClick(object sender, ButtonClickArgs args);
+
 
 		public event ButtonClick OnButtonClick;
 		public event BackspaceClick OnBackspaceClick;
 		public event CleanClick OnCleanClick;
 		public event DotClick OnDotClick;
+		public event MinusClick OnMinusClick;
+
+		
+
+
+
 		#endregion
 	}
+
+	
 
 	public class ButtonClickArgs : EventArgs
 	{

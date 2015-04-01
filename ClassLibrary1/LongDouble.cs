@@ -605,6 +605,11 @@ namespace NumberConverter
 			return result;
 		}
 
+		public string GetAdditionCode(bool modifi = false)
+		{
+			return null;
+		}
+
 		public override string ToString()
 		{
 			var builder = new StringBuilder();
