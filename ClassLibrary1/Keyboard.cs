@@ -154,12 +154,12 @@ namespace NumberConverter
 			panel.Children.Add(temp);
 			buttonsList.Add(temp);
 			
-			temp = newButton("+-", style);
-			temp.Style = style;
-			temp.Click += MinusOnClick;
-			panel.Children.Add(temp);
-			buttonsList.Add(temp);
-			visibleCount = panel.Children.Count - 4;
+			//temp = newButton("+-", style);
+			//temp.Style = style;
+			//temp.Click += MinusOnClick;
+			//panel.Children.Add(temp);
+			//buttonsList.Add(temp);
+			visibleCount = panel.Children.Count - 3;
 		}
 
 		private void MinusOnClick(object sender, RoutedEventArgs e)

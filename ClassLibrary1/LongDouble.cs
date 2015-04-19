@@ -14,6 +14,9 @@ namespace NumberConverter
 		private string integer = "0";
 		private bool isLong;
 
+		private BigInteger interger = 0;
+		private int power = 0;
+
 		public LongDouble()
 		{
 		}
