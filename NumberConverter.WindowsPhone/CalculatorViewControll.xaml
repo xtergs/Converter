@@ -1,0 +1,148 @@
+﻿<UserControl
+    x:Class="NumberConverter.CalculatorViewControll"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:NumberConverter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+   
+      d:DataContext="{d:DesignInstance local:CalculatorController}"
+    d:DesignHeight="300"
+    d:DesignWidth="400" SizeChanged="CalculatorPage_SizeChanged" Loaded="CalculatorPage_Loaded" Unloaded="UserControl_Unloaded">
+    <UserControl.Resources>
+        <ResourceDictionary Source="Resource/Template/Template.xaml">
+
+
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid   IsTapEnabled="False" Style="{ThemeResource GridStyle1}">
+        <Grid x:Name="MainGrid"  IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+
+            <Grid Grid.Row="1" Grid.Column="1"  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Uid="InputText" x:Name="InputText" Text="{Binding Input.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" PlaceholderText="Enter the term!!" Style="{ThemeResource TextBoxStyle1}"/>
+                <Button x:Name="Clearr" Grid.Column="1" Content="X" Margin="-3,22,0,22" Click="Button_Click" Padding="15,4,12,4" Width="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Visibility="Collapsed" />
+            </Grid>
+            <TextBox x:Uid="InputText" x:Name="InputText2" Text="{Binding Input2.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Margin="20,10,20,40" FontSize="100" CharacterSpacing="3" SizeChanged="TextBox_SizeChanged" TextChanged="TextBox_TextChanged" GotFocus="InputText2_GotFocus" IsReadOnly="True" PlaceholderText="Enter the term!!" Style="{StaticResource TextBoxStyle1}"/>
+            <Grid Grid.Row="1" x:Name="InputTextGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="From" ItemsSource="{Binding Input.Bases}" SelectedIndex="{Binding  Input.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" Margin="20,20,20,60" RightTapped="From_Holding" Style="{ThemeResource ComboBoxStyle1}" >
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="8"/>
+                    <ComboBoxItem Content="10"/>
+                    <!--<ComboBoxItem Content="11"/>
+                <ComboBoxItem Content="12"/>
+                <ComboBoxItem Content="13"/>
+                <ComboBoxItem Content="14"/>
+                <ComboBoxItem Content="15"/>-->
+                    <ComboBoxItem Content="16"/>
+                    <!--<ComboBoxItem Content="17"/>-->
+                    <ComboBoxItem Content="25"/>
+                    <ComboBoxItem Content="36"/>
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="Bottom" Opened="Flyout_Opened"  FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}" >
+                            <local:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"></local:FlyoutListbox>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="3" x:Name="InputText2Grid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="From2" ItemsSource="{Binding Input2.Bases}" SelectedIndex="{Binding Input2.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Holding="From_Holding" SelectionChanged="From2_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" MinWidth="109" Margin="20,20,20,50" RightTapped="From_Holding" Style="{ThemeResource ComboBoxStyle1}">
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="8"/>
+                    <ComboBoxItem Content="10"/>
+                    <!--<ComboBoxItem Content="11"/>
+                <ComboBoxItem Content="12"/>
+                <ComboBoxItem Content="13"/>
+                <ComboBoxItem Content="14"/>
+                <ComboBoxItem Content="15"/>-->
+                    <ComboBoxItem Content="16"/>
+                    <!--<ComboBoxItem Content="17"/>-->
+                    <ComboBoxItem Content="25"/>
+                    <ComboBoxItem Content="36"/>
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
+                            <local:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"></local:FlyoutListbox>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </ComboBox>
+            </Grid>
+            
+            <local:Keyboard x:Name="sizeKeyboard" StyleButton="{StaticResource ButtonStyle1}" Grid.Column="3" Grid.RowSpan="10" OnButtonClick="KeyboardOnOnButtonClick" OnBackspaceClick="Backspace_Click" OnCleanClick="Button_Click_Clean" OnDotClick="Button_Click_Dot" Grid.ColumnSpan="4"></local:Keyboard>
+            <TextBox x:Uid="Result" Text="{Binding Outputs.Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="Result" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" Grid.Row="4" IsReadOnly="True" GotFocus="Result_GotFocus" PlaceholderText="Result!!" Style="{StaticResource TextBoxStyle1}"/>
+            <Grid x:Name="Buttons_operation" Grid.Column="1" Grid.Row="2" Margin="20,10" SizeChanged="Buttons_operation_SizeChanged">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <ToggleButton x:Name="Button_Plus" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press"  IsTabStop="False" Checked="ButtonOperationChecked" SizeChanged="Button_SizeChanged" IsChecked="True" Padding="0,-4,0,0" Unchecked="ButtonOperationUnchecked" Style="{StaticResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" UseLayoutRounding="True"/>
+                <ToggleButton x:Name="Button_Minus" Content="-" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="ButtonOperationChecked" Padding="0,-4,0,0" Unchecked="ButtonOperationUnchecked" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Margin="0"/>
+                <ToggleButton x:Name="Button_multipl" Content="x" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="ButtonOperationChecked" Padding="0" ClickMode="Press" Unchecked="ButtonOperationUnchecked" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0"/>
+                <ToggleButton x:Name="Button_divide" Content="/" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="ButtonOperationChecked" Padding="0,-4,0,0" Unchecked="ButtonOperationUnchecked" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0"/>
+                <ToggleButton x:Name="Button_Pow" Content="^" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_Xor" Content="xor" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged" Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_LShift" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_RShift" Content="&gt;&gt;" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_Or" Content="|" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_AND" Content="&amp;" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+            </Grid>
+            <Grid Grid.Row="4" x:Name="ResultGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="To" ItemsSource="{Binding Outputs.Bases}" SelectedIndex="{Binding Outputs.InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="To_SelectionChanged" Margin="20,20,20,60" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" RightTapped="From_Holding" Holding="From_Holding" Style="{ThemeResource ComboBoxStyle1}">
+                    <ComboBoxItem Content="2"/>
+                    <ComboBoxItem Content="8"/>
+                    <ComboBoxItem Content="10"/>
+                    <ComboBoxItem Content="16"/>
+                    <ComboBoxItem Content="25"/>
+                    <ComboBoxItem Content="36"/>
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
+                            <local:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"></local:FlyoutListbox>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </ComboBox>
+            </Grid>
+            <Border  Margin="20,0" Grid.RowSpan="2" VerticalAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BorderStyle1}" BorderThickness="0,2"/>
+        </Grid>
+    </Grid>
+</UserControl>

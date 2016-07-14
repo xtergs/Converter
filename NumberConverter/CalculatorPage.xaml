@@ -4,320 +4,131 @@
     xmlns:local="using:NumberConverter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:Controls="using:NumberConverter.WinRTXamlToolkit.Controls"
+    xmlns:Controls="using:NumberConverter"
+    xmlns:controls="using:NumberConverter.WinRTXamlToolkit.Controls"
+      d:DataContext="{d:DesignInstance local:CalculatorController}"
     x:Class="NumberConverter.BlankPage1"
     mc:Ignorable="d" SizeChanged="CalculatorPage_SizeChanged" Loaded="CalculatorPage_Loaded">
     <Page.Resources>
-        <ResourceDictionary Source="Resource/DarkBlue.xaml"/>
+        <ResourceDictionary Source="Resource/Template/Template.xaml">
+            
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid   IsTapEnabled="False" Style="{ThemeResource GridStyle1}">
-        <Grid x:Name="MainGrid"  IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            
+        </Grid.ColumnDefinitions>
+        <Grid x:Name ="MenuGrid"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <HyperlinkButton x:Uid="Calculator" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="2" Content="Calculator" SizeChanged="Button_SizeChanged_1" IsEnabled="False" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0"/>
+            <HyperlinkButton x:Uid="Converter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Content="Converter" Click="Button_Click_5" SizeChanged="Button_SizeChanged_1" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0" Margin="0" Grid.Column="1"/>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="MainGrid"  IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="30,0,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <HyperlinkButton VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="1" Content="Converter" Click="Button_Click_5" SizeChanged="Button_SizeChanged_1" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0" Margin="8,0,0,0"/>
-                <HyperlinkButton VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Column="0" Content="Calculator" SizeChanged="Button_SizeChanged_1" IsEnabled="False" Style="{ThemeResource HyperlinkButtonStyle1}" Padding="0"/>
-                </Grid>
 
-            <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  Grid.RowSpan="1"  >
+            <Grid Grid.Row="1" Grid.Column="1"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBox x:Name="InputText" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  Margin="0,10" SizeChanged="TextBox_SizeChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" KeyUp="InputText2_KeyUp" PlaceholderText="Enter the term" Style="{ThemeResource TextBoxStyle1}"/>
+                <TextBox x:Uid="InputText" x:Name="InputText" DataContext="{Binding Input}" Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber" TextChanged="TextBox_TextChanged"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" KeyUp="InputText2_KeyUp" PlaceholderText="Enter the term" Style="{ThemeResource TextBoxStyle1}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                 <Button x:Name="Clearr" Grid.Column="1" Content="X" Margin="-3,22,0,22" Click="Button_Click" Padding="15,4,12,4" Width="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Height="{Binding ActualHeight, ElementName=InputText, Mode=OneWay}" Visibility="Collapsed" />
             </Grid>
-            <TextBox x:Name="InputText2" HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="0.143,10.285,-0.571,9.572" FontSize="100" CharacterSpacing="3" SizeChanged="TextBox_SizeChanged" TextChanged="TextBox_TextChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" KeyUp="InputText2_KeyUp" PlaceholderText="Enter the term" Style="{StaticResource TextBoxStyle1}"/>
-            <ComboBox x:Name="From" SelectedIndex="{Binding Path=FromBase, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" MinWidth="109" Margin="0,10" RightTapped="From_Holding" Grid.Row="1" Style="{ThemeResource ComboBoxStyle1}" >
-                <ComboBoxItem Content="2"/>
-                <ComboBoxItem Content="8"/>
-                <ComboBoxItem Content="10"/>
-                <!--<ComboBoxItem Content="11"/>
-                <ComboBoxItem Content="12"/>
-                <ComboBoxItem Content="13"/>
-                <ComboBoxItem Content="14"/>
-                <ComboBoxItem Content="15"/>-->
-                <ComboBoxItem Content="16"/>
-                <!--<ComboBoxItem Content="17"/>-->
-                <ComboBoxItem Content="25"/>
-                <ComboBoxItem Content="36"/>
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout Placement="Bottom" Opened="Flyout_Opened"  FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
-                            <ListBox Grid.Row="1" FontSize="18" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="2"/>
-                                <ListBoxItem Content="3"/>
-                                <ListBoxItem Content="4"/>
-                                <ListBoxItem Content="5"/>
-                                <ListBoxItem Content="6"/>
-                                <ListBoxItem Content="7"/>
-                                <ListBoxItem Content="8"/>
-                                <ListBoxItem Content="9"/>
-                                <ListBoxItem Content="10"/>
-                                <!--<ListBoxItem Content="11"/>
-                                <ListBoxItem Content="10"/>
-                                <ListBoxItem Content="11"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="11"/>
-                                <ListBoxItem Content="12"/>
-                                <ListBoxItem Content="13"/>
-                                <ListBoxItem Content="14"/>
-                                <ListBoxItem Content="15"/>
-                                <ListBoxItem Content="16"/>
-                                <ListBoxItem Content="17"/>
-                                <ListBoxItem Content="18"/>
-                                <ListBoxItem Content="19"/>
-                                <!--<ListBoxItem Content="20"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="20"/>
-                                <ListBoxItem Content="21"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>
-                                <ListBoxItem Content="24"/>
-                                <ListBoxItem Content="25"/>
-                                <ListBoxItem Content="26"/>
-                                <ListBoxItem Content="27"/>
-                                <ListBoxItem Content="28"/>
-                                <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="29"/>
-                                <ListBoxItem Content="30"/>
-                                <ListBoxItem Content="31"/>
-                                <ListBoxItem Content="32"/>
-                                <ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>
-                                <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                            </ListBox>
-                        </Grid>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
-            </ComboBox>
-            <ComboBox x:Name="From2" SelectedIndex="{Binding Path=FromBase2, Mode=TwoWay, FallbackValue=0}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" MinWidth="109" Margin="0,10" RightTapped="From_Holding" Grid.Row="3" Style="{ThemeResource ComboBoxStyle1}">
-                <ComboBoxItem Content="2"/>
-                <ComboBoxItem Content="8"/>
-                <ComboBoxItem Content="10"/>
-                <!--<ComboBoxItem Content="11"/>
-                <ComboBoxItem Content="12"/>
-                <ComboBoxItem Content="13"/>
-                <ComboBoxItem Content="14"/>
-                <ComboBoxItem Content="15"/>-->
-                <ComboBoxItem Content="16"/>
-                <!--<ComboBoxItem Content="17"/>-->
-                <ComboBoxItem Content="25"/>
-                <ComboBoxItem Content="36"/>
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
-                            <ListBox Grid.Row="1" FontSize="18"  BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="2"/>
-                                <ListBoxItem Content="3"/>
-                                <ListBoxItem Content="4"/>
-                                <ListBoxItem Content="5"/>
-                                <ListBoxItem Content="6"/>
-                                <ListBoxItem Content="7"/>
-                                <ListBoxItem Content="8"/>
-                                <ListBoxItem Content="9"/>
-                                <ListBoxItem Content="10"/>
-                                <!--<ListBoxItem Content="11"/>
-                                <ListBoxItem Content="10"/>
-                                <ListBoxItem Content="11"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="1"  FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="11"/>
-                                <ListBoxItem Content="12"/>
-                                <ListBoxItem Content="13"/>
-                                <ListBoxItem Content="14"/>
-                                <ListBoxItem Content="15"/>
-                                <ListBoxItem Content="16"/>
-                                <ListBoxItem Content="17"/>
-                                <ListBoxItem Content="18"/>
-                                <ListBoxItem Content="19"/>
-                                <!--<ListBoxItem Content="20"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="2"  FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="20"/>
-                                <ListBoxItem Content="21"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>
-                                <ListBoxItem Content="24"/>
-                                <ListBoxItem Content="25"/>
-                                <ListBoxItem Content="26"/>
-                                <ListBoxItem Content="27"/>
-                                <ListBoxItem Content="28"/>
-                                <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="3"  FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="29"/>
-                                <ListBoxItem Content="30"/>
-                                <ListBoxItem Content="31"/>
-                                <ListBoxItem Content="32"/>
-                                <ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>
-                                <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                            </ListBox>
-                        </Grid>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
-            </ComboBox>
-            <Border x:Name="sizeKeyboard" Grid.Row="5" Grid.ColumnSpan="3" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="0,9.571,0.429,0.144"/>
-            <Controls:WrapPanel x:Name="Buttons" HorizontalAlignment="Stretch" Grid.Row="5" Grid.ColumnSpan="3" Margin="0" SizeChanged="Buttons_SizeChanged_1" Background="#003B2574" VerticalAlignment="Bottom"/>
-            <TextBox x:Name="Result" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber"  Margin="0.143,10.428,0.429,9.429" SizeChanged="TextBox_SizeChanged" Grid.ColumnSpan="2" Grid.Row="4" IsReadOnly="True" GotFocus="Result_GotFocus" PlaceholderText="Result" Style="{StaticResource TextBoxStyle1}"/>
-            <Grid x:Name="Buttons_operation" Grid.Column="1" Grid.Row="2" Margin="0,10" SizeChanged="Buttons_operation_SizeChanged">
+            <TextBox x:Uid="InputText" x:Name="InputText2" DataContext="{Binding Input2}" Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"  TextWrapping="Wrap" VerticalAlignment="Stretch" Grid.Row="3" Grid.Column="1" Margin="20,10,20,40" FontSize="100" CharacterSpacing="3" SizeChanged="TextBox_SizeChanged" TextChanged="TextBox_TextChanged" GotFocus="InputText_GotFocus" IsReadOnly="True" KeyUp="InputText2_KeyUp" PlaceholderText="Enter the term" Style="{StaticResource TextBoxStyle1}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <Grid Grid.Row="1" x:Name="InputTextGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="From" DataContext="{Binding Input}" ItemsSource="{Binding Bases, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" MinWidth="109" Margin="20,20,20,60" RightTapped="From_Holding" Style="{ThemeResource ComboBoxStyle1}" >
+                    
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="Bottom" Opened="Flyout_Opened"  FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}" >
+                            <Controls:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"/>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="3" x:Name="InputText2Grid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="From2" DataContext="{Binding Input2}" ItemsSource="{Binding Bases, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Holding="From_Holding" SelectionChanged="From_SelectionChanged" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" UseLayoutRounding="True" RenderTransformOrigin="0,0" MinWidth="109" Margin="20,20,20,50" RightTapped="From_Holding" Style="{ThemeResource ComboBoxStyle1}">
+                    
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
+                            <Controls:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"/>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </ComboBox>
+            </Grid>
+            <Border x:Name="sizeKeyboard" Grid.Row="1" Grid.ColumnSpan="3" SizeChanged="sizeKeyboard_SizeChanged" Background="#00323232" Margin="20,10,20,40" Grid.Column="3" Grid.RowSpan="6">
+               <Controls:Keyboard x:Name="buttons" StyleButton="{StaticResource ButtonStyle1}" VisibleButtonCount="36" OnButtonClick="keyboard_OnButtonClick" OnBackspaceClick="Backspace_Click" OnCleanClick="Button_Click_Clean" OnDotClick="Button_Click_Dot"></Controls:Keyboard>
+            </Border>
+            <TextBox x:Uid="Result" x:Name="Result" DataContext="{Binding Outputs}" Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" VerticalAlignment="Stretch"  InputScope="NameOrPhoneNumber"  Margin="20,10,20,40" SizeChanged="TextBox_SizeChanged" Grid.Row="4" IsReadOnly="True" PlaceholderText="Result" Style="{StaticResource TextBoxStyle1}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <Grid x:Name="Buttons_operation" Grid.Column="1" Grid.Row="2" Margin="20,10" SizeChanged="Buttons_operation_SizeChanged">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <ToggleButton x:Name="Button_Plus" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press"  IsTabStop="False" Checked="Button_Plus_Checked" SizeChanged="Button_SizeChanged" IsChecked="True" Padding="0" Unchecked="Button_Plus_Unchecked" Style="{ThemeResource ToggleButtonStyle1}"/>
-                <ToggleButton x:Name="Button_Minus" Content="-" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False" Margin="0"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_Minus_Checked" Padding="0" Unchecked="Button_Minus_Unchecked" Style="{ThemeResource ToggleButtonStyle1}"/>
-                <ToggleButton x:Name="Button_multipl" Content="*" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_multipl_Checked" Padding="0" ClickMode="Press" Unchecked="Button_multipl_Unchecked" Style="{ThemeResource ToggleButtonStyle1}"/>
-                <ToggleButton x:Name="Button_divide" Content="/" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged" Checked="Button_divide_Checked" Padding="0" Unchecked="Button_divide_Unchecked" Style="{ThemeResource ToggleButtonStyle1}"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <ToggleButton x:Name="Button_Plus" Content="+" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_Minus" Content="-" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_multipl" Content="x" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_divide" Content="/" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_Pow" Content="^" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0" Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_Xor" Content="xor" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged" Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_LShift" Content="&lt;&lt;" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_RShift" Content="&gt;&gt;" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_Or" Content="|" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
+                <ToggleButton x:Name="Button_AND" Content="&amp;" Grid.Row="1" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ClickMode="Press" IsDoubleTapEnabled="False" IsHoldingEnabled="False"  IsTabStop="False" SizeChanged="Button_SizeChanged"  Padding="0,-4,0,0"  Style="{ThemeResource ToggleButtonStyle1}" MinWidth="0" MinHeight="0" Checked="ButtonOperationChecked" Unchecked="ButtonOperationUnchecked"/>
             </Grid>
-            <ComboBox x:Name="To" SelectedIndex="{Binding Path=ToBase, Mode=TwoWay, FallbackValue=0}" SelectionChanged="To_SelectionChanged" Margin="0,10" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" Grid.Row="4" RightTapped="From_Holding" Holding="From_Holding" Style="{ThemeResource ComboBoxStyle1}">
-                <ComboBoxItem Content="2"/>
-                <ComboBoxItem Content="8"/>
-                <ComboBoxItem Content="10"/>
-                <ComboBoxItem Content="16"/>
-                <ComboBoxItem Content="25"/>
-                <ComboBoxItem Content="36"/>
-                <FlyoutBase.AttachedFlyout>
-                    <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.ColumnSpan="4" Margin="0" FontSize="18"> Select other base</TextBlock>
-                            <ListBox Grid.Row="1" FontSize="18" Background="{x:Null}" BorderBrush="{x:Null}" BorderThickness="0,0,2,0" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="2"/>
-                                <ListBoxItem Content="3"/>
-                                <ListBoxItem Content="4"/>
-                                <ListBoxItem Content="5"/>
-                                <ListBoxItem Content="6"/>
-                                <ListBoxItem Content="7"/>
-                                <ListBoxItem Content="8"/>
-                                <ListBoxItem Content="9"/>
-                                <ListBoxItem Content="10"/>
-                                <!--<ListBoxItem Content="11"/>
-                                <ListBoxItem Content="10"/>
-                                <ListBoxItem Content="11"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="1" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="11"/>
-                                <ListBoxItem Content="12"/>
-                                <ListBoxItem Content="13"/>
-                                <ListBoxItem Content="14"/>
-                                <ListBoxItem Content="15"/>
-                                <ListBoxItem Content="16"/>
-                                <ListBoxItem Content="17"/>
-                                <ListBoxItem Content="18"/>
-                                <ListBoxItem Content="19"/>
-                                <!--<ListBoxItem Content="20"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="2" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="20"/>
-                                <ListBoxItem Content="21"/>
-                                <ListBoxItem Content="22"/>
-                                <ListBoxItem Content="23"/>
-                                <ListBoxItem Content="24"/>
-                                <ListBoxItem Content="25"/>
-                                <ListBoxItem Content="26"/>
-                                <ListBoxItem Content="27"/>
-                                <ListBoxItem Content="28"/>
-                                <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                            </ListBox>
-                            <ListBox Grid.Row="1" Grid.Column="3" Background="{x:Null}" BorderBrush="{x:Null}" FontSize="18" SelectionChanged="ListBox_SelectionChanged" Style="{ThemeResource ListBoxStyle1}">
-                                <ListBoxItem Content="29"/>
-                                <ListBoxItem Content="30"/>
-                                <ListBoxItem Content="31"/>
-                                <ListBoxItem Content="32"/>
-                                <ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>
-                                <!--<ListBoxItem Content="33"/>
-                                <ListBoxItem Content="34"/>
-                                <ListBoxItem Content="35"/>
-                                <ListBoxItem Content="36"/>-->
-                            </ListBox>
-                        </Grid>
-                    </Flyout>
-                </FlyoutBase.AttachedFlyout>
-            </ComboBox>
+            <Grid Grid.Row="4" x:Name="ResultGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.5*"/>
+
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="To" DataContext="{Binding Outputs}" ItemsSource="{Binding Bases, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding InputeBaseIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="From_SelectionChanged" Margin="20,20,20,60" SizeChanged="From_SizeChanged" IsTabStop="False" Header="" MinWidth="109" RightTapped="From_Holding" Holding="From_Holding" Style="{ThemeResource ComboBoxStyle1}">
+                    
+                    <FlyoutBase.AttachedFlyout>
+                        <Flyout Placement="Bottom" Opened="Flyout_Opened" FlyoutPresenterStyle="{ThemeResource FlyoutStyle1}">
+                            <Controls:FlyoutListbox SelectionChanged="ListBox_SelectionChanged"/>
+                        </Flyout>
+                    </FlyoutBase.AttachedFlyout>
+                </ComboBox>
+            </Grid>
+            <Border  Margin="20,0" Grid.RowSpan="2" VerticalAlignment="Bottom" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BorderStyle1}"/>
         </Grid>
 
     </Grid>

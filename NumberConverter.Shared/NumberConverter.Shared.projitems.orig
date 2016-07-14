@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>348b4b83-fef9-49a3-83b5-82687dce1c95</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>NumberConverter</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="$(MSBuildThisFileDirectory)ButtonBuilder.cs" />
+=======
+    <Compile Include="$(MSBuildThisFileDirectory)ButtonClickArgs.cs" />
+>>>>>>> NewOperations
+    <Compile Include="$(MSBuildThisFileDirectory)Converter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Keyboard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LongDouble.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OrientedSize.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SharePages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SuspendPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WrapPanel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Resource\Brushes\DarkBlue.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resource\Brushes\DarkGreen.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resource\Brushes\DarkOrange.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resource\Brushes\DarkRed.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resource\DarkBlueTheme.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resource\DarkGreenTheme.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resource\DarkOrangeTheme.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Resource\DarkRedTheme.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Languages\en-US\Resources.resw" />
+    <PRIResource Include="$(MSBuildThisFileDirectory)Languages\ru-Ru\Resources.resw" />
+  </ItemGroup>
+</Project>

@@ -5,8 +5,10 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -34,6 +36,7 @@ namespace NumberConverter
 		{
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;
+			
 		}
 
 		/// <summary>
@@ -82,6 +85,27 @@ namespace NumberConverter
 			}
 
 			Subscribe();
+
+			if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Theme"))
+			{
+				{
+					var uri = new Uri(ApplicationData.Current.LocalSettings.Values["Theme"].ToString(), UriKind.Absolute);
+					ResourceDictionary newDictionary = new ResourceDictionary();
+					newDictionary.Source = uri;
+					Application.Current.Resources = newDictionary;
+					newDictionary = new ResourceDictionary();
+					newDictionary.Source = uri;
+					Application.Current.Resources = newDictionary;
+					//Application.Current.Resources = newDictionary;
+					//var s = Window.Current.GetType();
+					//bool bb = Window.Current.Content is MainPage;
+					//bool dd = Window.Current.Content is 
+					(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+					//(Window.Current.Content as Frame).Navigate(typeof(MainPage));
+				}
+
+			}
+
 			// Ensure the current window is active
 			Window.Current.Activate();
 		}
@@ -106,7 +130,7 @@ namespace NumberConverter
 		private void OnSuspending(object sender, SuspendingEventArgs e)
 		{
 			var deferral = e.SuspendingOperation.GetDeferral();
-			Unsubscribe();
+		//	Unsubscribe();
 			//TODO: Save application state and stop any background activity
 			deferral.Complete();
 		}
@@ -127,29 +151,30 @@ namespace NumberConverter
 		void currentPane_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
 		{
 			var applicationCommands = args.Request.ApplicationCommands;
-
-			var newComand = new SettingsCommand("", "Settings", cmd =>
+			var resourceLoader = new ResourceLoader();
+						string text = resourceLoader.GetString("Themes");
+			var newComand = new SettingsCommand("", text , cmd =>
 			{
-				settingsPopup = new Popup();
-				settingsPopup.IsLightDismissEnabled = true;
-				settingsPopup.Width = 646;
-				settingsPopup.Height = Window.Current.Bounds.Height;
-				settingsPopup.ChildTransitions = new Windows.UI.Xaml.Media.Animation.TransitionCollection();
-				settingsPopup.ChildTransitions.Add(new PaneThemeTransition()
-				{
-					Edge = (SettingsPane.Edge == SettingsEdgeLocation.Right) ?
-					EdgeTransitionLocation.Right : EdgeTransitionLocation.Left
-				});
-				SettingsFlyout mypane = new SettingsFlyout();
-				mypane.Width = 646;
-				mypane.Height = Window.Current.Bounds.Height;
-				settingsPopup.Child = mypane;
-				settingsPopup.SetValue(Canvas.LeftProperty,
-				 SettingsPane.Edge == SettingsEdgeLocation.Right
-				 ? (Window.Current.Bounds.Width - 646) : 0);
+				var s = Window.Current.Content as Frame;
+				
+				//var d = typeof (s);
+				var a = new SettingsThems();
+				a.a = s.GetType();
+				a.Show();
 
-				settingsPopup.SetValue(Canvas.TopProperty, 0);
-				settingsPopup.IsOpen = true;
+			});
+			applicationCommands.Add(newComand);
+
+			text = resourceLoader.GetString("About");
+			newComand = new SettingsCommand("", text, cmd =>
+			{
+				
+
+				//var d = typeof (s);
+				var a = new About();
+				a.Title = text;
+				a.Show();
+
 			});
 			applicationCommands.Add(newComand);
 		}
