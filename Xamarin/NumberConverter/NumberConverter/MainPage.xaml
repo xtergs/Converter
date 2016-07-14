@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:NumberConverter"
+             xmlns:components="clr-namespace:NumberConverter.Components;assembly=NumberConverter"
+             x:Name="Page"
+             x:Class="NumberConverter.MainPage">
+
+  <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="0.5*"/>
+      <RowDefinition Height="0.5*"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    
+    <components:PickerExtended Margin="5, 10, 5, 5" VerticalOptions="Start" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" BindingContext="{Binding}" x:Name="picker" IsVisible="True">
+      <components:PickerExtended.GestureRecognizers>
+        <components:RightTappRecognizer RightTapp="RightTappRecognizer_OnRightTapp"></components:RightTappRecognizer>
+      </components:PickerExtended.GestureRecognizers>
+    </components:PickerExtended>
+    <Editor  Grid.Column="1" x:Name="entry1" Focused="Entry1_OnFocused" SizeChanged="EditorSizeChanged" Text="{Binding FirstFieldInputText, Mode=TwoWay}"/>
+
+    <components:PickerExtended Grid.Row="1" Margin="5, 10, 5, 5" VerticalOptions="Start" SelectedIndex="{Binding SelectedIndex2, Mode=TwoWay}" BindingContext="{Binding}" x:Name="picker2" IsVisible="True"
+            >
+      <components:PickerExtended.GestureRecognizers>
+        <components:RightTappRecognizer RightTapp="RightTappRecognizer_OnRightTapp"></components:RightTappRecognizer>
+      </components:PickerExtended.GestureRecognizers>
+    </components:PickerExtended>
+    <Editor Grid.Row="1" Grid.Column="1" x:Name="entry2" SizeChanged="EditorSizeChanged"></Editor>
+    <components:Keyboard VisibleCount="{Binding FromBase, Mode=TwoWay}"
+                         IsCanDelete="{Binding IsCanDelete, Mode=TwoWay }"
+                         IsDotEnabled="{Binding IsDotEnabled, Mode=TwoWay}"
+                         Grid.ColumnSpan="2" Grid.Row="2" VerticalOptions="Fill" HorizontalOptions="Fill" IsClippedToBounds="True"
+                         x:Name="Keyboard"
+                         ButtonClicked="Keyboard_OnButtonClicked"
+                         DeleteButtonClicked="Keyboard_OnDeleteButtonClicked"></components:Keyboard>
+  </Grid>
+
+</ContentPage>
