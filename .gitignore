@@ -268,3 +268,4 @@ packages/repositories.config
 NumberConverter/packages.config
 .nuget/packages.config
 Converter.nunit
+packages/

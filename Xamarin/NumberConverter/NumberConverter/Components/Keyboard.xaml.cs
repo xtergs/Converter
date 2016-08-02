@@ -77,7 +77,7 @@ namespace NumberConverter.Components
 				Text = text,
 				IsVisible = true,
 				FontSize = 10,
-				BackgroundColor = Color.Gray,
+                BackgroundColor = Color.FromHex("FF3F3F3F") ,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				VerticalOptions = LayoutOptions.FillAndExpand,
 				Margin = new Thickness(0, marg_top, 0, marg_bot),

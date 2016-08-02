@@ -5,6 +5,7 @@ using NumberConverter.Components;
 using NumberConverter.UWP.Render;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
+using Style = Windows.UI.Xaml.Style;
 
 [assembly: ExportRenderer(typeof(Picker), typeof(PickerExtendedRender))]
 namespace NumberConverter.UWP.Render
@@ -14,6 +15,10 @@ namespace NumberConverter.UWP.Render
         protected override void OnElementChanged(ElementChangedEventArgs<Picker> e)
         {
             base.OnElementChanged(e);
+
+            var comboBox = Control;
+            
+            //comboBox.Style =  (Style) Resources["ComboBoxStyle1"];
 
             if (e.OldElement == null)
             {

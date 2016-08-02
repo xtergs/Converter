@@ -209,15 +209,9 @@
     <Folder Include="Resource\Themes\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="NumberConverter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\NumberConverter.exe</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
-      <Project>{f1304273-0988-4fba-874d-8c61b094c848}</Project>
-      <Name>ClassLibrary1</Name>
+    <ProjectReference Include="..\NumberConverter.Core\NumberConverter.Core.csproj">
+      <Project>{c9c96871-705b-43d3-9b17-87db574a9562}</Project>
+      <Name>NumberConverter.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\NumberConverter.Shared\NumberConverter.Shared.projitems" Label="Shared" />

@@ -129,7 +129,7 @@ namespace Converter
 				}
 				returnStr.Append(revletters[(int) rus]);
 			}
-			returnValue.Integer = new string(returnStr.ToString().Reverse().ToArray<char>());
+			returnValue.Integer = new string(returnStr.ToString().ToCharArray().Reverse().ToArray<char>());
 
 			returnValue.IsMinus = valueIn.IsMinus;
 			return returnValue;
@@ -143,17 +143,17 @@ namespace Converter
 
 		public static bool Validate(byte baseIn, LongDouble value)
 		{
-			if (value.Integer.Any((char a) => { return letters[a] >= baseIn; }) ||
-			    value.Fraction.Any((char a) => letters[a] >= baseIn))
+			if (value.Integer.ToCharArray().Any((char a) => { return letters[a] >= baseIn; }) ||
+			    value.Fraction.ToCharArray().Any((char a) => letters[a] >= baseIn))
 				return false;
 			return true;
 		}
 
 		public static bool Validate(uint baseIn, string value)
 		{
-			if (value.Any((a) =>
+			if (value.ToCharArray().Any((a) =>
 			{
-				return  a != LongDouble.Splitter[0] && letters[a] >= baseIn;
+				return  a != LongDouble.Splitter[0] && (!letters.ContainsKey(a) || letters[a] >= baseIn);
 			}))
 				return false;
 			return true;

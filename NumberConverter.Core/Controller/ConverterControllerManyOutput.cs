@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Converter;
 
-using ClassLibrary1.Annotations;
+
 using Converter = Converter.Converter;
 
 namespace NumberConverter
@@ -123,7 +123,7 @@ namespace NumberConverter
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
-		[NotifyPropertyChangedInvocator]
+		
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChangedEventHandler handler = PropertyChanged;

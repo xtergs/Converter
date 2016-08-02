@@ -7,9 +7,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource BackgroundGrid}">
+<forms:WindowsPage.Resources>
+        <ResourceDictionary Source="Resource/Template/Template.xaml"/>
+    </forms:WindowsPage.Resources>
+    <Grid Background="{ThemeResource BackgroundGrid}">
 
     </Grid>
 </forms:WindowsPage>

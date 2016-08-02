@@ -22,9 +22,10 @@
         <components:RightTappRecognizer RightTapp="RightTappRecognizer_OnRightTapp"></components:RightTappRecognizer>
       </components:PickerExtended.GestureRecognizers>
     </components:PickerExtended>
-    <Editor  Grid.Column="1" x:Name="entry1" Focused="Entry1_OnFocused" SizeChanged="EditorSizeChanged" Text="{Binding FirstFieldInputText, Mode=TwoWay}"/>
+    <Editor Grid.Column="1" x:Name="entry1" Focused="Entry1_OnFocused" SizeChanged="EditorSizeChanged" Text="{Binding FirstFieldInputText, Mode=TwoWay}"/>
 
     <components:PickerExtended Grid.Row="1" Margin="5, 10, 5, 5" VerticalOptions="Start" SelectedIndex="{Binding SelectedIndex2, Mode=TwoWay}" BindingContext="{Binding}" x:Name="picker2" IsVisible="True"
+                               FontSize="{Binding FontSize, Mode=OneWay, Source={x:Reference Name=picker}}"
             >
       <components:PickerExtended.GestureRecognizers>
         <components:RightTappRecognizer RightTapp="RightTappRecognizer_OnRightTapp"></components:RightTappRecognizer>

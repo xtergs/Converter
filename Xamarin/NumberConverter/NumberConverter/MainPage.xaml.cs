@@ -7,6 +7,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using NumberConverter.Components;
+using NumberConverter.Exceptions;
 using Xamarin.Forms;
 using XLabs.Platform.Device;
 
@@ -29,9 +30,18 @@ namespace NumberConverter
             get { return _firstFieldInputText; }
             set
             {
+                if (value == null || value == _firstFieldInputText)
+                    return;
+                //if (value[value.Length - 1].ToString() == CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator &&
+                //    !IsDotEnabled)
+                //    return;
                 value = value.ToUpper();
-                
-                _firstFieldInputText = value;
+
+                if (Converter.Converter.Validate((byte) FromBase, value))
+                {
+                    _firstFieldInputText = value;
+                    Recalculate();
+                }
                 OnPropertyChanged();
             }
         }
@@ -140,7 +150,14 @@ namespace NumberConverter
                 IsDotEnabled = false;
             else
                 IsDotEnabled = true;
-            entry2.Text = Converter.Converter.ConvertTo((uint)FromBase, lastFocusedEditor.Text, (uint)ToBase);
+            try
+            {
+                entry2.Text = Converter.Converter.ConvertTo((byte) FromBase, FirstFieldInputText, (byte) ToBase);
+            }
+            catch (LargDigit e)
+            {
+                entry2.Text = e.Message;
+            }
         }
 
         private void Keyboard_OnButtonClicked(object sender, char e)
@@ -194,6 +211,7 @@ namespace NumberConverter
             var editor = sender as Editor;
             editor.FontSize = editor.Height*0.3;
             picker.FontSize = editor.Height*0.3;
+            
         }
 
 

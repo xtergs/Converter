@@ -62,7 +62,7 @@ namespace NumberConverter
 					value = value.Substring(1);
 					IsMinus = true;
 				}
-				value = new string(value.SkipWhile((char a) => { return a == '0'; }).ToArray());
+				value = new string(value.ToCharArray().SkipWhile((char a) => { return a == '0'; }).ToArray());
 				if (String.IsNullOrWhiteSpace(value))
 				{
 					integer = "0";
@@ -110,7 +110,7 @@ namespace NumberConverter
 			{
 				if (value.IndexOf(splitter) >= 0)
 					value = value.Substring(value.IndexOf(splitter) + 1);
-				value = new string(value.Reverse().SkipWhile((char a) => { return a == '0'; }).Reverse().ToArray());
+				value = new string(value.ToCharArray().Reverse().SkipWhile((char a) => { return a == '0'; }).Reverse().ToArray());
 				;
 				if (String.IsNullOrWhiteSpace(value))
 					fraction = "0";

@@ -139,12 +139,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
-      <Project>{f1304273-0988-4fba-874d-8c61b094c848}</Project>
-      <Name>ClassLibrary1</Name>
+    <ProjectReference Include="..\NumberConverter.Core\NumberConverter.Core.csproj">
+      <Project>{c9c96871-705b-43d3-9b17-87db574a9562}</Project>
+      <Name>NumberConverter.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\NumberConverter\NumberConverter.csproj">
-      <Project>{E7DEDB17-7926-40AB-A3C9-CBF0CE000354}</Project>
+      <Project>{e7dedb17-7926-40ab-a3c9-cbf0ce000354}</Project>
       <Name>NumberConverter</Name>
     </ProjectReference>
   </ItemGroup>

@@ -9,10 +9,7 @@
     d:DataContext="{d:DesignInstance local:ConverterController}"
     x:Class="NumberConverter.MainPage"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged" Loaded="Page_Loaded" GotFocus="Page_GotFocus">
-    <Page.Resources>
-        <ResourceDictionary Source="Resource/Template/Template.xaml" />
 
-    </Page.Resources>
 
     <Grid Style="{StaticResource GridStyle1}" Margin="0,0,0,0">
         <Grid.RowDefinitions>
